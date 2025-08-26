@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="bg-white/40 backdrop-blur-sm rounded-[60px] p-4 md:p-8 shadow-lg w-full max-w-6xl font-plus-jakarta border border-slate-50 relative h-auto">
+    <div class="bg-white/40 backdrop-blur-sm rounded-[1.25rem] lg:rounded-[3.75rem] p-4 md:p-8 shadow-lg w-full max-w-6xl font-plus-jakarta border border-slate-50 relative h-auto">
       <!-- Tab Navigation -->
       <div class="flex flex-row justify-center items-center mb-6 md:mb-10 md:absolute md:top-[-37px] md:left-0 md:right-0">
         <div class="bg-slate-50 flex flex-row rounded-[60px] p-2">
@@ -34,7 +34,7 @@
       <!-- Flight Booking Form -->
       <div v-if="activeTab === 'flights'" class="space-y-4">
         <!-- Desktop Layout -->
-        <div class="hidden md:block m-0">
+        <div class="hidden lg:block m-0">
           <div class="flex rounded-[20px] bg-white py-4 md:mt-4">
             <!-- From -->
             <div class="flex-1">
@@ -122,7 +122,7 @@
         </div>
 
         <!-- Mobile Layout -->
-        <div class="md:hidden space-y-4">
+        <div class="lg:hidden space-y-4">
           <!-- Location Row with Swap -->
           <div class="relative">
             <div class="grid grid-cols-2 gap-4">
