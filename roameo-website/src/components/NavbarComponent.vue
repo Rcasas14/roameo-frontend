@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-transparent font-plus-jakarta">
+  <nav class="fixed top-0 left-0 right-0 bg-transparent font-plus-jakarta z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
         <!-- Logo -->
@@ -30,7 +30,7 @@
 
         <!-- Log In Button -->
         <div class="hidden md:block">
-          <button class="bg-white text-gray-900 hover:bg-gray-100 px-6 py-2 rounded-full text-sm font-medium transition-colors">
+          <button class="bg-white text-gray-900 hover:bg-gray-100 px-8 py-2 rounded-full text-sm font-extrabold transition-colors cursor-pointer">
             Log In
           </button>
         </div>
