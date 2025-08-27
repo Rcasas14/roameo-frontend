@@ -23,9 +23,6 @@
       <img :src="gridDots" alt="decorative dots" class="w-16 h-10 md:w-20 md:h-12 lg:w-30 lg:h-30">
     </div>
 
-
-
-
     <section class="hero-section min-h-screen font-plus-jakarta grid place-items-center relative">
       <div
         id="main"
@@ -50,15 +47,19 @@
       </div>
     </section>
   </div>
+
+  <partner-section></partner-section>
 </template>
 
 <script>
 import FlightBookingForm from '@/components/FlightBookingForm.vue';
+import PartnerSection from '@/sections/PartnerSection.vue';
 
 export default {
   name: 'MainPage',
   components: {
     FlightBookingForm,
+    PartnerSection,
   },
   data() {
     return {
