@@ -4,30 +4,30 @@
       <!-- Tab Navigation -->
       <div class="flex flex-row justify-center items-center mb-6 md:mb-10 md:absolute md:top-[-37px] md:left-0 md:right-0">
         <div class="bg-slate-50 flex flex-row rounded-[60px] p-2">
-        <button
-          @click="activeTab = 'flights'"
-          :class="[
-            'flex items-center px-4 md:px-6 py-3 rounded-full text-sm font-medium transition-all duration-200',
-            activeTab === 'flights'
-              ? 'bg-yellow-400 text-black shadow-md'
-              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-          ]"
-        >
-          <img :src="planeIcon" alt="Flight" class="w-4 h-4 mr-2" />
-          Flights
-        </button>
-        <button
-          @click="activeTab = 'hotels'"
-          :class="[
-            'flex items-center px-4 md:px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 ml-2',
-            activeTab === 'hotels'
-              ? 'bg-yellow-400 text-black shadow-md'
-              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-          ]"
-        >
-          <img :src="hotelIcon" alt="Hotel" class="w-4 h-4 mr-2" />
-          Hotels
-        </button>
+          <button
+            @click="activeTab = 'flights'"
+            :class="[
+              'flex items-center px-4 md:px-6 py-3 rounded-full text-sm font-medium transition-all duration-200',
+              activeTab === 'flights'
+                ? 'bg-yellow-400 text-black shadow-md'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            ]"
+          >
+            <img :src="planeIcon" alt="Flight" class="w-4 h-4 mr-2" />
+            Flights
+          </button>
+          <button
+            @click="activeTab = 'hotels'"
+            :class="[
+              'flex items-center px-4 md:px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 ml-2',
+              activeTab === 'hotels'
+                ? 'bg-yellow-400 text-black shadow-md'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            ]"
+          >
+            <img :src="hotelIcon" alt="Hotel" class="w-4 h-4 mr-2" />
+            Hotels
+          </button>
         </div>
       </div>
 
@@ -109,7 +109,7 @@
               </div>
             </div>
 
-            <!-- Search Button -->
+            <!-- Search Button -->.
             <div class="flex items-center pl-4 pr-4">
               <button
                 @click="searchFlights"
@@ -125,18 +125,18 @@
         <div class="lg:hidden space-y-4">
           <!-- Location Row with Swap -->
           <div class="relative">
-            <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col items-center justify-center gap-2">
               <!-- From -->
-              <div class="border border-gray-200 rounded-lg bg-white">
-                <div class="flex flex-col p-3">
-                  <div class="flex flex-row justify-start items-center gap-x-1 mb-2">
+              <div class="border border-gray-200 bg-white w-full rounded-[25px]">
+                <div class="flex flex-col py-2 px-4">
+                  <div class="flex flex-row justify-start items-center gap-x-1">
                     <img :src="locationIcon" alt="location" class="w-4 h-4 text-gray-400">
                     <label class="block text-xs text-gray-600">From</label>
                   </div>
                   <input
                     v-model="fromLocation"
                     placeholder="Where from?"
-                    class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0"
+                    class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 pl-1"
                     type="text"
                     name="flight-from-mobile"
                   >
@@ -144,16 +144,16 @@
               </div>
 
               <!-- To -->
-              <div class="border border-gray-200 rounded-lg bg-white">
-                <div class="flex flex-col p-3">
-                  <div class="flex flex-row justify-start items-center gap-x-1 mb-2">
+              <div class="border border-gray-200 bg-white w-full rounded-[25px]">
+                <div class="flex flex-col py-2 px-4">
+                  <div class="flex flex-row justify-start items-center gap-x-1">
                     <img :src="locationIcon" alt="location" class="w-4 h-4 text-gray-400">
                     <label class="block text-xs text-gray-600">To</label>
                   </div>
                   <input
                     v-model="toLocation"
                     placeholder="Where to?"
-                    class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0"
+                    class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 pl-1"
                     type="text"
                     name="flight-to-mobile"
                   >
@@ -164,23 +164,23 @@
             <!-- Mobile Swap Button -->
             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
               <button @click="swapLocations" class="p-2 bg-blue-500 hover:bg-blue-600 rounded-full transition-colors cursor-pointer shadow-lg">
-                <img :src="arrowsIcon" alt="Swap" class="w-3 h-3 text-white" />
+                <img :src="arrowsIcon" alt="Swap" class="w-5 h-5 text-white" />
               </button>
             </div>
           </div>
 
           <!-- Date Row -->
-          <div class="grid grid-cols-2 gap-4">
+          <div class="flex flex-col sm:flex-row gap-2">
             <!-- Depart -->
-            <div class="border border-gray-200 rounded-lg bg-white">
-              <div class="flex flex-col p-3">
-                <div class="flex flex-row justify-start items-center gap-x-1 mb-2">
+            <div class="border border-gray-200 rounded-[25px] bg-white sm:flex-1">
+              <div class="depart-cont flex flex-col py-2 px-4">
+                <div class="flex flex-row justify-start items-center gap-x-1">
                   <img :src="dateIcon" alt="date" class="w-4 h-4 text-gray-400">
                   <label class="block text-xs text-gray-600">Depart</label>
                 </div>
                 <input
                   v-model="departDate"
-                  class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0"
+                  class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 pl-1"
                   type="date"
                   name="flight-depart-mobile"
                 >
@@ -188,15 +188,15 @@
             </div>
 
             <!-- Return -->
-            <div class="border border-gray-200 rounded-lg bg-white">
-              <div class="flex flex-col p-3">
-                <div class="flex flex-row justify-start items-center gap-x-1 mb-2">
+            <div class="border border-gray-200 rounded-[25px] bg-white sm:flex-1">
+              <div class="return-cont flex flex-col py-2 px-4">
+                <div class="flex flex-row justify-start items-center gap-x-1">
                   <img :src="dateIcon" alt="date" class="w-4 h-4 text-gray-400">
                   <label class="block text-xs text-gray-600">Return</label>
                 </div>
                 <input
                   v-model="returnDate"
-                  class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0"
+                  class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 pl-1"
                   type="date"
                   name="flight-return-mobile"
                 >
@@ -208,7 +208,7 @@
           <div class="pt-2">
             <button
               @click="searchFlights"
-              class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-4 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer"
+              class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 rounded-[25px] transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer"
             >
               Search Flights
             </button>
@@ -217,7 +217,7 @@
       </div>
 
       <!-- Hotel Booking Form -->
-      <div v-if="activeTab === 'hotels'" class="space-y-4">
+      <div v-if="activeTab === 'hotels'" class="space-y-2">
         <!-- Location -->
         <div>
           <label class="block text-sm text-gray-600 mb-2">Location</label>
@@ -227,7 +227,7 @@
               v-model="hotelLocation"
               type="text"
               placeholder="Where are you going?"
-              class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+              class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-[25px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
             />
           </div>
         </div>
@@ -242,7 +242,7 @@
               <input
                 v-model="checkinDate"
                 type="date"
-                class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-[25px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
               />
             </div>
           </div>
@@ -255,7 +255,7 @@
               <input
                 v-model="checkoutDate"
                 type="date"
-                class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-[25px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
               />
             </div>
           </div>
@@ -265,7 +265,7 @@
         <div class="flex justify-center mt-6">
           <button
             @click="searchHotels"
-            class="w-full md:w-auto bg-blue-500 hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer"
+            class="w-full md:w-auto bg-blue-500 hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-[25px] transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer"
           >
             Search Hotels
           </button>
@@ -325,3 +325,21 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/* Extra small devices (mobile) */
+@media (max-width: 374px) {
+  .depart-cont,
+  .return-cont {
+    padding: 0.375rem 0.875rem;
+  }
+}
+
+/* XS devices - 375px+ */
+@media (min-width: 375px) and (max-width: 639px) {
+  .depart-cont,
+  .return-cont {
+    padding: 0.5rem 1rem;
+  }
+}
+</style>

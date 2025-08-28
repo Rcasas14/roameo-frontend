@@ -9,39 +9,42 @@
           Backed by brands that share our passion for inclusive, unforgettable travel.
         </p>
       </div>
-      
-      <div class="partner-logos grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 items-center justify-items-center">
+
+      <div class="partner-logos grid grid-cols-4 md:grid-cols-4 gap-8 lg:gap-12 items-center justify-items-center">
         <div class="partner-logo-container flex flex-col items-center justify-center">
-          <img 
-            :src="tripcmLogo" 
-            alt="Trip.com" 
+          <img
+            :src="tripcmLogo"
+            alt="Trip.com"
             class="h-[51px] sm:h-[67px] lg:h-[83px] w-auto object-contain transition-all duration-300 hover:scale-105 hover:filter hover:grayscale"
           >
           <p class="text-sm font-medium text-gray-700 mt-3">Trip.com</p>
         </div>
-        
+
         <div class="partner-logo-container flex flex-col items-center justify-center">
-          <img 
-            :src="agodaLogo" 
-            alt="Agoda" 
+          <img
+            :src="agodaLogo"
+            alt="Agoda"
             class="h-[51px] sm:h-[67px] lg:h-[83px] w-auto object-contain transition-all duration-300 hover:scale-105 hover:filter hover:grayscale"
           >
           <p class="text-sm font-medium text-gray-700 mt-3">Agoda</p>
         </div>
-        
+
         <div class="partner-logo-container flex flex-col items-center justify-center">
-          <img 
-            :src="flightNetworkLogo" 
-            alt="Flight Network" 
-            class="h-[51px] sm:h-[67px] lg:h-[83px] w-auto object-contain transition-all duration-300 hover:scale-105 hover:filter hover:grayscale"
+          <img
+            :src="flightNetworkLogo"
+            alt="Flight Network"
+            class="h-[51px] sm:h-[67px] lg:h-[83px] w-auto object-contain object-center transition-all duration-300 hover:scale-105 hover:filter hover:grayscale"
           >
-          <p class="text-sm font-medium text-gray-700 mt-3">Flight Network</p>
+          <p class="text-sm font-medium text-gray-700 mt-3">
+            <span class="hidden sm:inline">Flight Network</span>
+            <span class="sm:hidden">FlightNetwork</span>
+          </p>
         </div>
-        
+
         <div class="partner-logo-container flex flex-col items-center justify-center">
-          <img 
-            :src="zenHotelsLogo" 
-            alt="Zenhotels" 
+          <img
+            :src="zenHotelsLogo"
+            alt="Zenhotels"
             class="h-[51px] sm:h-[67px] lg:h-[83px] w-auto object-contain transition-all duration-300 hover:scale-105 hover:filter hover:grayscale"
           >
           <p class="text-sm font-medium text-gray-700 mt-3">Zenhotels</p>
@@ -76,6 +79,8 @@ export default {
 
 .partner-logo-container img {
   max-width: 143px;
+  vertical-align: middle;
+  display: block;
 }
 
 /* Mobile optimizations */
@@ -83,11 +88,11 @@ export default {
   .partner-section {
     padding: 3rem 0;
   }
-  
+
   .partner-logos {
     gap: 1.5rem;
   }
-  
+
   .partner-logo-container img {
     height: 2.75rem;
     max-width: 103px;
@@ -99,7 +104,7 @@ export default {
   .partner-section {
     padding: 4rem 0;
   }
-  
+
   .partner-logos {
     gap: 2rem;
   }
@@ -126,7 +131,7 @@ export default {
   .partner-logos {
     gap: 3rem;
   }
-  
+
   .partner-logo-container img {
     max-width: 163px;
   }
