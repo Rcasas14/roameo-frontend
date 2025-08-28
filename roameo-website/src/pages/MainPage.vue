@@ -63,11 +63,11 @@ export default {
   },
   data() {
     return {
-      heroImage: new URL('@/assets/roameo-hero-image.jpg', import.meta.url).href,
+      //heroImage: new URL('@/assets/roameo-hero-image.jpg', import.meta.url).href,
       downArrow: new URL('@/assets/down-arrow.svg', import.meta.url).href,
       unionAsset: new URL('@/assets/union-asset.svg', import.meta.url).href,
       gridDots: new URL('@/assets/grid-dots.svg', import.meta.url).href,
-      //heroImage: new URL('@/assets/hero-image-2.jpg', import.meta.url).href,
+      heroImage: new URL('@/assets/hero-image-2.jpg', import.meta.url).href,
     }
   }
 }
