@@ -71,16 +71,11 @@ export default {
 }
 
 .partner-logo-container {
-  min-height: 80px;
+  min-height: 120px;
 }
 
 .partner-logo-container img {
-  max-width: 140px;
-  opacity: 0.7;
-}
-
-.partner-logo-container img:hover {
-  opacity: 1;
+  max-width: 143px;
 }
 
 /* Mobile optimizations */
@@ -94,8 +89,8 @@ export default {
   }
   
   .partner-logo-container img {
-    height: 2.5rem;
-    max-width: 100px;
+    height: 2.75rem;
+    max-width: 103px;
   }
 }
 
@@ -133,7 +128,7 @@ export default {
   }
   
   .partner-logo-container img {
-    max-width: 160px;
+    max-width: 163px;
   }
 }
 </style>
