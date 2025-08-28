@@ -29,11 +29,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        figtree: ['Figtree', 'sans-serif'],
+        plusJakarta: ['Plus Jakarta Sans', 'sans-serif'],
       },
-      colors: {
-        base: '#1F2937', //main bg-color
-      }
     },
   },
   plugins: [],
