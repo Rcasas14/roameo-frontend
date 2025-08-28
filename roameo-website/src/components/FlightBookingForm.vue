@@ -262,10 +262,10 @@
         </div>
 
         <!-- Search Button -->
-        <div class="flex justify-end mt-6">
+        <div class="flex justify-center mt-6">
           <button
             @click="searchHotels"
-            class="w-full md:w-auto bg-blue-500 hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            class="w-full md:w-auto bg-blue-500 hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer"
           >
             Search Hotels
           </button>
