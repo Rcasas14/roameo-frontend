@@ -1,28 +1,28 @@
 <template>
-  <nav class="fixed top-0 left-0 right-0 bg-transparent font-plus-jakarta z-50 lg:py-5">
+  <nav class="fixed top-0 left-0 right-0 font-plus-jakarta z-50 lg:py-5 transition-all duration-300 ease-in-out" :class="scrolled ? 'bg-white shadow-lg' : 'bg-transparent'">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 md:p-0 xs:p-0">
       <div class="flex justify-between items-center h-16">
         <!-- Logo -->
         <div class="flex-shrink-0 pl-4">
-          <a href="/"><img class="h-8 w-auto" :src=roameoLogo alt="Roameo" /></a>
+          <a href="/"><img class="h-8 w-auto" :src="scrolled? roameoLogoBlack : roameoLogo" alt="Roameo" /></a>
         </div>
 
         <!-- Navigation Links -->
         <div class="hidden lg:block">
           <div class="ml-10 flex items-baseline space-x-8 pr-4">
-            <a href="/flights" class="text-white hover:text-gray-200 px-3 py-2 text-sm font-medium transition-colors">
+            <a href="/flights" class="px-3 py-2 text-sm font-medium transition-colors" :class="scrolled ? 'text-gray-900 hover:text-gray-600' : 'text-white hover:text-gray-200'">
               Flights
             </a>
-            <a href="/hotels" class="text-white hover:text-gray-200 px-3 py-2 text-sm font-medium transition-colors">
+            <a href="/hotels" class="px-3 py-2 text-sm font-medium transition-colors" :class="scrolled ? 'text-gray-900 hover:text-gray-600' : 'text-white hover:text-gray-200'">
               Hotels
             </a>
-            <a href="/blog" class="text-white hover:text-gray-200 px-3 py-2 text-sm font-medium transition-colors">
+            <a href="/blog" class="px-3 py-2 text-sm font-medium transition-colors" :class="scrolled ? 'text-gray-900 hover:text-gray-600' : 'text-white hover:text-gray-200'">
               Blog
             </a>
-            <a href="/roameo-tv" class="text-white hover:text-gray-200 px-3 py-2 text-sm font-medium transition-colors">
+            <a href="/roameo-tv" class="px-3 py-2 text-sm font-medium transition-colors" :class="scrolled ? 'text-gray-900 hover:text-gray-600' : 'text-white hover:text-gray-200'">
               Roameo TV
             </a>
-            <a href="/essential" class="text-white hover:text-gray-200 px-3 py-2 text-sm font-medium transition-colors">
+            <a href="/essential" class="px-3 py-2 text-sm font-medium transition-colors" :class="scrolled ? 'text-gray-900 hover:text-gray-600' : 'text-white hover:text-gray-200'">
               Essential
             </a>
           </div>
@@ -30,14 +30,14 @@
 
         <!-- Log In Button -->
         <div class="hidden lg:block">
-          <button class="bg-white text-gray-900 hover:bg-gray-100 px-8 py-2 rounded-full text-sm font-extrabold transition-colors cursor-pointer">
+          <button class="px-8 py-2 rounded-full text-sm font-extrabold transition-colors cursor-pointer" :class="scrolled ? 'bg-[#1A94FF] text-white hover:bg-[#1580e6]' : 'bg-white text-gray-900 hover:bg-gray-100'">
             Log In
           </button>
         </div>
 
         <!-- Mobile menu button -->
         <div class="lg:hidden">
-          <button @click.stop="toggleMobileMenu" class="text-white hover:text-gray-200 p-2">
+          <button @click.stop="toggleMobileMenu" class=" hover:text-gray-200 p-2" :class="scrolled ? 'text-black': 'text-white'">
             <svg v-show="mobileMenuOpen === false" v-motion-pop-visible class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
@@ -83,13 +83,23 @@ export default {
   data() {
     return {
       mobileMenuOpen: false,
-
+      scrolled: false,
       roameoLogo: new URL('@/assets/roameo-logo.svg', import.meta.url).href,
+      roameoLogoBlack: new URL('@/assets/roameo-logo-black.svg', import.meta.url).href,
     };
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
   },
   methods : {
     toggleMobileMenu(){
       this.mobileMenuOpen = !this.mobileMenuOpen
+    },
+    handleScroll() {
+      this.scrolled = window.scrollY > 100;
     }
   }
 };
