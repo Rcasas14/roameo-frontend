@@ -19,7 +19,11 @@
           v-for="(destination, index) in destinations"
           :key="index"
           class="destination-card group relative bg-cover bg-center rounded-[1.5rem] overflow-hidden h-full h-[320px] xs:h-[350px] sm:h-[380px] md:h-[400px] lg:h-[430px] cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl"
-          :style="{ backgroundImage: `url(${destinationImage})` }"
+          :style="{ backgroundImage: `url(${index === 0 ? destinationImageOne
+                                        : index === 1 ? destinationImageTwo
+                                        : index === 2 ? destinationImageThree
+                                        : index === 3 ? destinationImageTwo
+                                        : index === 4 ? destinationImageThree : destinationImageOne })` }"
         >
           <!-- Overlay Gradient -->
           <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
@@ -83,7 +87,9 @@ export default {
   name: 'DestinationSection',
   data() {
     return {
-      destinationImage: new URL('@/assets/destination-image.jpg', import.meta.url).href,
+      destinationImageOne: new URL('@/assets/destination-image-1.jpg', import.meta.url).href,
+      destinationImageTwo: new URL('@/assets/destination-image-2.jpg', import.meta.url).href,
+      destinationImageThree: new URL('@/assets/destination-image-3.jpg', import.meta.url).href,
       destinations: [
         {
           name: 'Florence Cathedral',
