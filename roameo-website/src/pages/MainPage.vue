@@ -9,17 +9,17 @@
   >
     <!-- Decorative Elements -->
     <!-- Top Left Asterisk -->
-    <div class="absolute top-35 left-36 z-10 opacity-90 hidden lg:block">
+    <div class="el-absolute absolute top-35 left-36 z-10 opacity-90 hidden lg:block">
       <img :src="unionAsset" alt="decorative asterisk" class="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24">
     </div>
 
     <!-- Top Right Grid Dots -->
-    <div class="absolute top-35 right-60 z-10 opacity-90 hidden lg:block">
+    <div class="el-absolute absolute top-35 right-60 z-10 opacity-90 hidden lg:block">
       <img :src="gridDots" alt="decorative dots" class="w-20 h-12 md:w-24 md:h-16 lg:w-34 lg:h-25">
     </div>
 
     <!-- Bottom Left Grid Dots -->
-    <div class="absolute bottom-32 left-28 z-10 opacity-90 hidden lg:block">
+    <div class="el-absolute absolute bottom-32 left-28 z-10 opacity-90 hidden lg:block">
       <img :src="gridDots" alt="decorative dots" class="w-16 h-10 md:w-20 md:h-12 lg:w-30 lg:h-30">
     </div>
 
@@ -35,31 +35,37 @@
           <flight-booking-form></flight-booking-form>
         </div>
       </div>
-      <div class="fixed-btn absolute bottom-19 right-15 z-15 hidden lg:block">
+      <div class="fixed-btn el-absolute absolute bottom-19 right-15 z-15 hidden lg:block">
         <!-- Bottom Right Asterisk -->
         <a href="#" class="px-2 py-4 bg-[#FFE759] uppercase rounded-xl w-[7.25rem] h-[36px] text-[.625rem] cursor-pointer font-bold flex items-center justify-center gap-x-2 z-15">
           <span class="text-[#000]">explore</span>
           <img :src="downArrow" alt="" class="w-3 h-3">
         </a>
-        <div class="z-[-1] absolute bottom-0 top-[-53px]">
+        <div class="z-[-1] el-absolute absolute bottom-0 top-[-53px]">
           <img :src="unionAsset" alt="decorative asterisk" class="w-20 h-20 md:w-24 md:h-24 lg:w-24 lg:h-24">
         </div>
+      </div>
+      <div class=" el-absolute absolute bottom-[-68px] sm:hidden xs:block">
+        <img :src="unionPng" alt="" class="h-auto w-[8.4375rem]">
       </div>
     </section>
   </div>
 
   <partner-section></partner-section>
+  <destination-section></destination-section>
 </template>
 
 <script>
 import FlightBookingForm from '@/components/FlightBookingForm.vue';
 import PartnerSection from '@/sections/PartnerSection.vue';
+import DestinationSection from '@/sections/DestinationSection.vue';
 
 export default {
   name: 'MainPage',
   components: {
     FlightBookingForm,
     PartnerSection,
+    DestinationSection,
   },
   data() {
     return {
@@ -68,6 +74,7 @@ export default {
       unionAsset: new URL('@/assets/union-asset.svg', import.meta.url).href,
       gridDots: new URL('@/assets/grid-dots.svg', import.meta.url).href,
       heroImage: new URL('@/assets/hero-image-2.jpg', import.meta.url).href,
+      unionPng: new URL('@/assets/union-png.png', import.meta.url).href,
     }
   }
 }
@@ -85,22 +92,22 @@ export default {
 
 @media (min-width: 641px) and (max-width: 768px) {
   /* Adjust positioning for tablet sizes */
-  .absolute:nth-of-type(1) { /* Top Left Asterisk */
+  .el-absolute:nth-of-type(1) { /* Top Left Asterisk */
     top: 1rem;
     left: 1rem;
   }
 
-  .absolute:nth-of-type(2) { /* Top Right Grid Dots */
+  .el-absolute:nth-of-type(2) { /* Top Right Grid Dots */
     top: 1rem;
     right: 1rem;
   }
 
-  .absolute:nth-of-type(3) { /* Bottom Left Grid Dots */
+  .el-absolute:nth-of-type(3) { /* Bottom Left Grid Dots */
     bottom: 8rem;
     left: 1rem;
   }
 
-  .absolute:nth-of-type(4) { /* Bottom Right Asterisk */
+  .el-absolute:nth-of-type(4) { /* Bottom Right Asterisk */
     bottom: 1rem;
     right: 1rem;
   }
@@ -204,11 +211,11 @@ export default {
 }
 
 /* Add subtle animations to decorative elements */
-.absolute img[alt*="decorative"] {
+.el-absolute img[alt*="decorative"] {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.absolute img[alt*="decorative"]:hover {
+.el-absolute img[alt*="decorative"]:hover {
   transform: scale(1.05);
 }
 </style>
