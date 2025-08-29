@@ -53,12 +53,14 @@
 
   <partner-section></partner-section>
   <destination-section></destination-section>
+  <go-next-section></go-next-section>
 </template>
 
 <script>
 import FlightBookingForm from '@/components/FlightBookingForm.vue';
 import PartnerSection from '@/sections/PartnerSection.vue';
 import DestinationSection from '@/sections/DestinationSection.vue';
+import GoNextSection from '@/sections/GoNextSection.vue';
 
 export default {
   name: 'MainPage',
@@ -66,6 +68,7 @@ export default {
     FlightBookingForm,
     PartnerSection,
     DestinationSection,
+    GoNextSection,
   },
   data() {
     return {
