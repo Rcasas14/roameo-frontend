@@ -26,7 +26,8 @@
           <!-- See More Button -->
           <button
             @click="seeMore"
-            class="bg-[#1A94FF] hover:bg-[#1580e6] text-white font-semibold py-4 px-8 rounded-[20px] transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#1A94FF] focus:ring-offset-2 flex items-center justify-between gap-3 mb-8 cursor-pointer"
+            class="bg-[#1A94FF] hover:bg-[#1580e6] text-white font-semibold py-4 px-8 rounded-[20px] max-w-md w-full transition-all duration-200 transform hover:scale-[1.02] 
+                  focus:outline-none focus:ring-2 focus:ring-[#1A94FF] focus:ring-offset-2 flex items-center justify-between gap-3 mb-8 cursor-pointer"
           >
             See More
             <img :src="topRightArrowIcon" alt="Arrow" class="w-4 h-4">
@@ -73,7 +74,7 @@
             }"
             :navigation="false"
             :pagination="false"
-            :loop="false"
+            :loop="true"
             class="hotel-swiper"
             @swiper="onSwiper"
             @slide-change="onSlideChange"
@@ -134,7 +135,7 @@ export default {
   data() {
     return {
       swiperInstance: null,
-      canSlidePrev: false,
+      canSlidePrev: true,
       canSlideNext: true,
       modules: [Navigation, Pagination],
       topRightArrowIcon: new URL('@/assets/top-right-arrow.svg', import.meta.url).href,
@@ -178,16 +179,17 @@ export default {
       this.updateNavigationState()
     },
     onReachBeginning() {
-      this.canSlidePrev = false
+      // With infinite loop, we always allow navigation
+      this.canSlidePrev = true
     },
     onReachEnd() {
-      this.canSlideNext = false
+      // With infinite loop, we always allow navigation
+      this.canSlideNext = true
     },
     updateNavigationState() {
-      if (this.swiperInstance) {
-        this.canSlidePrev = !this.swiperInstance.isBeginning
-        this.canSlideNext = !this.swiperInstance.isEnd
-      }
+      // With infinite loop enabled, navigation buttons are always active
+      this.canSlidePrev = true
+      this.canSlideNext = true
     },
     slideNext() {
       if (this.swiperInstance && this.canSlideNext) {
