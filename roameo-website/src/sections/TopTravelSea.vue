@@ -24,17 +24,17 @@
         <div class="hidden lg:flex absolute top-1/2 -translate-y-1/2 right-0 gap-4">
           <button
             @click="slidePrev"
-            class="w-12 h-12 rounded-full border-2 border-[#1A94FF] flex items-center justify-center hover:bg-[#1A94FF] hover:text-white transition-all duration-200 cursor-pointer"
+            class="w-12 h-12 rounded-full bg-[#1A94FF] text-white flex items-center justify-center hover:bg-[#1580e6] transition-all duration-200 cursor-pointer shadow-lg"
             :class="{ 'opacity-50 cursor-not-allowed': !canSlidePrev }"
           >
-            <img :src="arrowLeftIcon" alt="Previous" class="w-5 h-5" :class="{ 'filter brightness-0 invert': !canSlidePrev }">
+            <img :src="arrowLeftIcon" alt="Previous" class="w-5 h-5 filter brightness-0 invert">
           </button>
           <button
             @click="slideNext"
-            class="w-12 h-12 rounded-full border-2 border-[#1A94FF] flex items-center justify-center hover:bg-[#1A94FF] hover:text-white transition-all duration-200 cursor-pointer"
+            class="w-12 h-12 rounded-full bg-[#1A94FF] text-white flex items-center justify-center hover:bg-[#1580e6] transition-all duration-200 cursor-pointer shadow-lg"
             :class="{ 'opacity-50 cursor-not-allowed': !canSlideNext }"
           >
-            <img :src="arrowRightIcon" alt="Next" class="w-5 h-5" :class="{ 'filter brightness-0 invert': !canSlideNext }">
+            <img :src="arrowRightIcon" alt="Next" class="w-5 h-5 filter brightness-0 invert">
           </button>
         </div>
       </div>
@@ -73,29 +73,29 @@
             v-for="(story, index) in stories"
             :key="index"
           >
-            <div class="story-card relative rounded-[1.5rem] overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl bg-cover bg-center h-[600px]"
+            <div class="story-card relative rounded-3xl overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl bg-cover bg-center h-[420px] sm:h-[450px] lg:h-[480px]"
               :style="{ backgroundImage: `url(${getStoryImage(index)})` }"
             >
               <!-- Overlay Gradient -->
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
 
               <!-- Content Container -->
-              <div class="absolute bottom-0 left-0 right-0 p-6 text-white z-10">
+              <div class="absolute bottom-0 left-0 right-0 p-6">
                 <!-- Story Info Card -->
-                <div class="bg-white/90 backdrop-blur-sm p-4 rounded-[20px]">
+                <div class="bg-white/95 backdrop-blur-sm p-4 rounded-2xl shadow-lg">
                   <!-- Title and Meta Info -->
                   <div class="mb-3">
                     <h3 class="text-lg font-bold text-gray-900 mb-2">{{ story.title }}</h3>
-                    <div class="flex items-center gap-2 mb-3">
-                      <span class="bg-gray-100 text-gray-700 text-xs font-medium px-2 py-1 rounded-full">
+                    <div class="flex items-center gap-2 text-xs">
+                      <span class="bg-gray-100 text-gray-700 font-medium px-2 py-1 rounded-full">
                         {{ story.duration }}
                       </span>
-                      <span class="bg-gray-100 text-gray-700 text-xs font-medium px-2 py-1 rounded-full">
+                      <span class="bg-gray-100 text-gray-700 font-medium px-2 py-1 rounded-full">
                         Travel for {{ story.travelFor }}
                       </span>
                       <div class="flex items-center gap-1">
                         <span class="text-yellow-500 text-sm">★</span>
-                        <span class="text-gray-700 text-xs font-medium">({{ story.rating }})</span>
+                        <span class="text-gray-700 font-medium">({{ story.rating }})</span>
                       </div>
                     </div>
                   </div>
@@ -106,9 +106,9 @@
                   </p>
 
                   <!-- Tags -->
-                  <div class="flex flex-wrap gap-2 mb-4">
+                  <div class="flex flex-wrap gap-1 mb-4">
                     <span
-                      v-for="tag in story.tags"
+                      v-for="tag in story.tags.slice(0, 4)"
                       :key="tag"
                       class="bg-blue-50 text-blue-600 text-xs font-medium px-2 py-1 rounded-md"
                     >
@@ -255,16 +255,15 @@ export default {
 </script>
 
 <style scoped>
-.stories-swiper {
+.story-swiper {
   overflow: visible;
-  padding-bottom: 2rem;
 }
 
 .story-card {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 600px;
+  min-height: 320px;
 }
 
 /* Custom styling for swiper slides */
@@ -275,11 +274,11 @@ export default {
 /* Mobile optimizations */
 @media (max-width: 374px) {
   .story-card {
-    height: 400px;
+    min-height: 300px;
   }
 
-  .story-card .bg-white\/90 {
-    padding: 0.75rem;
+  .story-card .absolute.bottom-0 {
+    padding: 1rem;
   }
 
   .story-card h3 {
@@ -289,71 +288,61 @@ export default {
   .story-card p {
     font-size: 0.75rem;
   }
-
-  .top-travel-sea-section h2 {
-    font-size: 1.5rem;
-    line-height: 1.3;
-    margin-bottom: 1.5rem;
-  }
 }
 
 /* XS devices - 375px+ */
 @media (min-width: 375px) and (max-width: 639px) {
   .story-card {
-    height: 450px;
-  }
-
-  .top-travel-sea-section h2 {
-    font-size: 1.75rem;
-    line-height: 1.2;
+    min-height: 320px;
   }
 }
 
 /* SM devices - 640px+ */
 @media (min-width: 640px) and (max-width: 767px) {
   .story-card {
-    height: 500px;
-  }
-
-  .top-travel-sea-section h2 {
-    font-size: 2rem;
-    line-height: 1.2;
+    min-height: 350px;
   }
 }
 
 /* MD devices - 768px+ */
 @media (min-width: 768px) and (max-width: 1023px) {
   .story-card {
-    height: 550px;
-  }
-
-  .top-travel-sea-section h2 {
-    font-size: 2.5rem;
-    line-height: 1.2;
+    min-height: 380px;
   }
 }
 
 /* LG devices and above - 1024px+ */
 @media (min-width: 1024px) {
   .story-card {
-    height: 600px;
+    min-height: 400px;
   }
 
   .story-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  }
-
-  .top-travel-sea-section h2 {
-    font-size: 3rem;
-    line-height: 1.1;
   }
 }
 
-/* XL devices and above - 1280px+ */
-@media (min-width: 1280px) {
-  .top-travel-sea-section h2 {
-    font-size: 3.5rem;
+/* Hover effects for desktop */
+@media (min-width: 1024px) {
+  .story-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+
+  .story-card:hover::before {
+    opacity: 1;
+  }
+
+  .story-card:hover .absolute.bottom-0 {
+    z-index: 2;
   }
 }
 
@@ -361,11 +350,9 @@ export default {
 @media (max-width: 1023px) {
   .top-travel-sea-section button {
     min-height: 48px;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
   }
 
-  .stories-swiper {
+  .story-swiper {
     touch-action: pan-x;
   }
 }
@@ -374,11 +361,7 @@ export default {
 @media (min-width: 1024px) {
   .top-travel-sea-section button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(26, 148, 255, 0.2);
-  }
-
-  .top-travel-sea-section button:hover img {
-    filter: brightness(0) invert(1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   }
 }
 
@@ -395,7 +378,7 @@ export default {
 
 /* Tag styling */
 .story-card .bg-blue-50 {
-  background-color: rgba(239, 246, 255, 0.9);
+  background-color: rgba(239, 246, 255, 0.8);
 }
 
 /* Rating star styling */
@@ -407,63 +390,17 @@ export default {
 @media (max-width: 639px) {
   .story-card .bg-white\/90 {
     padding: 1rem;
+    margin: 0.5rem;
   }
 
-  .story-card .flex.items-center.gap-2 {
-    flex-wrap: wrap;
-    gap: 0.25rem;
+  .story-card .flex.items-center.justify-between {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 
   .story-card .flex.flex-wrap.gap-2 {
     gap: 0.25rem;
-  }
-}
-
-/* Ensure equal card heights in each row */
-.swiper-slide {
-  display: flex;
-  flex-direction: column;
-}
-
-.story-card {
-  flex: 1;
-}
-
-/* Navigation arrows positioning */
-.top-travel-sea-section .hidden.lg\\:flex.absolute {
-  top: 50%;
-  transform: translateY(-50%);
-  right: 0;
-}
-
-/* Custom scrollbar for horizontal scroll on mobile */
-@media (max-width: 1023px) {
-  .stories-carousel::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-/* Hover effects for desktop story cards */
-@media (min-width: 1024px) {
-  .story-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.2) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 1;
-  }
-
-  .story-card:hover::before {
-    opacity: 1;
-  }
-
-  .story-card:hover .absolute.bottom-0 {
-    z-index: 2;
   }
 }
 
