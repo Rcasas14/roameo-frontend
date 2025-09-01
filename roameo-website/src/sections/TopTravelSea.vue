@@ -73,35 +73,35 @@
             v-for="(story, index) in stories"
             :key="index"
           >
-            <div class="story-card relative rounded-3xl overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl bg-cover bg-center h-[420px] sm:h-[450px] lg:h-[480px]"
+            <div class="story-card relative rounded-3xl overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl bg-cover bg-center h-[520px] sm:h-[550px] lg:h-[580px]"
               :style="{ backgroundImage: `url(${getStoryImage(index)})` }"
             >
               <!-- Overlay Gradient -->
               <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
 
               <!-- Content Container -->
-              <div class="absolute bottom-0 left-0 right-0 p-6">
+              <div class="absolute bottom-0 left-0 right-0 p-4 md:p-6">
                 <!-- Story Info Card -->
-                <div class="bg-white/95 backdrop-blur-sm p-4 rounded-2xl shadow-lg">
+                <div class="bg-white/40 backdrop-blur-sm p-3 rounded-2xl shadow-lg mb-3">
                   <!-- Title and Meta Info -->
-                  <div class="mb-3">
+                  <div class="mb-2">
                     <h3 class="text-lg font-bold text-gray-900 mb-2">{{ story.title }}</h3>
                     <div class="flex items-center gap-2 text-xs">
-                      <span class="bg-gray-100 text-gray-700 font-medium px-2 py-1 rounded-full">
+                      <span class="bg-gray-100 text-gray-900 font-medium px-2 py-1 rounded-full">
                         {{ story.duration }}
                       </span>
-                      <span class="bg-gray-100 text-gray-700 font-medium px-2 py-1 rounded-full">
+                      <span class="bg-gray-100 text-gray-900 font-medium px-2 py-1 rounded-full">
                         Travel for {{ story.travelFor }}
                       </span>
                       <div class="flex items-center gap-1">
                         <span class="text-yellow-500 text-sm">★</span>
-                        <span class="text-gray-700 font-medium">({{ story.rating }})</span>
+                        <span class="text-gray-900 font-medium">({{ story.rating }})</span>
                       </div>
                     </div>
                   </div>
 
                   <!-- Description -->
-                  <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                  <p class="text-gray-900 text-sm leading-relaxed mb-2">
                     {{ story.description }}
                   </p>
 
@@ -116,14 +116,14 @@
                     </span>
                   </div>
 
-                  <!-- Read More Button -->
-                  <button
-                    @click="readStory(story)"
-                    class="w-full bg-[#1A94FF] hover:bg-[#1580e6] text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#1A94FF] focus:ring-offset-2 cursor-pointer"
-                  >
-                    Read More
-                  </button>
                 </div>
+                <!-- Read More Button -->
+                <button
+                  @click="readStory(story)"
+                  class="w-full bg-[#1A94FF] hover:bg-[#1580e6] text-white font-semibold py-2 px-6 rounded-[20px] transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#1A94FF] focus:ring-offset-2 cursor-pointer"
+                >
+                  Read More
+                </button>
               </div>
             </div>
           </swiper-slide>
@@ -174,8 +174,9 @@ export default {
       arrowLeftIcon: new URL('@/assets/arrow-left.svg', import.meta.url).href,
       arrowRightIcon: new URL('@/assets/arrow-right.svg', import.meta.url).href,
       storyImageOne: new URL('@/assets/top-travel-sea-card-image1.jpg', import.meta.url).href,
-      storyImageTwo: new URL('@/assets/top-travel-sea-card-image3.jpg', import.meta.url).href,
-      
+      storyImageTwo: new URL('@/assets/top-travel-sea-card-image2.jpg', import.meta.url).href,
+      storyImageThree: new URL('@/assets/top-travel-sea-card-image3.jpg', import.meta.url).href,
+
       stories: [
         {
           title: 'Bali: Spiritual, Sweaty, and So Worth It',
@@ -248,7 +249,10 @@ export default {
       }
     },
     getStoryImage(index) {
-      return index % 2 === 0 ? this.storyImageOne : this.storyImageTwo
+      const imageIndex = index % 3;
+        if (imageIndex === 0) return this.storyImageOne;
+        if (imageIndex === 1) return this.storyImageTwo;
+        return this.storyImageThree;
     }
   }
 }
@@ -413,7 +417,5 @@ export default {
   color: #4b5563;
 }
 
-.story-card .text-gray-700 {
-  color: #374151;
-}
+
 </style>
