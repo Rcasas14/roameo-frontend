@@ -55,6 +55,12 @@
   <destination-section></destination-section>
   <go-next-section></go-next-section>
   <feature-stay-section></feature-stay-section>
+  <travel-journey></travel-journey>
+  <top-travel-sea></top-travel-sea>
+  <roameo-tv></roameo-tv>
+  <testimonials-section></testimonials-section>
+  <newsletter-section></newsletter-section>
+  
 </template>
 
 <script>
@@ -63,6 +69,11 @@ import PartnerSection from '@/sections/PartnerSection.vue';
 import DestinationSection from '@/sections/DestinationSection.vue';
 import GoNextSection from '@/sections/GoNextSection.vue';
 import FeatureStaySection from '@/sections/FeatureStaySection.vue';
+import TravelJourney from '@/sections/TravelJourney.vue';
+import RoameoTv from '@/sections/RoameoTv.vue';
+import TestimonialsSection from '@/sections/TestimonialsSection.vue';
+import NewsletterSection from '@/sections/NewsletterSection.vue';
+import TopTravelSea from '@/sections/TopTravelSea.vue';
 
 export default {
   name: 'MainPage',
@@ -72,6 +83,11 @@ export default {
     DestinationSection,
     GoNextSection,
     FeatureStaySection,
+    TravelJourney,
+    RoameoTv,
+    TestimonialsSection,
+    NewsletterSection,
+    TopTravelSea,
   },
   data() {
     return {
