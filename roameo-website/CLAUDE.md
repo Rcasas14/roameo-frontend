@@ -26,9 +26,10 @@ This is a Vue 3 SPA (Single Page Application) for Roameo, a travel booking platf
 ### Project Structure
 - `src/views/` - Top-level view components (MainView, ErrorView)
 - `src/pages/` - Page components rendered within views (MainPage)
-- `src/components/` - Reusable UI components (NavbarComponent, FooterComponent, FlightBookingForm)
+- `src/components/` - Reusable UI components (NavbarComponent, FooterComponent, FlightBookingForm, AccordionComponent)
+- `src/sections/` - Page section components (DestinationSection, FeatureStaySection, FaqSection, FeaturedEpisode)
 - `src/router/` - Vue Router configuration with nested routing
-- `src/assets/` - Static assets including SVG icons and images
+- `src/assets/` - Static assets including SVG icons, images, and video thumbnails
 
 ### Routing Architecture
 - Uses nested routing with MainView as the parent component
@@ -52,5 +53,36 @@ This is a Vue 3 SPA (Single Page Application) for Roameo, a travel booking platf
 - Vuex store with persistence using vuex-persistedstate
 - Encrypted storage capabilities via encrypt-storage package
 
+### Component Architecture
+
+#### Interactive Components
+- **AccordionComponent**: Reusable accordion with dynamic highlighting
+  - Supports multiple simultaneous open items
+  - Blue (#1A94FF) highlighting for active/expanded items
+  - Smooth animations with height transitions
+  - Mobile responsive with proper touch targets
+  - Uses plus-accordion.svg icon with 45° rotation
+
+#### Section Components
+- **FaqSection**: Two-column responsive FAQ layout
+  - Left column: Heading and description text
+  - Right column: Integrated AccordionComponent
+  - Sticky positioning on desktop, stacked on mobile
+  
+- **FeaturedEpisode**: Video gallery with asymmetric grid
+  - Large featured video + 2 smaller side videos
+  - Play button overlays with hover animations
+  - Duration badges and video metadata
+  - Gradient overlays with backdrop blur effects
+  - Mobile-first responsive design
+
+### Design System
+- **Primary Color**: #1A94FF (Roameo blue)
+- **Accent Color**: #FFE759 (Yellow badges)
+- **Typography**: Plus Jakarta Sans font family
+- **Components**: Rounded corners (1.5rem), consistent spacing
+- **Animations**: Smooth transitions, hover effects, transform animations
+- **Responsive**: Mobile-first with custom TailwindCSS breakpoints
+
 ### Current Development Focus
-The project appears to be in active development of a flight booking form component, with recent work on hero sections and main page layout.
+Recent additions include FAQ functionality with interactive accordions and video gallery sections for featured travel episodes. The project maintains consistent design patterns with mobile-responsive layouts and smooth user interactions.

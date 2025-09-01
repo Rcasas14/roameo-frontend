@@ -58,9 +58,11 @@
   <travel-journey></travel-journey>
   <top-travel-sea></top-travel-sea>
   <roameo-tv></roameo-tv>
+  <featured-episode></featured-episode>
   <testimonials-section></testimonials-section>
   <newsletter-section></newsletter-section>
-  
+  <faq-section></faq-section>
+
 </template>
 
 <script>
@@ -74,6 +76,8 @@ import RoameoTv from '@/sections/RoameoTv.vue';
 import TestimonialsSection from '@/sections/TestimonialsSection.vue';
 import NewsletterSection from '@/sections/NewsletterSection.vue';
 import TopTravelSea from '@/sections/TopTravelSea.vue';
+import FaqSection from '@/sections/FaqSection.vue';
+import FeaturedEpisode from '@/sections/FeaturedEpisode.vue';
 
 export default {
   name: 'MainPage',
@@ -88,6 +92,8 @@ export default {
     TestimonialsSection,
     NewsletterSection,
     TopTravelSea,
+    FaqSection,
+    FeaturedEpisode,
   },
   data() {
     return {
