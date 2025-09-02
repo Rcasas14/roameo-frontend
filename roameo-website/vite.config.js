@@ -4,7 +4,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import tailwindcss from '@tailwindcss/vite'
-import { ViteImageOptimize } from 'vite-plugin-imagemin'
+import { viteImagemin } from 'vite-plugin-imagemin'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => {
       vue(),
       vueDevTools(),
       tailwindcss(),
-      ViteImageOptimize({
+      viteImagemin({
         // Only optimize during production builds
         disable: !isProduction,
 
