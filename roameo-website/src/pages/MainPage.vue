@@ -56,7 +56,7 @@
   <go-next-section></go-next-section>
   <feature-stay-section></feature-stay-section>
   <travel-journey></travel-journey>
-  <top-travel-sea></top-travel-sea>
+  <top-travel-tea></top-travel-tea>
   <roameo-tv></roameo-tv>
   <featured-episode></featured-episode>
   <testimonials-section></testimonials-section>
@@ -75,7 +75,7 @@ import TravelJourney from '@/sections/TravelJourney.vue';
 import RoameoTv from '@/sections/RoameoTv.vue';
 import TestimonialsSection from '@/sections/TestimonialsSection.vue';
 import NewsletterSection from '@/sections/NewsletterSection.vue';
-import TopTravelSea from '@/sections/TopTravelSea.vue';
+import TopTravelTea from '@/sections/TopTravelTea.vue';
 import FaqSection from '@/sections/FaqSection.vue';
 import FeaturedEpisode from '@/sections/FeaturedEpisode.vue';
 
@@ -91,7 +91,7 @@ export default {
     RoameoTv,
     TestimonialsSection,
     NewsletterSection,
-    TopTravelSea,
+    TopTravelTea,
     FaqSection,
     FeaturedEpisode,
   },

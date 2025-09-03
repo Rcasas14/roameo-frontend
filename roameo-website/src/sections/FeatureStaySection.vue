@@ -26,7 +26,7 @@
           <!-- See More Button -->
           <button
             @click="seeMore"
-            class="bg-[#1A94FF] hover:bg-[#1580e6] text-white font-semibold py-4 px-8 rounded-[20px] max-w-md w-full transition-all duration-200 transform hover:scale-[1.02] 
+            class="bg-[#1A94FF] hover:bg-[#1580e6] text-white font-semibold py-4 px-8 rounded-[20px] max-w-md w-full transition-all duration-200 transform hover:scale-[1.02]
                   focus:outline-none focus:ring-2 focus:ring-[#1A94FF] focus:ring-offset-2 flex items-center justify-between gap-3 mb-8 cursor-pointer"
           >
             See More
@@ -37,23 +37,25 @@
           <div class="flex gap-4">
             <button
               @click="slidePrev"
-              class="w-12 h-12 rounded-full border-2 border-[#1A94FF] flex items-center justify-center hover:bg-[#1A94FF]/10 transition-all duration-200 cursor-pointer"
-              :class="{ 'opacity-50 cursor-not-allowed': !canSlidePrev }"
+              class="w-12 h-12 rounded-full border-2 border-[#1A94FF] flex items-center justify-center hover:bg-[#1A94FF]/10 transition-all duration-200 cursor-pointer group"
             >
-              <img :src="arrowLeftIcon" alt="Previous" class="w-5 h-5">
+              <img :src="arrowLeftIcon" alt="Previous" class="w-5 h-5 group-hover:brightness-0 group-hover:invert">
             </button>
             <button
               @click="slideNext"
-              class="w-12 h-12 rounded-full border-2 border-[#1A94FF] flex items-center justify-center hover:bg-[#1A94FF]/10 transition-all duration-200 cursor-pointer"
-              :class="{ 'opacity-50 cursor-not-allowed': !canSlideNext }"
+              class="w-12 h-12 rounded-full border-2 border-[#1A94FF] flex items-center justify-center hover:bg-[#1A94FF]/10 transition-all duration-200 cursor-pointer group"
             >
-              <img :src="arrowRightIcon" alt="Next" class="w-5 h-5">
+              <img :src="arrowRightIcon" alt="Next" class="w-5 h-5 group-hover:brightness-0 group-hover:invert">
             </button>
           </div>
         </div>
 
         <!-- Right Carousel Area with Swiper -->
-        <div class="w-full lg:w-[900px] overflow-hidden flex-2">
+        <div
+          class="feature-stay-carousel w-full lg:w-[900px] overflow-hidden flex-2"
+          @mouseenter="pauseAutoplay"
+          @mouseleave="resumeAutoplay"
+        >
           <swiper
             :modules="modules"
             :slides-per-view="2"
@@ -72,14 +74,17 @@
                 spaceBetween: 24
               },
             }"
+            :autoplay="{
+              delay: 4000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true
+            }"
             :navigation="false"
             :pagination="false"
             :loop="true"
             class="hotel-swiper"
             @swiper="onSwiper"
             @slide-change="onSlideChange"
-            @reach-beginning="onReachBeginning"
-            @reach-end="onReachEnd"
           >
             <swiper-slide
               v-for="(hotel, index) in hotels"
@@ -121,7 +126,7 @@
 
 <script>
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation, Pagination } from 'swiper/modules'
+import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -135,9 +140,8 @@ export default {
   data() {
     return {
       swiperInstance: null,
-      canSlidePrev: true,
-      canSlideNext: true,
-      modules: [Navigation, Pagination],
+      modules: [Navigation, Pagination, Autoplay],
+
       topRightArrowIcon: new URL('@/assets/top-right-arrow.svg', import.meta.url).href,
       arrowLeftIcon: new URL('@/assets/arrow-left.svg', import.meta.url).href,
       arrowRightIcon: new URL('@/assets/arrow-right.svg', import.meta.url).href,
@@ -173,31 +177,27 @@ export default {
     },
     onSwiper(swiper) {
       this.swiperInstance = swiper
-      this.updateNavigationState()
     },
     onSlideChange() {
-      this.updateNavigationState()
+      // Handle slide change if needed
     },
-    onReachBeginning() {
-      // With infinite loop, we always allow navigation
-      this.canSlidePrev = true
+    pauseAutoplay() {
+      if (this.swiperInstance?.autoplay) {
+        this.swiperInstance.autoplay.stop()
+      }
     },
-    onReachEnd() {
-      // With infinite loop, we always allow navigation
-      this.canSlideNext = true
-    },
-    updateNavigationState() {
-      // With infinite loop enabled, navigation buttons are always active
-      this.canSlidePrev = true
-      this.canSlideNext = true
+    resumeAutoplay() {
+      if (this.swiperInstance?.autoplay) {
+        this.swiperInstance.autoplay.start()
+      }
     },
     slideNext() {
-      if (this.swiperInstance && this.canSlideNext) {
+      if (this.swiperInstance) {
         this.swiperInstance.slideNext()
       }
     },
     slidePrev() {
-      if (this.swiperInstance && this.canSlidePrev) {
+      if (this.swiperInstance) {
         this.swiperInstance.slidePrev()
       }
     },
@@ -272,27 +272,11 @@ export default {
   }
 }
 
-/* Hover effects for desktop */
+/* Enhanced button hover effects */
 @media (min-width: 1024px) {
-  .hotel-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 1;
-  }
-
-  .hotel-card:hover::before {
-    opacity: 1;
-  }
-
-  .hotel-card:hover .absolute.bottom-0 {
-    z-index: 2;
+  .feature-stay-section button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   }
 }
 
@@ -304,14 +288,6 @@ export default {
 
   .hotel-swiper {
     touch-action: pan-x;
-  }
-}
-
-/* Desktop button hover effects */
-@media (min-width: 1024px) {
-  .feature-stay-section button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   }
 }
 
