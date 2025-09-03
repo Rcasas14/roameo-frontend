@@ -90,9 +90,22 @@
               v-for="(hotel, index) in hotels"
               :key="index"
             >
-              <div class="hotel-card relative rounded-[1.5rem] overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl bg-cover bg-center lg:h-[600px] xs:h-auto w-auto md:mr-5"
-                :style="{ backgroundImage: `url(${getHotelImage(index)})` }"
-              >
+              <div class="hotel-card relative rounded-[1.5rem] overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl lg:h-[600px] xs:h-auto w-auto md:mr-5">
+
+                <!-- Lazy loaded background image -->
+                <div
+                  class="absolute inset-0 bg-gray-200 bg-cover bg-center transition-opacity duration-300"
+                  v-lazy:background-image="getHotelImage(index)"
+                ></div>
+
+                <!-- Loading placeholder (optional) -->
+                <div
+                  class="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center"
+                  v-show="!imageLoaded[index]"
+                >
+                  <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#4A9DB1]"></div>
+                </div>
+
                 <!-- Overlay Gradient -->
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
 
@@ -125,6 +138,7 @@
 </template>
 
 <script>
+import { reactive } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import 'swiper/css'
@@ -141,6 +155,7 @@ export default {
     return {
       swiperInstance: null,
       modules: [Navigation, Pagination, Autoplay],
+      imageLoaded: reactive({}), // Track loaded images with reactive
 
       topRightArrowIcon: new URL('@/assets/top-right-arrow.svg', import.meta.url).href,
       arrowLeftIcon: new URL('@/assets/arrow-left.svg', import.meta.url).href,
@@ -204,6 +219,25 @@ export default {
     getHotelImage(index) {
       return index % 2 === 0 ? this.featuredImageOne : this.featuredImageTwo
     }
+  },
+  mounted() {
+    // Listen for lazy load events
+    if (this.$Lazyload) {
+      this.$Lazyload.$on('loaded', ({ el }) => {
+        // Find the hotel card index by traversing the DOM
+        const swiperSlide = el.closest('.swiper-slide')
+        if (swiperSlide) {
+          const slides = Array.from(swiperSlide.parentElement.children)
+          const index = slides.indexOf(swiperSlide)
+          this.imageLoaded[index] = true
+        }
+      })
+
+      this.$Lazyload.$on('error', ({ src }) => {
+        console.warn('Failed to load image:', src)
+        // Optionally set a fallback image or show error state
+      })
+    }
   }
 }
 </script>
@@ -218,6 +252,20 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   min-height: 320px;
+}
+
+/* Lazy load specific styles */
+.hotel-card [lazy=loading] {
+  background-color: #f0f0f0;
+}
+
+.hotel-card [lazy=loaded] {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Custom styling for swiper slides */
