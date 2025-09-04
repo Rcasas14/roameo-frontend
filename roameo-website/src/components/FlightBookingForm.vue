@@ -383,7 +383,7 @@
       <div v-if="activeTab === 'hotels'" class="space-y-4">
         <!-- Desktop Layout -->
         <div class="hidden lg:block m-0">
-          <div class="flex rounded-[1.25rem] bg-white py-4 md:mt-4">
+          <div class="flex rounded-[1.25rem] bg-white py-2 md:mt-4">
             <!-- Location -->
             <div class="flex-1">
               <div class="flex flex-col p-4">
