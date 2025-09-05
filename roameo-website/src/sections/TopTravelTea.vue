@@ -78,9 +78,22 @@
             v-for="(story, index) in stories"
             :key="index"
           >
-            <div class="story-card relative rounded-3xl overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl bg-cover bg-center h-[520px] sm:h-[550px] lg:h-[580px]"
-              :style="{ backgroundImage: `url(${getStoryImage(index)})` }"
-            >
+            <div class="story-card relative rounded-3xl overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl h-[520px] sm:h-[550px] lg:h-[580px]">
+
+              <!-- Lazy loaded background image -->
+              <div
+                class="absolute inset-0 bg-gray-200 bg-cover bg-center transition-opacity duration-300"
+                v-lazy:background-image="getStoryImage(index)"
+              ></div>
+
+              <!-- Loading placeholder (optional) -->
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center"
+                v-show="!imageLoaded[index]"
+              >
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#4A9DB1]"></div>
+              </div>
+
               <!-- Overlay Gradient -->
               <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
 
@@ -155,6 +168,7 @@
 </template>
 
 <script>
+import { reactive } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import 'swiper/css'
@@ -171,6 +185,7 @@ export default {
     return {
       swiperInstance: null,
       modules: [Navigation, Pagination, Autoplay],
+      imageLoaded: reactive({}), // Track loaded images with reactive
 
       topRightArrowIcon: new URL('@/assets/top-right-arrow.svg', import.meta.url).href,
       arrowLeftIcon: new URL('@/assets/arrow-left.svg', import.meta.url).href,
@@ -252,6 +267,36 @@ export default {
       if (imageIndex === 1) return this.storyImageTwo;
       return this.storyImageThree;
     }
+  },
+  mounted() {
+    // Listen for lazy load events
+    if (this.$Lazyload) {
+      this.$Lazyload.$on('loaded', ({ el }) => {
+        // Find the story card index by traversing the DOM
+        const swiperSlide = el.closest('.swiper-slide')
+        if (swiperSlide) {
+          const slides = Array.from(swiperSlide.parentElement.children)
+          const index = slides.indexOf(swiperSlide)
+          this.imageLoaded[index] = true
+        }
+      })
+
+      this.$Lazyload.$on('error', ({ el, src }) => {
+        console.warn('Failed to load story image:', src)
+        // Find the story card index and mark as loaded to hide spinner
+        const swiperSlide = el.closest('.swiper-slide')
+        if (swiperSlide) {
+          const slides = Array.from(swiperSlide.parentElement.children)
+          const index = slides.indexOf(swiperSlide)
+          this.imageLoaded[index] = true // Hide spinner even on error
+        }
+      })
+
+      // Optional: Listen for loading events
+      this.$Lazyload.$on('loading', ({ src }) => {
+        console.log('Loading story image:', src)
+      })
+    }
   }
 }
 </script>
@@ -266,6 +311,20 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   min-height: 320px;
+}
+
+/* Lazy load specific styles */
+.story-card [lazy=loading] {
+  background-color: #f0f0f0;
+}
+
+.story-card [lazy=loaded] {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Custom styling for swiper slides */

@@ -23,6 +23,9 @@ This is a Vue 3 SPA (Single Page Application) for Roameo, a travel booking platf
 - **@vueuse/motion** for animations
 - **vue-lazyload-next** for image optimization
 - **Swiper.js** for carousel/slider functionality with autoplay and navigation
+- **@vuepic/vue-datepicker** for advanced date picker functionality
+- **@headlessui/vue** for accessible UI components (Combobox, etc.)
+- **vue-select** for enhanced select components
 
 ### Project Structure
 - `src/views/` - Top-level view components (MainView, ErrorView)
