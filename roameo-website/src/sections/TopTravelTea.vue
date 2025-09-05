@@ -25,14 +25,12 @@
           <button
             @click="slidePrev"
             class="w-12 h-12 rounded-full bg-[#1A94FF] text-white flex items-center justify-center hover:bg-[#1580e6] transition-all duration-200 cursor-pointer shadow-lg"
-            :class="{ 'opacity-50 cursor-not-allowed': !canSlidePrev }"
           >
             <img :src="arrowLeftIcon" alt="Previous" class="w-5 h-5 filter brightness-0 invert">
           </button>
           <button
             @click="slideNext"
             class="w-12 h-12 rounded-full bg-[#1A94FF] text-white flex items-center justify-center hover:bg-[#1580e6] transition-all duration-200 cursor-pointer shadow-lg"
-            :class="{ 'opacity-50 cursor-not-allowed': !canSlideNext }"
           >
             <img :src="arrowRightIcon" alt="Next" class="w-5 h-5 filter brightness-0 invert">
           </button>
@@ -40,7 +38,11 @@
       </div>
 
       <!-- Stories Carousel -->
-      <div class="stories-carousel overflow-hidden">
+      <div
+        class="stories-carousel overflow-hidden"
+        @mouseenter="pauseAutoplay"
+        @mouseleave="resumeAutoplay"
+      >
         <swiper
           :modules="modules"
           :slides-per-view="1"
@@ -59,6 +61,11 @@
               spaceBetween: 24
             },
           }"
+          :autoplay="{
+            delay: 3500,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+          }"
           :navigation="false"
           :pagination="false"
           :loop="true"
@@ -66,16 +73,27 @@
           class="stories-swiper"
           @swiper="onSwiper"
           @slide-change="onSlideChange"
-          @reach-beginning="onReachBeginning"
-          @reach-end="onReachEnd"
         >
           <swiper-slide
             v-for="(story, index) in stories"
             :key="index"
           >
-            <div class="story-card relative rounded-3xl overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl bg-cover bg-center h-[520px] sm:h-[550px] lg:h-[580px]"
-              :style="{ backgroundImage: `url(${getStoryImage(index)})` }"
-            >
+            <div class="story-card relative rounded-3xl overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl h-[520px] sm:h-[550px] lg:h-[580px]">
+
+              <!-- Lazy loaded background image -->
+              <div
+                class="absolute inset-0 bg-gray-200 bg-cover bg-center transition-opacity duration-300"
+                v-lazy:background-image="getStoryImage(index)"
+              ></div>
+
+              <!-- Loading placeholder (optional) -->
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center"
+                v-show="!imageLoaded[index]"
+              >
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#4A9DB1]"></div>
+              </div>
+
               <!-- Overlay Gradient -->
               <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
 
@@ -134,17 +152,15 @@
       <div class="flex lg:hidden justify-center gap-4 mt-8">
         <button
           @click="slidePrev"
-          class="w-12 h-12 rounded-full border-2 border-[#1A94FF] flex items-center justify-center hover:bg-[#1A94FF]/10 transition-all duration-200 cursor-pointer"
-          :class="{ 'opacity-50 cursor-not-allowed': !canSlidePrev }"
+          class="w-12 h-12 rounded-full border-2 border-[#1A94FF] flex items-center justify-center hover:bg-[#1A94FF]/10 transition-all duration-200 cursor-pointer group"
         >
-          <img :src="arrowLeftIcon" alt="Previous" class="w-5 h-5">
+          <img :src="arrowLeftIcon" alt="Previous" class="w-5 h-5 group-hover:brightness-0 group-hover:invert">
         </button>
         <button
           @click="slideNext"
-          class="w-12 h-12 rounded-full border-2 border-[#1A94FF] flex items-center justify-center hover:bg-[#1A94FF]/10 transition-all duration-200 cursor-pointer"
-          :class="{ 'opacity-50 cursor-not-allowed': !canSlideNext }"
+          class="w-12 h-12 rounded-full border-2 border-[#1A94FF] flex items-center justify-center hover:bg-[#1A94FF]/10 transition-all duration-200 cursor-pointer group"
         >
-          <img :src="arrowRightIcon" alt="Next" class="w-5 h-5">
+          <img :src="arrowRightIcon" alt="Next" class="w-5 h-5 group-hover:brightness-0 group-hover:invert">
         </button>
       </div>
     </div>
@@ -152,14 +168,15 @@
 </template>
 
 <script>
+import { reactive } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation, Pagination } from 'swiper/modules'
+import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 export default {
-  name: 'TopTravelSea',
+  name: 'TopTravelTea',
   components: {
     Swiper,
     SwiperSlide
@@ -167,9 +184,9 @@ export default {
   data() {
     return {
       swiperInstance: null,
-      canSlidePrev: true,
-      canSlideNext: true,
-      modules: [Navigation, Pagination],
+      modules: [Navigation, Pagination, Autoplay],
+      imageLoaded: reactive({}), // Track loaded images with reactive
+
       topRightArrowIcon: new URL('@/assets/top-right-arrow.svg', import.meta.url).href,
       arrowLeftIcon: new URL('@/assets/arrow-left.svg', import.meta.url).href,
       arrowRightIcon: new URL('@/assets/arrow-right.svg', import.meta.url).href,
@@ -220,46 +237,72 @@ export default {
     },
     onSwiper(swiper) {
       this.swiperInstance = swiper
-      this.updateNavigationState()
     },
     onSlideChange() {
-      this.updateNavigationState()
+      // Handle slide change if needed
     },
-    onReachBeginning() {
-      // With infinite loop, we always allow navigation
-      this.canSlidePrev = true
+    pauseAutoplay() {
+      if (this.swiperInstance?.autoplay) {
+        this.swiperInstance.autoplay.stop()
+      }
     },
-    onReachEnd() {
-      // With infinite loop, we always allow navigation
-      this.canSlideNext = true
-    },
-    updateNavigationState() {
-      // With infinite loop enabled, navigation buttons are always active
-      this.canSlidePrev = true
-      this.canSlideNext = true
+    resumeAutoplay() {
+      if (this.swiperInstance?.autoplay) {
+        this.swiperInstance.autoplay.start()
+      }
     },
     slideNext() {
-      if (this.swiperInstance && this.canSlideNext) {
+      if (this.swiperInstance) {
         this.swiperInstance.slideNext()
       }
     },
     slidePrev() {
-      if (this.swiperInstance && this.canSlidePrev) {
+      if (this.swiperInstance) {
         this.swiperInstance.slidePrev()
       }
     },
     getStoryImage(index) {
       const imageIndex = index % 3;
-        if (imageIndex === 0) return this.storyImageOne;
-        if (imageIndex === 1) return this.storyImageTwo;
-        return this.storyImageThree;
+      if (imageIndex === 0) return this.storyImageOne;
+      if (imageIndex === 1) return this.storyImageTwo;
+      return this.storyImageThree;
+    }
+  },
+  mounted() {
+    // Listen for lazy load events
+    if (this.$Lazyload) {
+      this.$Lazyload.$on('loaded', ({ el }) => {
+        // Find the story card index by traversing the DOM
+        const swiperSlide = el.closest('.swiper-slide')
+        if (swiperSlide) {
+          const slides = Array.from(swiperSlide.parentElement.children)
+          const index = slides.indexOf(swiperSlide)
+          this.imageLoaded[index] = true
+        }
+      })
+
+      this.$Lazyload.$on('error', ({ el, src }) => {
+        console.warn('Failed to load story image:', src)
+        // Find the story card index and mark as loaded to hide spinner
+        const swiperSlide = el.closest('.swiper-slide')
+        if (swiperSlide) {
+          const slides = Array.from(swiperSlide.parentElement.children)
+          const index = slides.indexOf(swiperSlide)
+          this.imageLoaded[index] = true // Hide spinner even on error
+        }
+      })
+
+      // Optional: Listen for loading events
+      this.$Lazyload.$on('loading', ({ src }) => {
+        console.log('Loading story image:', src)
+      })
     }
   }
 }
 </script>
 
 <style scoped>
-.story-swiper {
+.stories-swiper {
   overflow: visible;
 }
 
@@ -268,6 +311,20 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   min-height: 320px;
+}
+
+/* Lazy load specific styles */
+.story-card [lazy=loading] {
+  background-color: #f0f0f0;
+}
+
+.story-card [lazy=loaded] {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Custom styling for swiper slides */
@@ -326,27 +383,11 @@ export default {
   }
 }
 
-/* Hover effects for desktop */
+/* Enhanced button hover effects */
 @media (min-width: 1024px) {
-  .story-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 1;
-  }
-
-  .story-card:hover::before {
-    opacity: 1;
-  }
-
-  .story-card:hover .absolute.bottom-0 {
-    z-index: 2;
+  .top-travel-sea-section button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   }
 }
 
@@ -356,16 +397,8 @@ export default {
     min-height: 48px;
   }
 
-  .story-swiper {
+  .stories-swiper {
     touch-action: pan-x;
-  }
-}
-
-/* Desktop button hover effects */
-@media (min-width: 1024px) {
-  .top-travel-sea-section button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   }
 }
 
@@ -376,7 +409,7 @@ export default {
 }
 
 /* Story card content styling */
-.story-card .bg-white\/90 {
+.story-card .bg-white\/40 {
   backdrop-filter: blur(8px);
 }
 
@@ -392,19 +425,9 @@ export default {
 
 /* Content card responsive adjustments */
 @media (max-width: 639px) {
-  .story-card .bg-white\/90 {
+  .story-card .bg-white\/40 {
     padding: 1rem;
     margin: 0.5rem;
-  }
-
-  .story-card .flex.items-center.justify-between {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-
-  .story-card .flex.flex-wrap.gap-2 {
-    gap: 0.25rem;
   }
 }
 
@@ -416,6 +439,4 @@ export default {
 .story-card .text-gray-600 {
   color: #4b5563;
 }
-
-
 </style>

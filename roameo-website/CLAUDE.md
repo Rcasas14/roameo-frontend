@@ -22,6 +22,10 @@ This is a Vue 3 SPA (Single Page Application) for Roameo, a travel booking platf
 - **Vuex 4** for state management with persistence
 - **@vueuse/motion** for animations
 - **vue-lazyload-next** for image optimization
+- **Swiper.js** for carousel/slider functionality with autoplay and navigation
+- **@vuepic/vue-datepicker** for advanced date picker functionality
+- **@headlessui/vue** for accessible UI components (Combobox, etc.)
+- **vue-select** for enhanced select components
 
 ### Project Structure
 - `src/views/` - Top-level view components (MainView, ErrorView)
@@ -76,13 +80,32 @@ This is a Vue 3 SPA (Single Page Application) for Roameo, a travel booking platf
   - Gradient overlays with backdrop blur effects
   - Mobile-first responsive design
 
+- **FeatureStaySection**: Hotel carousel with enhanced interactivity
+  - Swiper.js integration with autoplay functionality (4s delay)
+  - Custom navigation arrows with hover effects
+  - Pause autoplay on mouse hover for better UX
+  - Responsive breakpoints for different screen sizes
+  - Enhanced button animations and visual feedback
+
 ### Design System
 - **Primary Color**: #1A94FF (Roameo blue)
 - **Accent Color**: #FFE759 (Yellow badges)
 - **Typography**: Plus Jakarta Sans font family
 - **Components**: Rounded corners (1.5rem), consistent spacing
 - **Animations**: Smooth transitions, hover effects, transform animations
+- **Interactive Elements**: 
+  - Button hover effects with scale and shadow transforms
+  - Icon transitions (brightness/invert on hover)
+  - Autoplay carousels with pause-on-hover functionality
 - **Responsive**: Mobile-first with custom TailwindCSS breakpoints
+- **Accessibility**: Touch-friendly buttons (min 48px), proper focus states
 
 ### Current Development Focus
-Recent additions include FAQ functionality with interactive accordions and video gallery sections for featured travel episodes. The project maintains consistent design patterns with mobile-responsive layouts and smooth user interactions.
+Recent additions include FAQ functionality with interactive accordions, video gallery sections for featured travel episodes, and enhanced carousel functionality with autoplay features. The project emphasizes user experience with pause-on-hover interactions, smooth animations, and mobile-responsive layouts throughout all components.
+
+### Best Practices
+- **Carousel Implementation**: Use Swiper.js with autoplay, pause-on-hover, and custom navigation
+- **Interactive States**: Implement hover effects with visual feedback (scale, shadow, color changes)
+- **Mobile Optimization**: Ensure touch-friendly interactions and responsive breakpoints
+- **Animation Guidelines**: Use consistent transition durations (200-300ms) and easing functions
+- **Component Reusability**: Create modular components that can be integrated across sections

@@ -26,7 +26,7 @@
           <!-- See More Button -->
           <button
             @click="seeMore"
-            class="bg-[#1A94FF] hover:bg-[#1580e6] text-white font-semibold py-4 px-8 rounded-[20px] max-w-md w-full transition-all duration-200 transform hover:scale-[1.02] 
+            class="bg-[#1A94FF] hover:bg-[#1580e6] text-white font-semibold py-4 px-8 rounded-[20px] max-w-md w-full transition-all duration-200 transform hover:scale-[1.02]
                   focus:outline-none focus:ring-2 focus:ring-[#1A94FF] focus:ring-offset-2 flex items-center justify-between gap-3 mb-8 cursor-pointer"
           >
             See More
@@ -37,23 +37,25 @@
           <div class="flex gap-4">
             <button
               @click="slidePrev"
-              class="w-12 h-12 rounded-full border-2 border-[#1A94FF] flex items-center justify-center hover:bg-[#1A94FF]/10 transition-all duration-200 cursor-pointer"
-              :class="{ 'opacity-50 cursor-not-allowed': !canSlidePrev }"
+              class="w-12 h-12 rounded-full border-2 border-[#1A94FF] flex items-center justify-center hover:bg-[#1A94FF]/10 transition-all duration-200 cursor-pointer group"
             >
-              <img :src="arrowLeftIcon" alt="Previous" class="w-5 h-5">
+              <img :src="arrowLeftIcon" alt="Previous" class="w-5 h-5 group-hover:brightness-0 group-hover:invert">
             </button>
             <button
               @click="slideNext"
-              class="w-12 h-12 rounded-full border-2 border-[#1A94FF] flex items-center justify-center hover:bg-[#1A94FF]/10 transition-all duration-200 cursor-pointer"
-              :class="{ 'opacity-50 cursor-not-allowed': !canSlideNext }"
+              class="w-12 h-12 rounded-full border-2 border-[#1A94FF] flex items-center justify-center hover:bg-[#1A94FF]/10 transition-all duration-200 cursor-pointer group"
             >
-              <img :src="arrowRightIcon" alt="Next" class="w-5 h-5">
+              <img :src="arrowRightIcon" alt="Next" class="w-5 h-5 group-hover:brightness-0 group-hover:invert">
             </button>
           </div>
         </div>
 
         <!-- Right Carousel Area with Swiper -->
-        <div class="w-full lg:w-[900px] overflow-hidden flex-2">
+        <div
+          class="feature-stay-carousel w-full lg:w-[900px] overflow-hidden flex-2"
+          @mouseenter="pauseAutoplay"
+          @mouseleave="resumeAutoplay"
+        >
           <swiper
             :modules="modules"
             :slides-per-view="2"
@@ -72,22 +74,38 @@
                 spaceBetween: 24
               },
             }"
+            :autoplay="{
+              delay: 4000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true
+            }"
             :navigation="false"
             :pagination="false"
             :loop="true"
             class="hotel-swiper"
             @swiper="onSwiper"
             @slide-change="onSlideChange"
-            @reach-beginning="onReachBeginning"
-            @reach-end="onReachEnd"
           >
             <swiper-slide
               v-for="(hotel, index) in hotels"
               :key="index"
             >
-              <div class="hotel-card relative rounded-[1.5rem] overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl bg-cover bg-center lg:h-[600px] xs:h-auto w-auto md:mr-5"
-                :style="{ backgroundImage: `url(${getHotelImage(index)})` }"
-              >
+              <div class="hotel-card relative rounded-[1.5rem] overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl lg:h-[600px] xs:h-auto w-auto md:mr-5">
+
+                <!-- Lazy loaded background image -->
+                <div
+                  class="absolute inset-0 bg-gray-200 bg-cover bg-center transition-opacity duration-300"
+                  v-lazy:background-image="getHotelImage(index)"
+                ></div>
+
+                <!-- Loading placeholder (optional) -->
+                <div
+                  class="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center"
+                  v-show="!imageLoaded[index]"
+                >
+                  <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#4A9DB1]"></div>
+                </div>
+
                 <!-- Overlay Gradient -->
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
 
@@ -120,8 +138,9 @@
 </template>
 
 <script>
+import { reactive } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation, Pagination } from 'swiper/modules'
+import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -135,9 +154,9 @@ export default {
   data() {
     return {
       swiperInstance: null,
-      canSlidePrev: true,
-      canSlideNext: true,
-      modules: [Navigation, Pagination],
+      modules: [Navigation, Pagination, Autoplay],
+      imageLoaded: reactive({}), // Track loaded images with reactive
+
       topRightArrowIcon: new URL('@/assets/top-right-arrow.svg', import.meta.url).href,
       arrowLeftIcon: new URL('@/assets/arrow-left.svg', import.meta.url).href,
       arrowRightIcon: new URL('@/assets/arrow-right.svg', import.meta.url).href,
@@ -173,36 +192,51 @@ export default {
     },
     onSwiper(swiper) {
       this.swiperInstance = swiper
-      this.updateNavigationState()
     },
     onSlideChange() {
-      this.updateNavigationState()
+      // Handle slide change if needed
     },
-    onReachBeginning() {
-      // With infinite loop, we always allow navigation
-      this.canSlidePrev = true
+    pauseAutoplay() {
+      if (this.swiperInstance?.autoplay) {
+        this.swiperInstance.autoplay.stop()
+      }
     },
-    onReachEnd() {
-      // With infinite loop, we always allow navigation
-      this.canSlideNext = true
-    },
-    updateNavigationState() {
-      // With infinite loop enabled, navigation buttons are always active
-      this.canSlidePrev = true
-      this.canSlideNext = true
+    resumeAutoplay() {
+      if (this.swiperInstance?.autoplay) {
+        this.swiperInstance.autoplay.start()
+      }
     },
     slideNext() {
-      if (this.swiperInstance && this.canSlideNext) {
+      if (this.swiperInstance) {
         this.swiperInstance.slideNext()
       }
     },
     slidePrev() {
-      if (this.swiperInstance && this.canSlidePrev) {
+      if (this.swiperInstance) {
         this.swiperInstance.slidePrev()
       }
     },
     getHotelImage(index) {
       return index % 2 === 0 ? this.featuredImageOne : this.featuredImageTwo
+    }
+  },
+  mounted() {
+    // Listen for lazy load events
+    if (this.$Lazyload) {
+      this.$Lazyload.$on('loaded', ({ el }) => {
+        // Find the hotel card index by traversing the DOM
+        const swiperSlide = el.closest('.swiper-slide')
+        if (swiperSlide) {
+          const slides = Array.from(swiperSlide.parentElement.children)
+          const index = slides.indexOf(swiperSlide)
+          this.imageLoaded[index] = true
+        }
+      })
+
+      this.$Lazyload.$on('error', ({ src }) => {
+        console.warn('Failed to load image:', src)
+        // Optionally set a fallback image or show error state
+      })
     }
   }
 }
@@ -218,6 +252,20 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   min-height: 320px;
+}
+
+/* Lazy load specific styles */
+.hotel-card [lazy=loading] {
+  background-color: #f0f0f0;
+}
+
+.hotel-card [lazy=loaded] {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Custom styling for swiper slides */
@@ -272,27 +320,11 @@ export default {
   }
 }
 
-/* Hover effects for desktop */
+/* Enhanced button hover effects */
 @media (min-width: 1024px) {
-  .hotel-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 1;
-  }
-
-  .hotel-card:hover::before {
-    opacity: 1;
-  }
-
-  .hotel-card:hover .absolute.bottom-0 {
-    z-index: 2;
+  .feature-stay-section button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   }
 }
 
@@ -304,14 +336,6 @@ export default {
 
   .hotel-swiper {
     touch-action: pan-x;
-  }
-}
-
-/* Desktop button hover effects */
-@media (min-width: 1024px) {
-  .feature-stay-section button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   }
 }
 

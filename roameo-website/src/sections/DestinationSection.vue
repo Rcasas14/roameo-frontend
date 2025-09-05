@@ -18,13 +18,22 @@
         <div
           v-for="(destination, index) in destinations"
           :key="index"
-          class="destination-card group relative bg-cover bg-center rounded-[1.5rem] overflow-hidden h-full h-[320px] xs:h-[350px] sm:h-[380px] md:h-[400px] lg:h-[430px] cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl"
-          :style="{ backgroundImage: `url(${index === 0 ? destinationImageOne
-                                        : index === 1 ? destinationImageTwo
-                                        : index === 2 ? destinationImageThree
-                                        : index === 3 ? destinationImageTwo
-                                        : index === 4 ? destinationImageThree : destinationImageOne })` }"
+          class="destination-card group relative rounded-[1.5rem] overflow-hidden h-full h-[320px] xs:h-[350px] sm:h-[380px] md:h-[400px] lg:h-[430px] cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl"
         >
+          <!-- Lazy loaded background image -->
+          <div
+            class="absolute inset-0 bg-gray-200 bg-cover bg-center transition-opacity duration-300"
+            v-lazy:background-image="getDestinationImage(index)"
+          ></div>
+
+          <!-- Loading placeholder (optional) -->
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center"
+            v-show="!imageLoaded[index]"
+          >
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#4A9DB1]"></div>
+          </div>
+
           <!-- Overlay Gradient -->
           <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
 
@@ -83,6 +92,8 @@
 </template>
 
 <script>
+import { reactive } from 'vue'
+
 export default {
   name: 'DestinationSection',
   data() {
@@ -90,6 +101,7 @@ export default {
       destinationImageOne: new URL('@/assets/destination-image-1.jpg', import.meta.url).href,
       destinationImageTwo: new URL('@/assets/destination-image-2.jpg', import.meta.url).href,
       destinationImageThree: new URL('@/assets/destination-image-3.jpg', import.meta.url).href,
+      imageLoaded: reactive({}), // Track loaded images with reactive
       destinations: [
         {
           name: 'Florence Cathedral',
@@ -140,7 +152,26 @@ export default {
     bookFlight(destination) {
       console.log('Booking flight to:', destination.name);
       // Add booking logic here
+    },
+    getDestinationImage(index) {
+      const imageMap = {
+        0: this.destinationImageOne,
+        1: this.destinationImageTwo,
+        2: this.destinationImageThree,
+        3: this.destinationImageTwo,
+        4: this.destinationImageThree,
+        5: this.destinationImageOne
+      };
+      return imageMap[index] || this.destinationImageOne;
     }
+  },
+  mounted() {
+    // Listen for lazy load events
+    this.$Lazyload.$on('loaded', ({ el }) => {
+      // Mark image as loaded using direct assignment (Vue 3 way)
+      const index = Array.from(el.parentElement.parentElement.children).indexOf(el.parentElement);
+      this.imageLoaded[index] = true;
+    });
   }
 }
 </script>
@@ -150,6 +181,20 @@ export default {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+/* Lazy load specific styles */
+.destination-card [lazy=loading] {
+  background-color: #f0f0f0;
+}
+
+.destination-card [lazy=loaded] {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Mobile optimizations */
@@ -204,7 +249,6 @@ export default {
     max-width: 450px;
     height: 400px;
   }
-
 }
 
 /* LG devices and above - 1024px+ */
