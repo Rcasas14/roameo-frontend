@@ -9,17 +9,17 @@
   >
     <!-- Decorative Elements -->
     <!-- Top Left Asterisk -->
-    <div class="el-absolute absolute top-35 left-36 z-10 opacity-90 hidden lg:block">
+    <div v-motion="getSlideUpMotion(120)" class="el-absolute absolute top-35 left-36 z-10 opacity-90 hidden lg:block">
       <img :src="unionAsset" alt="decorative asterisk" class="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24">
     </div>
 
     <!-- Top Right Grid Dots -->
-    <div class="el-absolute absolute top-35 right-60 z-10 opacity-90 hidden lg:block">
+    <div v-motion="getSlideUpMotion(120)" class="el-absolute absolute top-35 right-60 z-10 opacity-90 hidden lg:block">
       <img :src="gridDots" alt="decorative dots" class="w-20 h-12 md:w-24 md:h-16 lg:w-34 lg:h-25">
     </div>
 
     <!-- Bottom Left Grid Dots -->
-    <div class="el-absolute absolute bottom-32 left-28 z-10 opacity-90 hidden lg:block">
+    <div v-motion="getSlideUpMotion(120)" class="el-absolute absolute bottom-32 left-28 z-10 opacity-90 hidden lg:block">
       <img :src="gridDots" alt="decorative dots" class="w-16 h-10 md:w-20 md:h-12 lg:w-30 lg:h-30">
     </div>
 
@@ -28,7 +28,8 @@
         id="main"
         class="hero-container px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center text-center w-full max-w-7xl py-20"
       >
-        <h1 class="hero-title text-white font-semibold text-3xl xs:text-[40px] sm:text-4xl md:text-5xl lg:text-6xl xl:text-[80px] 2xl:text-[86px] leading-tight drop-shadow-lg">
+        <h1 v-motion="getSlideUpMotion(200)"
+            class="hero-title text-white font-semibold text-3xl xs:text-[40px] sm:text-4xl md:text-5xl lg:text-6xl xl:text-[80px] 2xl:text-[86px] leading-tight drop-shadow-lg">
           Travel Boldly, Explore Proudly
         </h1>
         <div class="w-full max-w-6xl mt-8">
@@ -41,7 +42,7 @@
           <span class="text-[#000]">explore</span>
           <img :src="downArrow" alt="" class="w-3 h-3">
         </a>
-        <div class="z-[-1] el-absolute absolute bottom-0 top-[-53px]">
+        <div v-motion="getSlideUpMotion(200)" class="z-[-1] el-absolute absolute bottom-0 top-[-53px]">
           <img :src="unionAsset" alt="decorative asterisk" class="w-20 h-20 md:w-24 md:h-24 lg:w-24 lg:h-24">
         </div>
       </div>
@@ -79,8 +80,12 @@ import TopTravelTea from '@/sections/TopTravelTea.vue';
 import FaqSection from '@/sections/FaqSection.vue';
 import FeaturedEpisode from '@/sections/FeaturedEpisode.vue';
 
+import { useMotion } from '@/mixins/useMotion.js'
+
 export default {
   name: 'MainPage',
+  mixins: [ useMotion ],
+
   components: {
     FlightBookingForm,
     PartnerSection,

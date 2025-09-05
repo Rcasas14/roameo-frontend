@@ -5,14 +5,14 @@
         <!-- Left Content Area -->
         <div class="w-full flex flex-col items-center justify-center lg:justify-start lg:items-start order-1 lg:order-1">
           <!-- Heading -->
-            <h2 class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+            <h2 v-motion="getScrollSlideUpMotionBounce=(330)" class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-6 leading-tight">
               Got Questions?
               <br />
               We've Got You.
             </h2>
 
           <!-- Description -->
-          <p class="text-gray-600 text-lg leading-relaxed max-w-md">
+          <p v-motion="getScrollSlideUpMotionBounce=(360)" class="text-gray-600 text-lg leading-relaxed max-w-md">
             Whether you're planning your next big escape or just
             curious about how Roameo works, we've answered
             the most common questions to help you roam with
@@ -31,9 +31,11 @@
 
 <script>
 import AccordionComponent from '@/components/AccordionComponent.vue'
+import { useMotion } from '@/mixins/useMotion.js'
 
 export default {
   name: 'FaqSection',
+  mixins: [ useMotion ],
   components: {
     AccordionComponent
   }

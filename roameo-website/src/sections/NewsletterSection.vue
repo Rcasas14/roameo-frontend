@@ -15,30 +15,30 @@
         <!-- Content Card -->
         <div class="bg-white/40 backdrop-blur-sm rounded-3xl p-6 sm:p-8 lg:p-12 max-w-lg lg:max-w-2xl shadow-2xl transition-all duration-300 hover:bg-white/90">
           <!-- Main Heading -->
-          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+          <h2 v-motion="getScrollSlideUpMotionBounce(330, 60)" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
             Join Our Newsletter!
           </h2>
 
           <!-- Description -->
-          <p class="text-sm sm:text-base text-gray-700 mb-6 leading-relaxed">
+          <p v-motion="getScrollSlideUpMotionBounce(330, 60)" class="text-sm sm:text-base text-gray-700 mb-6 leading-relaxed">
             From unforgettable stays to smooth bookings, discover why Roameo is the top choice for curious, confident explorers around the world.
           </p>
 
           <!-- Social Proof Badge -->
-          <div class="bg-white/40 backdrop-blur-sm rounded-full px-3 py-1.5 mb-6 inline-flex items-center gap-2 w-full">
+          <div v-motion="getScrollSlideUpMotionBounce(330, 60)" class="bg-white/40 backdrop-blur-sm rounded-full px-3 py-1.5 mb-6 inline-flex items-center gap-2 w-full">
             <div class="flex -space-x-1.5">
-              <img 
+              <img
                   v-for="avatar in 3"
                   :key="avatar"
                   :src="avatarIcon"
-                  alt="People" 
+                  alt="People"
                   class="w-6 h-6 ">
             </div>
             <span class="text-xs text-gray-700 font-medium">247 people joined today!</span>
           </div>
 
           <!-- Email Subscription Form -->
-          <div class="space-y-4 mb-6">
+          <div v-motion="getScrollSlideUpMotionBounce(330, 60)" class="space-y-4 mb-6">
             <div class="flex flex-col sm:flex-row gap-3">
               <input
                 v-model="email"
@@ -57,7 +57,7 @@
           </div>
 
           <!-- Newsletter Benefits -->
-          <div class="space-y-4">
+          <div v-motion="getScrollSlideUpMotionBounce(330, 60)" class="space-y-4">
             <!-- Stay in the Know -->
             <div class="flex items-start gap-3">
               <div class="flex-shrink-0 w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center">
@@ -104,8 +104,11 @@
 </template>
 
 <script>
+import { useMotion } from '@/mixins/useMotion.js'
+
 export default {
   name: 'NewsletterSection',
+  mixins: [ useMotion ],
   data() {
     return {
       backgroundImage: new URL('@/assets/newsletter-bg.jpg', import.meta.url).href,
@@ -128,10 +131,10 @@ export default {
         console.log('Subscribing email:', this.email)
         // Add newsletter subscription logic here
         // Could integrate with email service like Mailchimp, ConvertKit, etc.
-        
+
         // Reset form after successful subscription
         this.email = ''
-        
+
         // You could show a success message here
         alert('Thank you for subscribing!')
       }
@@ -251,7 +254,7 @@ export default {
 @media (min-width: 1280px) {
   .newsletter-section {
     min-height: 700px;
-    
+
   }
 
   .newsletter-section .bg-white\/85 {

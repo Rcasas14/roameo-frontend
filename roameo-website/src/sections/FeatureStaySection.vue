@@ -5,26 +5,26 @@
         <!-- Left Content Area -->
         <div class="w-full lg:w-2/5 flex-shrink-0 flex flex-col flex-1 items-start justify-center my-auto">
           <!-- Badge -->
-          <div class="inline-block mb-6">
+          <div v-motion="getScrollSlideUpMotionBounce(230)" class="inline-block mb-6">
             <span class="bg-[#FFE759] text-black text-sm font-medium px-4 py-2 rounded-full">
               Featured Stays for Every Kind of Traveler
             </span>
           </div>
 
           <!-- Heading -->
-          <h2 class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <h2 v-motion="getScrollSlideUpMotionBounce(200)" class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-6 leading-tight">
             <span class="text-[#4A9DB1]">Top Stays</span> That Slay
           </h2>
 
           <!-- Description -->
-          <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+          <p v-motion="getScrollSlideUpMotionBounce(250)" class="text-gray-600 text-lg mb-8 leading-relaxed">
             From cozy boutique charm to big-city luxe,
             these hotels are giving main character energy
             with room service.
           </p>
 
           <!-- See More Button -->
-          <button
+          <button v-motion="getScrollSlideUpMotionBounce(280)"
             @click="seeMore"
             class="bg-[#1A94FF] hover:bg-[#1580e6] text-white font-semibold py-4 px-8 rounded-[20px] max-w-md w-full transition-all duration-200 transform hover:scale-[1.02]
                   focus:outline-none focus:ring-2 focus:ring-[#1A94FF] focus:ring-offset-2 flex items-center justify-between gap-3 mb-8 cursor-pointer"
@@ -90,7 +90,7 @@
               v-for="(hotel, index) in hotels"
               :key="index"
             >
-              <div class="hotel-card relative rounded-[1.5rem] overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl lg:h-[600px] xs:h-auto w-auto md:mr-5">
+              <div  class="hotel-card relative rounded-[1.5rem] overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl lg:h-[600px] xs:h-auto w-auto md:mr-5">
 
                 <!-- Lazy loaded background image -->
                 <div
@@ -144,9 +144,11 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+import { useMotion } from '@/mixins/useMotion.js'
 
 export default {
   name: 'FeatureStaySection',
+  mixins: [ useMotion ],
   components: {
     Swiper,
     SwiperSlide

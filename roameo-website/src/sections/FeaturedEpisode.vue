@@ -3,24 +3,24 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Header -->
       <div class="mb-12 lg:mb-16">
-        <div class="inline-flex items-center justify-center mb-6">
+        <div v-motion="getScrollSlideUpMotionBounce(230)" class="inline-flex items-center justify-center mb-6">
           <span class="bg-[#FFE759] text-black text-sm font-medium px-4 py-2 rounded-full">
             New
           </span>
         </div>
-        <h2 class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+        <h2 v-motion="getScrollSlideUpMotionBounce(330)" class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4 leading-tight">
           <span class="text-[#1A94FF]">Featured</span> Episodes
         </h2>
-        <p class="text-gray-600 text-lg leading-relaxed">
+        <p v-motion="getScrollSlideUpMotionBounce(360)" class="text-gray-600 text-lg leading-relaxed">
           Latest travel stories from around the world!
         </p>
       </div>
 
       <!-- Episodes Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+      <div v-motion="getScrollSlideUpMotionBounce(400)" class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
         <!-- Main Featured Episode (Large) -->
         <div class="lg:col-span-8">
-          <div 
+          <div
             class="episode-card group relative bg-cover bg-center rounded-[1.5rem] overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl h-[400px] sm:h-[450px] lg:h-[500px]"
             :style="{ backgroundImage: `url(${featuredEpisodeImg1})` }"
             @click="playEpisode(episodes[0])"
@@ -58,7 +58,7 @@
         <!-- Side Episodes (Small) -->
         <div class="lg:col-span-4 space-y-6">
           <!-- Episode 2 -->
-          <div 
+          <div
             class="episode-card group relative bg-cover bg-center rounded-[1.5rem] overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl h-[240px]"
             :style="{ backgroundImage: `url(${featuredEpisodeImg2})` }"
             @click="playEpisode(episodes[1])"
@@ -93,7 +93,7 @@
           </div>
 
           <!-- Episode 3 -->
-          <div 
+          <div
             class="episode-card group relative bg-cover bg-center rounded-[1.5rem] overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl h-[240px]"
             :style="{ backgroundImage: `url(${featuredCarouselImage3})` }"
             @click="playEpisode(episodes[2])"
@@ -133,8 +133,11 @@
 </template>
 
 <script>
+import { useMotion } from '@/mixins/useMotion.js'
+
 export default {
   name: 'FeaturedEpisode',
+  mixins: [ useMotion ],
   data() {
     return {
       playButtonIcon: new URL('@/assets/play-button-icon.svg', import.meta.url).href,
@@ -184,11 +187,11 @@ export default {
   .episode-card {
     height: 280px;
   }
-  
+
   .episode-card .absolute.bottom-0 {
     padding: 1rem;
   }
-  
+
   .episode-card h3 {
     font-size: 1rem;
   }
@@ -199,7 +202,7 @@ export default {
   .episode-card {
     height: 320px;
   }
-  
+
   .lg\:col-span-4 .episode-card {
     height: 200px;
   }
@@ -210,7 +213,7 @@ export default {
   .episode-card {
     height: 350px;
   }
-  
+
   .lg\:col-span-4 .episode-card {
     height: 220px;
   }
@@ -221,7 +224,7 @@ export default {
   .episode-card {
     height: 380px;
   }
-  
+
   .lg\:col-span-4 .episode-card {
     height: 240px;
   }
@@ -232,11 +235,11 @@ export default {
   .lg\:col-span-8 .episode-card {
     height: 500px;
   }
-  
+
   .lg\:col-span-4 .episode-card {
     height: 240px;
   }
-  
+
   .episode-card:hover {
     transform: translateY(-4px);
   }
@@ -264,7 +267,7 @@ export default {
   .episode-card:hover .absolute.bottom-0 {
     z-index: 2;
   }
-  
+
   .episode-card:hover .play-button {
     transform: scale(1.1);
   }

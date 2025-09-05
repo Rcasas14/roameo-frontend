@@ -2,16 +2,16 @@
   <section class="partner-section bg-gray-50 py-16 lg:py-24 font-plus-jakarta">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12 lg:mb-16">
-        <h2 class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4">
+        <h2 v-motion="getScrollSlideUpMotion(140)" class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4">
           Partnered and Trusted By
         </h2>
-        <p class="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
+        <p v-motion="getScrollSlideUpMotion(120)" class="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
           Backed by brands that share our passion for inclusive, unforgettable travel.
         </p>
       </div>
 
       <div class="partner-logos grid grid-cols-4 md:grid-cols-4 gap-8 lg:gap-12 items-center justify-items-center">
-        <div class="partner-logo-container flex flex-col items-center justify-center">
+        <div v-motion="getScrollSlideUpMotion(210)" class="partner-logo-container flex flex-col items-center justify-center">
           <img
             :src="tripcmLogo"
             alt="Trip.com"
@@ -20,7 +20,7 @@
           <p class="text-sm font-medium text-gray-700 mt-3">Trip.com</p>
         </div>
 
-        <div class="partner-logo-container flex flex-col items-center justify-center">
+        <div v-motion="getScrollSlideUpMotion(260)" class="partner-logo-container flex flex-col items-center justify-center">
           <img
             :src="agodaLogo"
             alt="Agoda"
@@ -29,7 +29,7 @@
           <p class="text-sm font-medium text-gray-700 mt-3">Agoda</p>
         </div>
 
-        <div class="partner-logo-container flex flex-col items-center justify-center">
+        <div v-motion="getScrollSlideUpMotion(310)" class="partner-logo-container flex flex-col items-center justify-center">
           <img
             :src="flightNetworkLogo"
             alt="Flight Network"
@@ -41,7 +41,7 @@
           </p>
         </div>
 
-        <div class="partner-logo-container flex flex-col items-center justify-center">
+        <div v-motion="getScrollSlideUpMotion(360)" class="partner-logo-container flex flex-col items-center justify-center">
           <img
             :src="zenHotelsLogo"
             alt="Zenhotels"
@@ -55,8 +55,11 @@
 </template>
 
 <script>
+import { useMotion } from '@/mixins/useMotion.js'
+
 export default {
   name: 'PartnerSection',
+  mixins: [ useMotion ],
   data() {
     return {
       tripcmLogo: new URL('@/assets/tripcom-logo.png', import.meta.url).href,
