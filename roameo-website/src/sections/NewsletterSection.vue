@@ -104,8 +104,11 @@
 </template>
 
 <script>
+import { useMotion } from '@/mixins/useMotion.js'
+
 export default {
   name: 'NewsletterSection',
+  mixins: [ useMotion ],
   data() {
     return {
       backgroundImage: new URL('@/assets/newsletter-bg.jpg', import.meta.url).href,

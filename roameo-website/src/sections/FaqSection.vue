@@ -31,9 +31,11 @@
 
 <script>
 import AccordionComponent from '@/components/AccordionComponent.vue'
+import { useMotion } from '@/mixins/useMotion.js'
 
 export default {
   name: 'FaqSection',
+  mixins: [ useMotion ],
   components: {
     AccordionComponent
   }

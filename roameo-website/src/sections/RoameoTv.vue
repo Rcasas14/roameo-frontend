@@ -50,8 +50,11 @@
 </template>
 
 <script>
+import { useMotion } from '@/mixins/useMotion.js'
+
 export default {
   name: 'RoameoTv',
+  mixins: [ useMotion ],
   data() {
     return {
       backgroundImage: new URL('@/assets/roameo-tv-bg.jpg', import.meta.url).href,

@@ -32,25 +32,26 @@
         <!-- Right Side - Content -->
         <div class="main-bg order-1 lg:order-2 text-center lg:text-left lg:col-span-2 p-4 md:p-10 rounded-[20px] md:max-w-[720px] lg:max-w-full" :style="{backgroundImage: `url(${backgroundImage})`, backgroundAttachment: 'fixed'}">
           <!-- Badge -->
-          <div class="flex flex-col items-center justify-center mb-6">
+          <div v-motion="getScrollSlideUpMotion(200)" class="flex flex-col items-center justify-center mb-6">
             <span class="bg-[#FFE759] text-black text-sm font-semibold px-4 py-2 rounded-full">
               How Our Process Works
             </span>
           </div>
 
           <!-- Main Heading -->
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-12 leading-tight text-center">
+          <h2 v-motion="getScrollSlideUpMotionBounce(200)" class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-12 leading-tight text-center">
             <span class="text-[#E91E63]">Top Travel Journey</span><br>
             <span class="text-gray-900">in 3 Simple Steps</span>
           </h2>
 
           <!-- Journey Steps -->
-          <div class="space-y-8">
+          <div v-motion="getScrollSlideUpMotionBounce(150)" class="space-y-8 ">
             <!-- Step 1 -->
             <div 
               v-for="(step, index) in journeySteps" 
               :key="index"
               class="flex flex-row rounded-3xl overflow-hidden shadow-xl h-auto lg:h-[260px]"
+              
             >
               <div class="travel-text bg-white/60 backdrop-blur-sm flex items-start gap-6 lg:p-4 xl:p-6 flex-1 transition-all duration-300 ">
                 <!-- Step Number -->
@@ -144,8 +145,11 @@
 //   `
 // };
 
+import { useMotion } from '@/mixins/useMotion.js'
+
 export default {
   name: 'TravelJourney',
+  mixins: [ useMotion ],
   // components: {
   //   CompassIcon,
   //   CalendarIcon,

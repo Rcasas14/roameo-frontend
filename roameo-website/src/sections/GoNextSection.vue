@@ -12,7 +12,7 @@
     <!-- Content -->
     <div class="relative z-10  mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-center items-center max-h-[37.5rem]">
-        <div class="bg-white/55 backdrop-blur-sm rounded-3xl p-8 sm:p-12 lg:p-16 max-w-7xl w-full mx-auto text-center shadow-2xl">
+        <div v-motion="getScrollFadeInMotion(900)" class="bg-white/55 backdrop-blur-sm rounded-3xl p-8 sm:p-12 lg:p-16 max-w-7xl w-full mx-auto text-center shadow-2xl">
           <!-- Heading -->
           <h2 class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-6 leading-tight">
             Not Sure Where to Go Next? Let Our AI Curate Your Adventure.
@@ -46,8 +46,11 @@
 </template>
 
 <script>
+import { useMotion } from '@/mixins/useMotion.js'
+
 export default {
   name: 'GoNextSection',
+  mixins: [ useMotion ],
   data() {
     return {
       backgroundImage: new URL('@/assets/gonext-image-bg.jpg', import.meta.url).href,

@@ -133,8 +133,11 @@
 </template>
 
 <script>
+import { useMotion } from '@/mixins/useMotion.js'
+
 export default {
   name: 'FeaturedEpisode',
+  mixins: [ useMotion ],
   data() {
     return {
       playButtonIcon: new URL('@/assets/play-button-icon.svg', import.meta.url).href,

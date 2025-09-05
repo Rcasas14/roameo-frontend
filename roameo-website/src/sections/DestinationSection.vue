@@ -4,17 +4,18 @@
       <!-- Header -->
       <div class="text-center mb-12 lg:mb-16">
         <div class="inline-flex items-center justify-center">
-          <span class="bg-[#FFE759] text-black text-sm font-medium px-4 py-2 rounded-full mb-4">
+          <span v-motion="getScrollSlideUpMotion(100)" class="bg-[#FFE759] text-black text-sm font-medium px-4 py-2 rounded-full mb-4">
             Trending Now
           </span>
         </div>
-        <h2 class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4 max-w-4xl mx-auto leading-tight">
+        <h2 v-motion="getScrollSlideUpMotion(150)" class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4 max-w-4xl mx-auto leading-tight">
           <span class="text-[#4A9DB1]">Top Destinations</span> That Totally Eat (And Leave No Crumbs)
         </h2>
       </div>
 
       <!-- Destinations Grid -->
-      <div class="destinations-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 place-items-center">
+    <div v-motion="getScrollSlideUpMotion(220)"  
+      class="destinations-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 place-items-center">
         <div
           v-for="(destination, index) in destinations"
           :key="index"
@@ -93,9 +94,11 @@
 
 <script>
 import { reactive } from 'vue'
+import { useMotion } from '@/mixins/useMotion.js'
 
 export default {
   name: 'DestinationSection',
+  mixins: [ useMotion ],
   data() {
     return {
       destinationImageOne: new URL('@/assets/destination-image-1.jpg', import.meta.url).href,

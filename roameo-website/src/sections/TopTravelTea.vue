@@ -4,19 +4,19 @@
       <!-- Header Section -->
       <div class="text-center mb-12 lg:mb-16 relative">
         <!-- Badge -->
-        <div class="inline-flex items-center justify-center mb-6">
+        <div v-motion="getScrollSlideUpMotionBounce(150)" class="inline-flex items-center justify-center mb-6">
           <span class="bg-[#FFE759] text-black text-sm font-medium px-4 py-2 rounded-full">
             Trending Now
           </span>
         </div>
 
         <!-- Main Heading -->
-        <h2 class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-8 leading-tight max-w-4xl mx-auto">
+        <h2 v-motion="getScrollSlideUpMotionBounce(200)" class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-8 leading-tight max-w-4xl mx-auto">
           <span class="text-[#1A94FF]">Top Travel Tea,</span> Spilled Weekly
         </h2>
 
         <!-- Description -->
-        <p class="text-gray-600 text-lg mb-12 max-w-3xl mx-auto leading-relaxed">
+        <p v-motion="getScrollSlideUpMotionBounce(230)" class="text-gray-600 text-lg mb-12 max-w-3xl mx-auto leading-relaxed">
           Real stories, hot takes, and all the inspo you need to pack your bags and book that flight. No gatekeeping here.
         </p>
 
@@ -149,7 +149,7 @@
       </div>
 
       <!-- Navigation Arrows - Mobile -->
-      <div class="flex lg:hidden justify-center gap-4 mt-8">
+      <div v-motion="getScrollFadeInMotion(400)" class="flex lg:hidden justify-center gap-4 mt-8">
         <button
           @click="slidePrev"
           class="w-12 h-12 rounded-full border-2 border-[#1A94FF] flex items-center justify-center hover:bg-[#1A94FF]/10 transition-all duration-200 cursor-pointer group"
@@ -174,9 +174,11 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+import { useMotion } from '@/mixins/useMotion.js'
 
 export default {
   name: 'TopTravelTea',
+  mixins: [ useMotion ],
   components: {
     Swiper,
     SwiperSlide

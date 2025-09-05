@@ -43,7 +43,7 @@
             },
           }"
           :autoplay="{
-            delay: 3500,
+            delay: 1,
             disableOnInteraction: false,
             pauseOnMouseEnter: true
           }"
@@ -51,6 +51,10 @@
           :pagination="false"
           :loop="true"
           :centered-slides="false"
+          :speed="6000"
+          :allow-touch-move="false"      
+          :free-mode="true"              
+          :free-mode-momentum="false"
           class="testimonials-swiper"
           @swiper="onSwiper"
           @slide-change="onSlideChange"
@@ -114,7 +118,7 @@
       </div>
 
       <!-- Clean Navigation Arrows -->
-      <div class="flex justify-center gap-4 mt-8">
+      <!-- <div class="flex justify-center gap-4 mt-8">
         <button
           @click="slidePrev"
           class="w-12 h-12 rounded-full border-2 border-[#1A94FF] flex items-center justify-center hover:bg-[#1A94FF] hover:text-white transition-all duration-200 cursor-pointer group"
@@ -128,7 +132,7 @@
         >
           <img :src="arrowRightIcon" alt="Next" class="w-5 h-5 group-hover:brightness-0 group-hover:invert">
         </button>
-      </div>
+      </div> -->
     </div>
   </section>
 </template>
@@ -139,9 +143,11 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+import { useMotion } from '@/mixins/useMotion.js'
 
 export default {
   name: 'TestimonialsSection',
+  mixins: [ useMotion ],
   components: {
     Swiper,
     SwiperSlide
