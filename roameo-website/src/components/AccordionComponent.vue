@@ -1,6 +1,6 @@
 <template>
   <div class="w-full max-w-4xl mx-auto font-plus-jakarta">
-    <div class="space-y-4">
+    <div v-motion="getScrollSlideUpMotionBounce(330, 90)" class="space-y-4">
       <!-- Accordion Item 1 -->
       <div class="rounded-lg shadow-sm border transition-all duration-200"
            :class="activeItems.includes(0) ? 'bg-[#1A94FF] border-[#1A94FF]' : 'bg-white border-gray-200'">
@@ -24,7 +24,7 @@
           <div v-if="activeItems.includes(0)" class="px-6 pb-4">
             <p class="leading-relaxed"
                :class="activeItems.includes(0) ? 'text-white/90' : 'text-gray-600'">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              Absolutely, We with trusted global booking platform to ensure a smooth, secure experience. You'll always be redirected to verified sites when it's time to confirm your plans.
             </p>
           </div>
         </transition>
@@ -82,7 +82,7 @@
           <div v-if="activeItems.includes(2)" class="px-6 pb-4">
             <p class="leading-relaxed"
                :class="activeItems.includes(2) ? 'text-white/90' : 'text-gray-600'">
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Absolutely, We with trusted global booking platform to ensure a smooth, secure experience. You'll always be redirected to verified sites when it's time to confirm your plans.
             </p>
           </div>
         </transition>
@@ -92,8 +92,11 @@
 </template>
 
 <script>
+import { useMotion } from '@/mixins/useMotion.js';
+
 export default {
   name: 'AccordionComponent',
+  mixins: [ useMotion ],
   data() {
     return {
       activeItems: [], // No items open by default

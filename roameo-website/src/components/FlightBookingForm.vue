@@ -690,8 +690,6 @@ export default {
       locationIcon: new URL('@/assets/location-icon.svg', import.meta.url).href,
       planeIcon: new URL('@/assets/plane-icon.svg', import.meta.url).href,
       hotelIcon: new URL('@/assets/hotel-icon.svg', import.meta.url).href,
-      airportIcon: new URL('@/assets/airport-icon.svg', import.meta.url).href,
-      cityIcon: new URL('@/assets/city-icon.svg', import.meta.url).href,
       userIcon: new URL('@/assets/user-icon.svg', import.meta.url).href,
     };
   },
@@ -806,7 +804,7 @@ export default {
 
     getLocationIcon(location) {
       if (!location) return this.locationIcon
-      return location.type === 'airport' ? this.airportIcon : this.cityIcon
+      return location.type === 'airport' ? this.planeIcon : this.hotelIcon
     },
 
     // Selection handlers

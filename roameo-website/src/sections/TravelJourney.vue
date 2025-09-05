@@ -3,29 +3,38 @@
     <!-- Content -->
     <div class=" max-w-[1660px] 2xl:max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="content lg:grid lg:grid-cols-3 gap-8 lg:gap-16 flex items-start justify-center">
-        
-        <!-- Left Side - Image Gallery -->
+
+        <!-- Left Side - Vertical Image Carousel -->
         <div class="order-2 lg:order-1 hidden lg:flex lg:items-center lg:justify-end">
-          <div class="grid grid-cols-1 gap-5">
-            <!-- Top Left Image -->
-            <div class="rounded-2xl overflow-hidden h-48 max-w-[350px] sm:h-56 lg:h-64 shadow-lg hover:-translate-y-1 transition-all duration-300 ease-in-out hover:shadow-xl">
-            <img class="w-full h-full object-cover object-center transition-transform duration-300 ease-in-out hover:scale-105" :src="destinationImageOne" alt="">
-            </div>
-            
-            <!-- Top Right Image -->
-            <div class="rounded-2xl overflow-hidden h-48 max-w-[350px] sm:h-56 lg:h-64 bg-cover shadow-lg hover:-translate-y-1 transition-all duration-300 ease-in-out hover:shadow-xl">
-            <img class="w-full h-full object-cover object-center transition-transform duration-300 ease-in-out hover:scale-105" :src="coconutBeachImage" alt="">
-            </div>
-            
-            <!-- Bottom Left Image -->
-            <div class="rounded-2xl overflow-hidden h-48 max-w-[350px] sm:h-56 lg:h-64 bg-cover shadow-lg hover:-translate-y-1 transition-all duration-300 ease-in-out hover:shadow-xl">
-            <img class="w-full h-full object-cover object-center transition-transform duration-300 ease-in-out hover:scale-105" :src="destinationImageTwo" alt="">
-            </div>
-            
-            <!-- Bottom Right Image -->
-            <div class="rounded-2xl overflow-hidden h-48 max-w-[350px] sm:h-56 lg:h-64 bg-cover shadow-lg hover:-translate-y-1 transition-all duration-300 ease-in-out hover:shadow-xl">
-            <img class="w-full h-full object-cover object-center transition-transform duration-300 ease-in-out hover:scale-105" :src="destinationImageThree" alt="">
-            </div>
+          <div class="max-w-[350px] h-[1000px] overflow-hidden">
+            <swiper
+              :modules="swiperModules"
+              :direction="'vertical'"
+              :slides-per-view="4"
+              :space-between="20"
+              :autoplay="{
+                delay: 1,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: false
+              }"
+              :speed="6000"
+              :loop="true"
+              :allow-touch-move="false"
+              class="gallery-swiper h-full"
+            >
+              <swiper-slide
+                v-for="(image, index) in galleryImages"
+                :key="index"
+              >
+                <div class="rounded-2xl overflow-hidden h-58 w-auto shadow-lg hover:-translate-y-1 transition-all duration-300 ease-in-out hover:shadow-xl group">
+                  <img
+                    class="w-full h-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-105"
+                    :src="image.src"
+                    :alt="image.alt"
+                  >
+                </div>
+              </swiper-slide>
+            </swiper>
           </div>
         </div>
 
@@ -47,18 +56,18 @@
           <!-- Journey Steps -->
           <div v-motion="getScrollSlideUpMotionBounce(150)" class="space-y-8 ">
             <!-- Step 1 -->
-            <div 
-              v-for="(step, index) in journeySteps" 
+            <div
+              v-for="(step, index) in journeySteps"
               :key="index"
               class="flex flex-row rounded-3xl overflow-hidden shadow-xl h-auto lg:h-[260px]"
-              
+
             >
               <div class="travel-text bg-white/60 backdrop-blur-sm flex items-start gap-6 lg:p-4 xl:p-6 flex-1 transition-all duration-300 ">
                 <!-- Step Number -->
                 <div class="flex-shrink-0 w-11 h-11 xl:w-14 xl:h-14 bg-[#FFE759] rounded-full flex items-center justify-center shadow-lg my-auto hidden lg:flex">
                   <span class="text-black font-bold text-lg xl:text-xl">{{ index + 1 }}</span>
                 </div>
-                
+
                 <!-- Step Content-->
                 <div class="flex">
                   <!-- Desktop -->
@@ -68,7 +77,7 @@
                       <p class="text-gray-600 text-base lg:text-[16px] xl:text-lg leading-relaxed mb-6 pr-4">
                         {{ step.description }}
                       </p>
-                      
+
                       <!-- CTA Button -->
                       <button
                         @click="step.action"
@@ -92,7 +101,7 @@
                       <p class="text-gray-600 text-base lg:text-lg leading-relaxed mb-6 pr-4">
                         {{ step.description }}
                       </p>
-                      
+
                       <!-- CTA Button -->
                       <button
                         @click="step.action"
@@ -146,10 +155,17 @@
 // };
 
 import { useMotion } from '@/mixins/useMotion.js'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Autoplay } from 'swiper/modules'
+import 'swiper/css'
 
 export default {
   name: 'TravelJourney',
   mixins: [ useMotion ],
+  components: {
+    Swiper,
+    SwiperSlide
+  },
   // components: {
   //   CompassIcon,
   //   CalendarIcon,
@@ -157,6 +173,7 @@ export default {
   // },
   data() {
     return {
+      swiperModules: [Autoplay],
       compassIcon: new URL('@/assets/compass-icon.svg', import.meta.url).href,
       airBalloonIcon: new URL('@/assets/air-balloon-icon.svg', import.meta.url).href,
       mapIcon: new URL('@/assets/map-icon.svg', import.meta.url).href,
@@ -165,7 +182,34 @@ export default {
       destinationImageTwo: new URL('@/assets/destination-image-2.jpg', import.meta.url).href,
       destinationImageThree: new URL('@/assets/destination-image-3.jpg', import.meta.url).href,
       coconutBeachImage: new URL('@/assets/coconut-beach-image.jpg', import.meta.url).href,
-      
+
+      galleryImages: [
+        {
+          src: new URL('@/assets/destination-image-1.jpg', import.meta.url).href,
+          alt: 'Travel destination 1'
+        },
+        {
+          src: new URL('@/assets/coconut-beach-image.jpg', import.meta.url).href,
+          alt: 'Coconut beach'
+        },
+        {
+          src: new URL('@/assets/destination-image-2.jpg', import.meta.url).href,
+          alt: 'Travel destination 2'
+        },
+        {
+          src: new URL('@/assets/destination-image-3.jpg', import.meta.url).href,
+          alt: 'Travel destination 3'
+        },
+        {
+          src: new URL('@/assets/destination-image-1.jpg', import.meta.url).href,
+          alt: 'Travel destination 1'
+        },
+        {
+          src: new URL('@/assets/coconut-beach-image.jpg', import.meta.url).href,
+          alt: 'Coconut beach'
+        }
+      ],
+
       journeySteps: [
         {
           title: 'Discover Your Next Escape',
@@ -217,7 +261,7 @@ export default {
 
 /* Mobile optimizations */
 @media (max-width: 639px) {
-  
+
 }
 
 /* SM devices - 640px+ */
@@ -250,9 +294,14 @@ export default {
 
 /* LG devices and above - 1024px+ */
 @media (min-width: 1024px) {
-  
+  .gallery-swiper {
+    overflow: visible;
+  }
 
-  
+  .gallery-swiper .swiper-slide {
+    height: auto;
+  }
+
   .travel-journey-section .grid-cols-2 .rounded-2xl {
     height: 16rem;
   }
@@ -264,7 +313,7 @@ export default {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
-  
+
 }
 
 /* Touch-friendly interactions on mobile */

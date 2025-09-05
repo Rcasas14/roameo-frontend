@@ -2,24 +2,24 @@
   <section class="testimonials-section bg-white py-16 lg:py-24 font-plus-jakarta">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Header Section (unchanged) -->
-      <div class="text-center mb-12 lg:mb-16">
+      <div v-motion="getScrollSlideUpMotionBounce(230)" class="text-center mb-12 lg:mb-16">
         <div class="inline-flex items-center justify-center mb-6">
           <span class="bg-[#FFE759] text-black text-sm font-medium px-4 py-2 rounded-full">
             Testimonials
           </span>
         </div>
 
-        <h2 class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-8 leading-tight max-w-4xl mx-auto">
+        <h2 v-motion="getScrollSlideUpMotionBounce(330)" class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-8 leading-tight max-w-4xl mx-auto">
           <span class="text-[#1A94FF]">Top Raves</span> from the Roam Fam
         </h2>
 
-        <p class="text-gray-600 text-lg mb-12 max-w-3xl mx-auto leading-relaxed">
+        <p v-motion="getScrollSlideUpMotionBounce(360)" class="text-gray-600 text-lg mb-12 max-w-3xl mx-auto leading-relaxed">
           They came, they slayed, they shared. Hear what fellow travelers (and low-key icons) loved most about Roameo.
         </p>
       </div>
 
       <!-- Testimonials Carousel with Auto-play -->
-      <div
+      <div v-motion="getScrollFadeInMotion(800)"
         class="testimonials-carousel overflow-hidden"
         @mouseenter="pauseAutoplay"
         @mouseleave="resumeAutoplay"
@@ -52,8 +52,8 @@
           :loop="true"
           :centered-slides="false"
           :speed="6000"
-          :allow-touch-move="false"      
-          :free-mode="true"              
+          :allow-touch-move="false"
+          :free-mode="true"
           :free-mode-momentum="false"
           class="testimonials-swiper"
           @swiper="onSwiper"

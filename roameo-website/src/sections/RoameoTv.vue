@@ -13,13 +13,13 @@
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-start lg:justify-start items-center min-h-[500px] lg:min-h-[600px]">
         <!-- Content Card -->
-        <div class="bg-white/60 backdrop-blur-sm rounded-3xl p-6 sm:p-8 lg:p-12 max-w-lg lg:max-w-2xl shadow-2xl transition-all duration-300 hover:bg-white/90">
+        <div v-motion="getScrollFadeInMotion(900)" class="bg-white/60 backdrop-blur-sm rounded-3xl p-6 sm:p-8 lg:p-12 max-w-lg lg:max-w-2xl shadow-2xl transition-all duration-300 hover:bg-white/90">
           <!-- Logo and Title -->
           <div class="flex items-center gap-3 mb-6">
             <div class="flex-shrink-0">
-              <img 
-                :src="roameoLogo" 
-                alt="Roameo Logo" 
+              <img
+                :src="roameoLogo"
+                alt="Roameo Logo"
                 class="md:w-full md:h-full w-46"
               >
             </div>

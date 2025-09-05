@@ -21,7 +21,7 @@
         </p>
 
         <!-- Navigation Arrows - Desktop Only -->
-        <div class="hidden lg:flex absolute top-1/2 -translate-y-1/2 right-0 gap-4">
+        <div v-motion="getScrollFadeInMotion(600)" class="hidden lg:flex absolute top-1/2 -translate-y-1/2 right-0 gap-4">
           <button
             @click="slidePrev"
             class="w-12 h-12 rounded-full bg-[#1A94FF] text-white flex items-center justify-center hover:bg-[#1580e6] transition-all duration-200 cursor-pointer shadow-lg"
@@ -38,7 +38,7 @@
       </div>
 
       <!-- Stories Carousel -->
-      <div
+      <div v-motion="getScrollSlideUpMotionBounce(310)"
         class="stories-carousel overflow-hidden"
         @mouseenter="pauseAutoplay"
         @mouseleave="resumeAutoplay"
@@ -149,10 +149,10 @@
       </div>
 
       <!-- Navigation Arrows - Mobile -->
-      <div v-motion="getScrollFadeInMotion(400)" class="flex lg:hidden justify-center gap-4 mt-8">
+      <div v-motion="getScrollFadeInMotion(600)" class="flex lg:hidden justify-center gap-4 mt-8">
         <button
           @click="slidePrev"
-          class="w-12 h-12 rounded-full border-2 border-[#1A94FF] flex items-center justify-center hover:bg-[#1A94FF]/10 transition-all duration-200 cursor-pointer group"
+          class="w-12 h-12 rounded-full border-2 border-[#1A94FF] flex items-center justify-center hover:bg-[#1A94FF]/10 transition-all duration-200 cursor-pointer group border"
         >
           <img :src="arrowLeftIcon" alt="Previous" class="w-5 h-5 group-hover:brightness-0 group-hover:invert">
         </button>

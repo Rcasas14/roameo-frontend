@@ -24,7 +24,7 @@
           </p>
 
           <!-- See More Button -->
-          <button v-motion=""
+          <button v-motion="getScrollSlideUpMotionBounce(280)"
             @click="seeMore"
             class="bg-[#1A94FF] hover:bg-[#1580e6] text-white font-semibold py-4 px-8 rounded-[20px] max-w-md w-full transition-all duration-200 transform hover:scale-[1.02]
                   focus:outline-none focus:ring-2 focus:ring-[#1A94FF] focus:ring-offset-2 flex items-center justify-between gap-3 mb-8 cursor-pointer"
@@ -90,7 +90,7 @@
               v-for="(hotel, index) in hotels"
               :key="index"
             >
-              <div class="hotel-card relative rounded-[1.5rem] overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl lg:h-[600px] xs:h-auto w-auto md:mr-5">
+              <div  class="hotel-card relative rounded-[1.5rem] overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl lg:h-[600px] xs:h-auto w-auto md:mr-5">
 
                 <!-- Lazy loaded background image -->
                 <div
