@@ -24,7 +24,7 @@
           </p>
 
           <!-- See More Button -->
-          <button v-motion="getScrollSlideUpMotionBounce(280)"
+          <button v-motion-slide-visible-once-bottom
             @click="seeMore"
             class="bg-[#1A94FF] hover:bg-[#1580e6] text-white font-semibold py-4 px-8 rounded-[20px] max-w-md w-full transition-all duration-200 transform hover:scale-[1.02]
                   focus:outline-none focus:ring-2 focus:ring-[#1A94FF] focus:ring-offset-2 flex items-center justify-between gap-3 mb-8 cursor-pointer"
