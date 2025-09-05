@@ -111,10 +111,35 @@ export default {
 #### Interactive Components
 - **AccordionComponent**: Reusable accordion with dynamic highlighting
   - Supports multiple simultaneous open items
-  - Blue (#1A94FF) highlighting for active/expanded items
-  - Smooth animations with height transitions
-  - Mobile responsive with proper touch targets
-  - Uses plus-accordion.svg icon with 45° rotation
+  - Blue (#1A94FF) highlighting for active/expanded items with white text
+  - Smooth height animations using Vue transition system
+  - Mobile responsive with proper touch targets (48px minimum)
+  - Uses plus-accordion.svg icon with 45° rotation animation
+  - Integrated with useMotion mixin for scroll-triggered entrance animations
+
+- **FlightBookingForm**: Advanced travel booking interface with dual-tab functionality
+  - **Tab System**: Switch between Flights and Hotels with visual feedback
+    - Yellow highlight (#FFE759) for active tabs with icons (plane/hotel)
+    - Smooth transitions and hover states
+  - **Flight Search**: Location-based flight booking with real-time search
+    - Dual location inputs (From/To) with Headless UI Combobox
+    - Real-time location search using OpenStreetMap Nominatim API
+    - Debounced search (300ms) with loading indicators
+    - Location type detection (airport vs city) with appropriate icons
+    - Swap functionality for reversing From/To locations
+    - Date pickers with Vue DatePicker for departure/return dates
+  - **Hotel Search**: Location and date-based hotel booking
+    - Single location input with same search functionality
+    - Check-in/Check-out date selection with validation
+    - Guest selection placeholder (expandable for future implementation)
+  - **Responsive Design**: 
+    - Desktop: Horizontal form layout with inline fields
+    - Mobile: Vertical stacked layout with full-width inputs
+  - **Date Picker Integration**:
+    - Custom styling matching website design system
+    - Hidden default SVG icons, custom styling for inputs
+    - Action buttons (Select/Cancel) styled with brand colors
+    - Global CSS overrides for Vue DatePicker consistency
 
 #### Section Components
 All section components implement the `useMotion` mixin for consistent scroll-based animations:
@@ -144,11 +169,16 @@ All section components implement the `useMotion` mixin for consistent scroll-bas
   - Glass morphism bottom overlays for hotel information
   - Staggered animations for left content area (badge, heading, description)
 
-- **TravelJourney**: Multi-step travel process with background overlay
-  - Fixed background attachment with step-by-step journey cards
-  - Glass morphism cards with numbered steps and icons
-  - Bounce animations for enhanced visual impact
-  - Mobile-responsive layout with proper content flow
+- **TravelJourney**: Multi-step travel process with vertical image carousel
+  - **Left Side**: Vertical Swiper carousel with continuous marquee effect
+    - 4 visible images with 20px spacing, vertical direction
+    - Ultra-fast autoplay (1ms delay, 6000ms speed) for continuous motion
+    - Loop enabled with touch interaction disabled for uninterrupted flow
+    - 1000px height container showcasing destination images
+  - **Right Side**: Fixed background with step-by-step journey cards
+    - Glass morphism cards with numbered steps and icons (compass, air balloon, map)
+    - Bounce animations for enhanced visual impact
+    - Mobile-responsive layout with proper content flow
 
 - **TopTravelTea**: Travel stories carousel with navigation
   - 3-slide Swiper with infinite loop and autoplay
@@ -213,12 +243,37 @@ All section components implement the `useMotion` mixin for consistent scroll-bas
 - **Responsive**: Mobile-first with custom TailwindCSS breakpoints
 - **Accessibility**: Touch-friendly buttons (min 48px), proper focus states, motion preferences
 
-### Current Development Focus
-The application now features a comprehensive landing page with 11 distinct sections, each implementing consistent scroll-based animations through the unified `useMotion` mixin system. Recent developments include:
+### Recent Major Updates
 
+#### Motion Animation System Stabilization (Latest)
+- **Fixed useMotion Import Path Issues**: Resolved cascade failures causing motion animations to break across all components
+- **AccordionComponent Path Correction**: Fixed incorrect import path that was breaking the entire animation system
+- **Empty v-motion Attribute Fix**: Corrected syntax error in FeatureStaySection.vue that prevented animations from loading
+- **Animation System Validation**: All components now properly inherit from useMotion mixin with consistent behavior
+
+#### Component Architecture Enhancements
+- **TravelJourney Vertical Carousel**: Transformed static image gallery into dynamic vertical Swiper
+  - Continuous marquee effect with 1ms delay and 6000ms speed
+  - 4 visible images in vertical layout with seamless infinite loop
+  - Touch interaction disabled for uninterrupted auto-scroll experience
+- **FlightBookingForm Icon Cleanup**: Fixed missing SVG references
+  - Removed non-existent airport-icon.svg and city-icon.svg references
+  - Updated getLocationIcon() method to use existing plane-icon.svg and hotel-icon.svg
+  - Eliminated build warnings and console errors
+
+#### New Component Additions
+- **AccordionComponent**: Fully interactive accordion with blue highlighting system
+- **FaqSection**: Two-column layout integrating AccordionComponent
+- **FeaturedEpisode**: Video gallery with asymmetric grid and play button overlays
+
+### Current Development Focus
+The application now features a comprehensive landing page with 12+ distinct sections, each implementing consistent scroll-based animations through the unified and stabilized `useMotion` mixin system. Key achievements include:
+
+- **Stable Motion System**: Fixed all import path issues and syntax errors affecting animations
 - **Complete Section Architecture**: All major landing page sections implemented with responsive design
+- **Advanced Interactive Components**: Accordion, booking form, and video gallery components
 - **Unified Animation System**: Custom motion mixin providing 4 distinct animation types with spring physics
-- **Advanced Carousel Implementation**: Multiple Swiper configurations including infinite loops, continuous auto-scroll, and pause-on-hover
+- **Advanced Carousel Implementation**: Multiple Swiper configurations including vertical marquee, infinite loops, and pause-on-hover
 - **Glass Morphism Design**: Consistent backdrop-blur effects across multiple sections for modern aesthetic
 - **Enhanced User Experience**: Coordinated animations, staggered reveals, and interactive feedback throughout
 - **Mobile-First Responsive**: All sections optimized for mobile with proper touch interactions and breakpoints
@@ -238,10 +293,17 @@ The project emphasizes performance with `visibleOnce` animations, accessibility 
 
 #### Carousel Implementation
 - **Infinite loops**: Enable `loop: true` for seamless cycling experience
-- **Pause on hover**: Always implement `pauseOnMouseEnter: true` for better UX
+- **Pause on hover**: Always implement `pauseOnMouseEnter: true` for better UX (except for marquee effects)
 - **Custom navigation**: Position navigation arrows contextually within each section
 - **Responsive slides**: Configure breakpoints for different screen sizes
-- **Auto-scroll variations**: Use appropriate speeds (1ms for continuous, 3500-4000ms for standard)
+- **Auto-scroll variations**: Use appropriate speeds
+  - **Continuous marquee**: 1ms delay with 6000ms speed for uninterrupted motion
+  - **Standard autoplay**: 3500-4000ms for user-friendly auto-progression
+  - **Fast autoplay**: 1000ms for quick content cycling
+- **Marquee Effects**: For continuous vertical/horizontal scrolling
+  - Disable touch interaction (`allow-touch-move="false"`)
+  - Use minimal delay (1ms) with longer speed duration
+  - Perfect for background animations and content showcases
 
 #### Visual Design
 - **Glass morphism**: Use `bg-white/40 backdrop-blur-sm` for consistent card effects
@@ -257,6 +319,27 @@ The project emphasizes performance with `visibleOnce` animations, accessibility 
 
 #### Component Architecture
 - **Mixin pattern**: Use mixins for shared functionality across components
+- **Import path validation**: Always verify mixin import paths to prevent cascade failures
 - **Section isolation**: Each section should be self-contained with minimal dependencies
-- **Lazy loading**: Implement for images and heavy content
+- **Lazy loading**: Implement for images and heavy content using vue-lazyload-next
+- **Icon management**: Use existing SVG assets, clean up unused references to prevent build warnings
 - **Accessibility**: Include proper ARIA labels, focus states, and motion preferences
+
+### Troubleshooting
+
+#### Motion Animation Issues
+- **Symptoms**: Animations not working across multiple components
+- **Common causes**: 
+  1. Incorrect import paths in useMotion mixin or components
+  2. Empty v-motion attributes (`v-motion=""`)
+  3. Missing mixin registration in component
+- **Debug approach**:
+  1. Check browser console for JavaScript module errors
+  2. Verify import paths are correct and files exist
+  3. Ensure all v-motion attributes have valid function calls
+  4. Validate that useMotion is properly imported and mixed in
+
+#### Build Warnings
+- **Missing SVG assets**: Update icon references to use existing files
+- **Public directory warnings**: Use correct paths for public assets (remove `/public/` prefix)
+- **Unused imports**: Remove unused icon references from component data
