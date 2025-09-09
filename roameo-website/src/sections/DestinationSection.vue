@@ -14,7 +14,7 @@
       </div>
 
       <!-- Destinations Grid -->
-    <div v-motion="getScrollSlideUpMotion(220)"  
+    <div v-motion="getScrollSlideUpMotion(220)"
       class="destinations-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 place-items-center">
         <div
           v-for="(destination, index) in destinations"
@@ -55,7 +55,7 @@
           <!-- Content -->
           <div class="absolute bottom-0 left-0 right-0 p-6 text-black z-10">
             <!-- Destination Info -->
-            <div class="mb-4 bg-slate-50/40 backdrop-blur-sm p-4 rounded-[20px]">
+            <div class="mb-4 bg-slate-50/40 backdrop-blur-sm p-4 rounded-[20px] transition-all duration-300 lg:translate-y-8 lg:group-hover:translate-y-0">
               <h3 class="text-xl sm:text-2xl font-bold mb-2">{{ destination.name }}</h3>
               <p class="text-sm text-gray-200 mb-3">{{ destination.country }}</p>
 
@@ -81,7 +81,9 @@
             <!-- CTA Button -->
             <button
               @click="bookFlight(destination)"
-              class="w-full bg-[#1A94FF] hover:bg-[#1580e6] text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 transform group-hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#1A94FF] focus:ring-offset-2 cursor-pointer"
+              class="w-full bg-[#1A94FF] hover:bg-[#1580e6] text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300
+                      transform group-hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#1A94FF] focus:ring-offset-2 cursor-pointer
+                      lg:opacity-0 lg:translate-y-8 lg:group-hover:opacity-100 lg:group-hover:translate-y-0"
             >
               Book Your Flight
             </button>
