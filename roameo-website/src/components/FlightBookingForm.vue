@@ -163,7 +163,7 @@
             </div>
 
             <!-- Return -->
-            <div class="flex-1 border-l border-gray-200">
+            <div v-if="!isOneWay" class="flex-1 border-l border-gray-200">
               <div class="flex flex-col p-4">
                 <div class="flex flex-row justify-start items-center gap-x-1 mb-1">
                   <img :src="dateIcon" alt="date" class="w-4 h-4 text-gray-400">
@@ -179,7 +179,7 @@
                   select-text="Select"
                   cancel-text="Cancel"
                   id="return-date-input"
-                  placeholder="Select return (optional)"
+                  placeholder="Select return"
                   class="date-picker-input"
                   input-class-name="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 cursor-pointer"
                 />
@@ -187,7 +187,23 @@
             </div>
 
             <!-- Search Button -->
+             <!-- Temporary -->
             <div class="flex items-center pl-4 pr-4">
+              <router-link
+              to="/flight-results"
+                @click="searchFlights"
+                :disabled="!canSearchFlights"
+                :class="[
+                  'font-medium px-8 py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2',
+                  canSearchFlights
+                    ? 'bg-blue-500 hover:bg-blue-600 text-white focus:ring-blue-500 cursor-pointer'
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                ]"
+              >
+                Search
+              </router-link>
+            </div>
+            <!-- <div class="flex items-center pl-4 pr-4">
               <button
                 @click="searchFlights"
                 :disabled="!canSearchFlights"
@@ -200,6 +216,44 @@
               >
                 Search
               </button>
+            </div> -->
+          </div>
+
+          <!-- Trip Type Radio Buttons (Desktop) -->
+          <div class="mt-6 flex justify-center">
+            <div class="flex gap-8">
+              <label class="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  value="round-trip"
+                  :checked="tripType === 'round-trip'"
+                  @change="onTripTypeChange('round-trip')"
+                  class="w-4 h-4 text-blue-500 bg-white border-gray-300 focus:ring-blue-500 focus:ring-2"
+                />
+                <span class="ml-2 text-sm font-medium text-gray-900">Round-trip</span>
+              </label>
+
+              <label class="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  value="one-way"
+                  :checked="tripType === 'one-way'"
+                  @change="onTripTypeChange('one-way')"
+                  class="w-4 h-4 text-blue-500 bg-white border-gray-300 focus:ring-blue-500 focus:ring-2"
+                />
+                <span class="ml-2 text-sm font-medium text-gray-900">One-way</span>
+              </label>
+
+              <label class="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  value="multi-stop"
+                  :checked="tripType === 'multi-stop'"
+                  @change="onTripTypeChange('multi-stop')"
+                  class="w-4 h-4 text-blue-500 bg-white border-gray-300 focus:ring-blue-500 focus:ring-2"
+                />
+                <span class="ml-2 text-sm font-medium text-gray-900">Multi-stop</span>
+              </label>
             </div>
           </div>
         </div>
@@ -339,7 +393,7 @@
             </div>
 
             <!-- Return -->
-            <div class="border border-gray-200 rounded-[1.5625rem] bg-white sm:flex-1">
+            <div v-if="!isOneWay" class="border border-gray-200 rounded-[1.5625rem] bg-white sm:flex-1">
               <div class="return-cont flex flex-col py-2 px-4">
                 <div class="flex flex-row justify-start items-center gap-x-1">
                   <img :src="dateIcon" alt="date" class="w-4 h-4 text-gray-400">
@@ -354,7 +408,7 @@
                   :action-row="{ showSelect: true, showCancel: true }"
                   select-text="Select"
                   cancel-text="Cancel"
-                  placeholder="Select return (optional)"
+                  placeholder="Select return"
                   class="date-picker-mobile"
                   input-class-name="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 cursor-pointer pl-1"
                 />
@@ -376,6 +430,44 @@
             >
               {{ isOneWay ? 'Search One-way Flights' : 'Search Flights' }}
             </button>
+          </div>
+
+          <!-- Trip Type Radio Buttons (Mobile) -->
+          <div class="pt-4 flex justify-center">
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+              <label class="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  value="round-trip"
+                  :checked="tripType === 'round-trip'"
+                  @change="onTripTypeChange('round-trip')"
+                  class="w-4 h-4 text-blue-500 bg-white border-gray-300 focus:ring-blue-500 focus:ring-2"
+                />
+                <span class="ml-2 text-sm font-medium text-gray-900">Round-trip</span>
+              </label>
+
+              <label class="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  value="one-way"
+                  :checked="tripType === 'one-way'"
+                  @change="onTripTypeChange('one-way')"
+                  class="w-4 h-4 text-blue-500 bg-white border-gray-300 focus:ring-blue-500 focus:ring-2"
+                />
+                <span class="ml-2 text-sm font-medium text-gray-900">One-way</span>
+              </label>
+
+              <label class="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  value="multi-stop"
+                  :checked="tripType === 'multi-stop'"
+                  @change="onTripTypeChange('multi-stop')"
+                  class="w-4 h-4 text-blue-500 bg-white border-gray-300 focus:ring-blue-500 focus:ring-2"
+                />
+                <span class="ml-2 text-sm font-medium text-gray-900">Multi-stop</span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -481,7 +573,7 @@
             </div>
 
             <!-- Guests -->
-            <div class="flex-1 border-l border-gray-200">
+            <div class="flex-1 border-l border-gray-200 relative">
               <div class="flex flex-col p-4">
                 <div class="flex flex-row justify-start items-center gap-x-1 mb-1">
                   <img :src="userIcon" alt="guests" class="w-4 h-4 text-gray-400">
@@ -489,10 +581,133 @@
                 </div>
                 <input
                   type="text"
-                  placeholder="2 Adults, 1 Room"
+                  :value="guestDisplayText"
                   readonly
-                  class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 cursor-pointer bg-transparent"
+                  @click="toggleGuestSelector"
+                  class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 cursor-pointer bg-transparent guest-trigger"
                 />
+              </div>
+
+              <!-- Guest Selector Dropdown (Desktop) -->
+              <div v-if="showGuestSelector" class="absolute top-full left-0 right-0 z-50 bg-white rounded-lg shadow-xl border border-gray-200 p-4 mt-1 guest-selector-dropdown">
+                <!-- Adults -->
+                <div class="flex items-center justify-between py-3">
+                  <div>
+                    <div class="font-medium text-sm">Adults</div>
+                    <div class="text-xs text-gray-500">Ages 13 or above</div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <button
+                      @click="decrementGuests('adults')"
+                      :disabled="adults <= 1"
+                      :class="[
+                        'w-8 h-8 rounded-full border flex items-center justify-center text-lg font-medium',
+                        adults <= 1 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500'
+                      ]"
+                    >
+                      -
+                    </button>
+                    <span class="w-4 text-center text-sm font-medium">{{ adults }}</span>
+                    <button
+                      @click="incrementGuests('adults')"
+                      :disabled="adults >= 9"
+                      :class="[
+                        'w-8 h-8 rounded-full border flex items-center justify-center text-lg font-medium',
+                        adults >= 9 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500'
+                      ]"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Children -->
+                <div class="flex items-center justify-between py-3 border-t border-gray-100">
+                  <div>
+                    <div class="font-medium text-sm">Children</div>
+                    <div class="text-xs text-gray-500">Ages 2-12</div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <button
+                      @click="decrementGuests('children')"
+                      :disabled="children <= 0"
+                      :class="[
+                        'w-8 h-8 rounded-full border flex items-center justify-center text-lg font-medium',
+                        children <= 0 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500'
+                      ]"
+                    >
+                      -
+                    </button>
+                    <span class="w-4 text-center text-sm font-medium">{{ children }}</span>
+                    <button
+                      @click="incrementGuests('children')"
+                      :disabled="children >= 9"
+                      :class="[
+                        'w-8 h-8 rounded-full border flex items-center justify-center text-lg font-medium',
+                        children >= 9 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500'
+                      ]"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Infants -->
+                <div class="flex items-center justify-between py-3 border-t border-gray-100">
+                  <div>
+                    <div class="font-medium text-sm">Infants</div>
+                    <div class="text-xs text-gray-500">Under 2</div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <button
+                      @click="decrementGuests('infants')"
+                      :disabled="infants <= 0"
+                      :class="[
+                        'w-8 h-8 rounded-full border flex items-center justify-center text-lg font-medium',
+                        infants <= 0 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500'
+                      ]"
+                    >
+                      -
+                    </button>
+                    <span class="w-4 text-center text-sm font-medium">{{ infants }}</span>
+                    <button
+                      @click="incrementGuests('infants')"
+                      :disabled="infants >= 9"
+                      :class="[
+                        'w-8 h-8 rounded-full border flex items-center justify-center text-lg font-medium',
+                        infants >= 9 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500'
+                      ]"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Class Selection -->
+                <div class="border-t border-gray-100 pt-3 mt-3">
+                  <div class="font-medium text-sm mb-3">Class</div>
+                  <div class="flex gap-2">
+                    <button
+                      @click="selectClass('Economy')"
+                      :class="[
+                        'px-3 py-2 rounded-lg text-xs font-medium transition-colors',
+                        selectedClass === 'Economy' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ]"
+                    >
+                      Economy
+                    </button>
+                    <button
+                      @click="selectClass('Business')"
+                      :class="[
+                        'px-3 py-2 rounded-lg text-xs font-medium transition-colors',
+                        selectedClass === 'Business' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ]"
+                    >
+                      Business
+                    </button>
+                  </div>
+                </div>
+
               </div>
             </div>
 
@@ -615,8 +830,9 @@
               </div>
               <input
                 type="text"
-                placeholder="2 Adults, 1 Room"
+                :value="guestDisplayText"
                 readonly
+                @click="toggleGuestModal"
                 class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 cursor-pointer pl-1 bg-transparent"
               />
             </div>
@@ -632,6 +848,143 @@
             </button>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Guest Modal (Mobile) -->
+    <div v-if="showGuestModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div class="bg-white rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+        <!-- Modal Header -->
+        <div class="flex items-center justify-between p-4 border-b border-gray-200">
+          <h3 class="text-lg font-semibold">Select Guests</h3>
+          <button @click="closeGuestModal" class="text-gray-400 hover:text-gray-600">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Modal Content -->
+        <div class="p-4">
+          <!-- Adults -->
+          <div class="flex items-center justify-between py-4">
+            <div>
+              <div class="font-medium text-sm">Adults</div>
+              <div class="text-xs text-gray-500">Ages 13 or above</div>
+            </div>
+            <div class="flex items-center gap-3">
+              <button
+                @click="decrementGuests('adults')"
+                :disabled="adults <= 1"
+                :class="[
+                  'w-10 h-10 rounded-full border flex items-center justify-center text-xl font-medium',
+                  adults <= 1 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500'
+                ]"
+              >
+                -
+              </button>
+              <span class="w-6 text-center text-sm font-medium">{{ adults }}</span>
+              <button
+                @click="incrementGuests('adults')"
+                :disabled="adults >= 9"
+                :class="[
+                  'w-10 h-10 rounded-full border flex items-center justify-center text-xl font-medium',
+                  adults >= 9 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500'
+                ]"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <!-- Children -->
+          <div class="flex items-center justify-between py-4 border-t border-gray-100">
+            <div>
+              <div class="font-medium text-sm">Children</div>
+              <div class="text-xs text-gray-500">Ages 2-12</div>
+            </div>
+            <div class="flex items-center gap-3">
+              <button
+                @click="decrementGuests('children')"
+                :disabled="children <= 0"
+                :class="[
+                  'w-10 h-10 rounded-full border flex items-center justify-center text-xl font-medium',
+                  children <= 0 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500'
+                ]"
+              >
+                -
+              </button>
+              <span class="w-6 text-center text-sm font-medium">{{ children }}</span>
+              <button
+                @click="incrementGuests('children')"
+                :disabled="children >= 9"
+                :class="[
+                  'w-10 h-10 rounded-full border flex items-center justify-center text-xl font-medium',
+                  children >= 9 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500'
+                ]"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <!-- Infants -->
+          <div class="flex items-center justify-between py-4 border-t border-gray-100">
+            <div>
+              <div class="font-medium text-sm">Infants</div>
+              <div class="text-xs text-gray-500">Under 2</div>
+            </div>
+            <div class="flex items-center gap-3">
+              <button
+                @click="decrementGuests('infants')"
+                :disabled="infants <= 0"
+                :class="[
+                  'w-10 h-10 rounded-full border flex items-center justify-center text-xl font-medium',
+                  infants <= 0 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500'
+                ]"
+              >
+                -
+              </button>
+              <span class="w-6 text-center text-sm font-medium">{{ infants }}</span>
+              <button
+                @click="incrementGuests('infants')"
+                :disabled="infants >= 9"
+                :class="[
+                  'w-10 h-10 rounded-full border flex items-center justify-center text-xl font-medium',
+                  infants >= 9 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500'
+                ]"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <!-- Class Selection -->
+          <div class="border-t border-gray-100 pt-4 mt-4">
+            <div class="font-medium text-sm mb-4">Class</div>
+            <div class="flex gap-3">
+              <button
+                @click="selectClass('Economy')"
+                :class="[
+                  'flex-1 py-3 px-4 rounded-xl text-sm font-medium transition-colors',
+                  selectedClass === 'Economy' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                ]"
+              >
+                Economy
+              </button>
+              <button
+                @click="selectClass('Business')"
+                :class="[
+                  'flex-1 py-3 px-4 rounded-xl text-sm font-medium transition-colors',
+                  selectedClass === 'Business' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                ]"
+              >
+                Business
+              </button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -657,6 +1010,9 @@ export default {
   data() {
     return {
       activeTab: 'flights',
+
+      // Trip type data
+      tripType: 'round-trip',
 
       // Flight Location data
       selectedFromLocation: null,
@@ -684,6 +1040,14 @@ export default {
       checkinDate: null,
       checkoutDate: null,
 
+      // Guest selection data
+      adults: 1,
+      children: 0,
+      infants: 0,
+      selectedClass: 'Economy',
+      showGuestSelector: false,
+      showGuestModal: false,
+
       // Icons
       dateIcon: new URL('@/assets/date-icon.svg', import.meta.url).href,
       arrowsIcon: new URL('@/assets/arrows-icon.svg', import.meta.url).href,
@@ -695,12 +1059,37 @@ export default {
   },
   computed: {
     isOneWay() {
-      return this.departDate && !this.returnDate
+      return this.tripType === 'one-way'
+    },
+    isRoundTrip() {
+      return this.tripType === 'round-trip'
+    },
+    isMultiStop() {
+      return this.tripType === 'multi-stop'
     },
     canSearchFlights() {
       return this.selectedFromLocation &&
              this.selectedToLocation &&
-             this.departDate
+             this.departDate &&
+             (this.isOneWay || (this.isRoundTrip && this.returnDate))
+    },
+    guestDisplayText() {
+      const parts = []
+      if (this.adults > 0) {
+        parts.push(`${this.adults} Adult${this.adults > 1 ? 's' : ''}`)
+      }
+      if (this.children > 0) {
+        parts.push(`${this.children} Child${this.children > 1 ? 'ren' : ''}`)
+      }
+      if (this.infants > 0) {
+        parts.push(`${this.infants} Infant${this.infants > 1 ? 's' : ''}`)
+      }
+
+      const guestText = parts.join(', ')
+      return `${guestText}, ${this.selectedClass}`
+    },
+    totalGuests() {
+      return this.adults + this.children + this.infants
     }
   },
   beforeMount(){
@@ -711,6 +1100,10 @@ export default {
         input.classList.add('custom-datepicker-input')
       })
     })
+  },
+
+  mounted() {
+    document.addEventListener('click', this.handleClickOutside)
   },
   methods: {
     // Flight location search methods
@@ -807,6 +1200,14 @@ export default {
       return location.type === 'airport' ? this.planeIcon : this.hotelIcon
     },
 
+    // Trip type handler
+    onTripTypeChange(newTripType) {
+      this.tripType = newTripType
+      if (newTripType === 'one-way') {
+        this.returnDate = null
+      }
+    },
+
     // Selection handlers
     onFromLocationSelect(location) {
       console.log('From location selected:', location)
@@ -832,6 +1233,48 @@ export default {
       const tempOptions = this.fromLocationOptions
       this.fromLocationOptions = this.toLocationOptions
       this.toLocationOptions = tempOptions
+    },
+
+    // Guest management methods
+    incrementGuests(type) {
+      const maxGuests = 9
+      if (type === 'adults' && this.adults < maxGuests) {
+        this.adults++
+      } else if (type === 'children' && this.children < maxGuests) {
+        this.children++
+      } else if (type === 'infants' && this.infants < maxGuests) {
+        this.infants++
+      }
+    },
+
+    decrementGuests(type) {
+      if (type === 'adults' && this.adults > 1) {
+        this.adults--
+      } else if (type === 'children' && this.children > 0) {
+        this.children--
+      } else if (type === 'infants' && this.infants > 0) {
+        this.infants--
+      }
+    },
+
+    selectClass(classType) {
+      this.selectedClass = classType
+    },
+
+    toggleGuestSelector() {
+      this.showGuestSelector = !this.showGuestSelector
+    },
+
+    closeGuestSelector() {
+      this.showGuestSelector = false
+    },
+
+    toggleGuestModal() {
+      this.showGuestModal = !this.showGuestModal
+    },
+
+    closeGuestModal() {
+      this.showGuestModal = false
     },
 
     // Search functionality
@@ -862,12 +1305,12 @@ export default {
           departure: this.departDate,
           return: this.returnDate  // null for one-way
         },
-        tripType: this.isOneWay ? 'one-way' : 'round-trip'
+        tripType: this.tripType
       }
 
       console.log('Searching flights with data:', searchData)
 
-      // Here you would make your API call to your backend
+      // Here make API call to the backend
       // await flightSearchService.search(searchData)
     },
 
@@ -877,19 +1320,38 @@ export default {
         dates: {
           checkin: this.checkinDate,
           checkout: this.checkoutDate
-        }
+        },
+        guests: {
+          adults: this.adults,
+          children: this.children,
+          infants: this.infants,
+          total: this.totalGuests
+        },
+        class: this.selectedClass
       }
 
       console.log('Searching hotels with data:', searchData)
 
-      // Here you would make your API call to your backend
+      // Here make API call to the backend
       // await hotelSearchService.search(searchData)
+    },
+
+    // Handle outside clicks to close dropdowns
+    handleClickOutside(event) {
+      if (this.showGuestSelector) {
+        const dropdown = event.target.closest('.guest-selector-dropdown')
+        const trigger = event.target.closest('.guest-trigger')
+        if (!dropdown && !trigger) {
+          this.closeGuestSelector()
+        }
+      }
     }
   },
 
 
   // Cleanup timers when component is destroyed
   beforeUnmount() {
+    document.removeEventListener('click', this.handleClickOutside)
     if (this.fromSearchTimeout) {
       clearTimeout(this.fromSearchTimeout)
     }

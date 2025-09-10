@@ -128,13 +128,28 @@ export default {
     - Location type detection (airport vs city) with appropriate icons
     - Swap functionality for reversing From/To locations
     - Date pickers with Vue DatePicker for departure/return dates
-  - **Hotel Search**: Location and date-based hotel booking
+    - **Trip Type Selection**: Radio buttons for Round-trip, One-way, Multi-stop
+      - Dynamic form behavior (return date field hides for one-way)
+      - Positioned below search form with responsive layout
+      - State-driven validation and search data inclusion
+  - **Hotel Search**: Location and date-based hotel booking with advanced guest selection
     - Single location input with same search functionality
     - Check-in/Check-out date selection with validation
-    - Guest selection placeholder (expandable for future implementation)
+    - **Advanced Guest Selector**:
+      - **Desktop**: Dropdown overlay with increment/decrement controls
+        - Adults (min: 1, max: 9), Children (0-9), Infants (0-9)
+        - Class selection (Economy/Business)
+        - Outside click detection for auto-close
+        - "Done" button to confirm selection
+      - **Mobile**: Full-screen modal with touch-optimized interface
+        - Same guest counting functionality with larger touch targets
+        - Modal overlay with close button and "Done" action
+        - Responsive design optimized for mobile interaction
+      - **Dynamic Display**: Real-time text updates showing guest selection
+      - **Search Integration**: Guest data included in hotel search payload
   - **Responsive Design**: 
-    - Desktop: Horizontal form layout with inline fields
-    - Mobile: Vertical stacked layout with full-width inputs
+    - Desktop: Horizontal form layout with inline fields and dropdown overlays
+    - Mobile: Vertical stacked layout with full-width inputs and modal interfaces
   - **Date Picker Integration**:
     - Custom styling matching website design system
     - Hidden default SVG icons, custom styling for inputs
@@ -245,7 +260,27 @@ All section components implement the `useMotion` mixin for consistent scroll-bas
 
 ### Recent Major Updates
 
-#### Motion Animation System Stabilization (Latest)
+#### FlightBookingForm Advanced Features (Latest)
+- **Trip Type Selection System**: Added comprehensive trip type functionality to flight booking
+  - Radio button interface for Round-trip, One-way, Multi-stop selection
+  - Dynamic form behavior with conditional return date field visibility
+  - State-driven validation ensuring proper date requirements
+  - Responsive design with desktop horizontal and mobile vertical layouts
+- **Advanced Guest Selection System**: Complete hotel guest selector implementation
+  - **Desktop Interface**: Dropdown overlay with sophisticated controls
+    - Increment/decrement buttons for Adults (1-9), Children (0-9), Infants (0-9)
+    - Class selection buttons (Economy/Business) with visual feedback
+    - Outside click detection with automatic dropdown closure
+    - Confirmation "Done" button for UX clarity
+  - **Mobile Interface**: Full-screen modal optimized for touch interaction
+    - Larger touch targets (44px+) for accessibility
+    - Modal overlay with proper close mechanisms
+    - Same functionality as desktop with mobile-first design
+  - **Dynamic State Management**: Real-time guest display text updates
+  - **Search Integration**: Guest data properly included in hotel search payload
+  - **Event Handling**: Proper lifecycle management with event listener cleanup
+
+#### Motion Animation System Stabilization
 - **Fixed useMotion Import Path Issues**: Resolved cascade failures causing motion animations to break across all components
 - **AccordionComponent Path Correction**: Fixed incorrect import path that was breaking the entire animation system
 - **Empty v-motion Attribute Fix**: Corrected syntax error in FeatureStaySection.vue that prevented animations from loading
@@ -267,18 +302,25 @@ All section components implement the `useMotion` mixin for consistent scroll-bas
 - **FeaturedEpisode**: Video gallery with asymmetric grid and play button overlays
 
 ### Current Development Focus
-The application now features a comprehensive landing page with 12+ distinct sections, each implementing consistent scroll-based animations through the unified and stabilized `useMotion` mixin system. Key achievements include:
+The application now features a comprehensive landing page with 12+ distinct sections and a fully-featured booking system, each implementing consistent scroll-based animations through the unified and stabilized `useMotion` mixin system. Key achievements include:
 
+- **Advanced Booking System**: Complete travel booking interface with sophisticated functionality
+  - Dual-tab system (Flights/Hotels) with seamless UX transitions
+  - Real-time location search with OpenStreetMap integration
+  - Trip type selection with dynamic form behavior
+  - Advanced guest selection with desktop dropdown and mobile modal interfaces
+  - Comprehensive form validation and state management
 - **Stable Motion System**: Fixed all import path issues and syntax errors affecting animations
 - **Complete Section Architecture**: All major landing page sections implemented with responsive design
-- **Advanced Interactive Components**: Accordion, booking form, and video gallery components
+- **Advanced Interactive Components**: Accordion, booking form, video gallery, and guest selector components
 - **Unified Animation System**: Custom motion mixin providing 4 distinct animation types with spring physics
 - **Advanced Carousel Implementation**: Multiple Swiper configurations including vertical marquee, infinite loops, and pause-on-hover
 - **Glass Morphism Design**: Consistent backdrop-blur effects across multiple sections for modern aesthetic
-- **Enhanced User Experience**: Coordinated animations, staggered reveals, and interactive feedback throughout
-- **Mobile-First Responsive**: All sections optimized for mobile with proper touch interactions and breakpoints
+- **Enhanced User Experience**: Coordinated animations, staggered reveals, interactive feedback, and touch-optimized interfaces throughout
+- **Mobile-First Responsive**: All sections and interactive components optimized for mobile with proper touch interactions and breakpoints
+- **Accessibility Focus**: Proper touch targets (44px+), ARIA labels, focus management, and motion preferences
 
-The project emphasizes performance with `visibleOnce` animations, accessibility with motion preferences, and maintainability through the mixin pattern for consistent behavior across all section components.
+The project emphasizes performance with `visibleOnce` animations, accessibility with motion preferences, comprehensive form handling, and maintainability through the mixin pattern for consistent behavior across all components. The booking system represents a production-ready travel interface with advanced UX patterns and responsive design principles.
 
 ### Best Practices
 
@@ -325,6 +367,28 @@ The project emphasizes performance with `visibleOnce` animations, accessibility 
 - **Icon management**: Use existing SVG assets, clean up unused references to prevent build warnings
 - **Accessibility**: Include proper ARIA labels, focus states, and motion preferences
 
+#### Form Interactions & State Management
+- **Guest Selection Patterns**: Implement consistent dropdown/modal patterns for complex selectors
+  - Desktop: Use positioned dropdowns with outside click detection
+  - Mobile: Use full-screen modals with proper overlay and close mechanisms
+  - Always provide "Done" buttons for confirmation and clear UX flow
+- **Dynamic Form Behavior**: Use computed properties and reactive state for form field visibility
+  - Hide/show fields based on user selections (e.g., return date for one-way trips)
+  - Update validation rules dynamically based on form state
+  - Provide real-time feedback and display text updates
+- **Event Handling**: Proper lifecycle management for interactive components
+  - Add event listeners in `mounted()` lifecycle
+  - Remove event listeners in `beforeUnmount()` to prevent memory leaks
+  - Use CSS classes for targeting elements in outside click detection
+- **Touch Optimization**: Ensure mobile-first interaction design
+  - Minimum 44px touch targets for all interactive elements
+  - Use larger spacing and padding for mobile interfaces
+  - Implement proper modal overlays with touch-friendly close buttons
+- **Validation Patterns**: Implement comprehensive form validation
+  - Use computed properties for validation rules
+  - Provide immediate visual feedback for valid/invalid states
+  - Include all relevant data in search payloads for backend integration
+
 ### Troubleshooting
 
 #### Motion Animation Issues
@@ -343,3 +407,4 @@ The project emphasizes performance with `visibleOnce` animations, accessibility 
 - **Missing SVG assets**: Update icon references to use existing files
 - **Public directory warnings**: Use correct paths for public assets (remove `/public/` prefix)
 - **Unused imports**: Remove unused icon references from component data
+- update claude.md

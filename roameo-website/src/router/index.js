@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import MainView from '@/views/MainView.vue';
 import ErrorView from '@/views/ErrorView.vue';
 import MainPage from '@/pages/MainPage.vue';
+import FlightResults from '@/pages/FlightResults.vue'
 
 
 const routes = [
@@ -13,6 +14,10 @@ const routes = [
         path: '/home',
         alias: '/',
         component: MainPage,
+      },
+      {
+        path: '/flight-results',
+        component: FlightResults,
       },
 
     ],
