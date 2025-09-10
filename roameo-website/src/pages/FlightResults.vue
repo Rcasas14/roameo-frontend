@@ -22,24 +22,24 @@
   <section class="bg-white border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between py-4 overflow-x-auto">
-        <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+        <button class="p-2 hover:bg-gray-100 rounded-[16px] transition-colors border bg-[#fcfcfc] border-gray-200 px-5 py-7 cursor-pointer">
           <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
           </svg>
         </button>
 
-        <div class="flex space-x-2 sm:space-x-4 mx-4">
+        <div class="flex space-x-2 sm:space-x-3 mx-4">
           <div v-for="date in dateOptions" :key="date.range"
-               :class="[
-                 'flex flex-col items-center px-3 sm:px-4 py-3 rounded-lg cursor-pointer transition-colors whitespace-nowrap',
-                 date.active ? 'bg-blue-100 border-2 border-blue-500' : 'hover:bg-gray-100'
-               ]">
+                  :class="['grid grid-cols-1 place-items-center px-3 sm:px-4 py-3 rounded-lg cursor-pointer transition-colors whitespace-nowrap border bg-[#fcfcfc] border-gray-300',
+                  date.active ? 'bg-cyan-100 border border-sky-500' : 'hover:bg-cyan-900'
+                ]"
+               class="lg:w-[200px] lg:h-[80px]">
             <span class="text-xs sm:text-sm font-medium text-gray-900">{{ date.range }}</span>
-            <span class="text-xs text-gray-500 mt-1">{{ date.price }}</span>
+            <span class="text-xs text-gray-500 mt-1">{{ `from ${date.price}` }}</span>
           </div>
         </div>
 
-        <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+        <button class="p-2 hover:bg-gray-100 rounded-[16px] transition-colors border bg-[#fcfcfc] border-gray-200 px-5 py-7 cursor-pointer">
           <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
           </svg>
@@ -150,7 +150,7 @@
         <div class="space-y-4">
           <!-- Flight Result Card -->
           <div v-for="flight in flights" :key="flight.id"
-               class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow">
+               class="bg-white rounded-lg shadow-sm border border-gray-200 lg:border-l-3 lg:border-l-[#FF3897] p-4 hover:shadow-md transition-shadow">
             <!-- Mobile Grid Layout -->
             <div class="grid grid-cols-1 gap-4 sm:hidden">
               <!-- Header Row: Airline Logo + Badges + Price -->
@@ -195,30 +195,31 @@
               </div>
 
               <!-- Select Button Row -->
-              <div class="grid grid-cols-1">
-                <button class="w-full bg-blue-50 hover:bg-blue-100 text-blue-600 font-bold py-3 px-6 rounded-lg border border-blue-200 transition-colors">
+              <div class="grid grid-cols-1 ">
+                <button class="w-full bg-blue-50 hover:bg-blue-100 text-blue-600 font-bold py-3 px-6 rounded-lg border border-blue-200 transition-colors cursor-pointer">
                   SELECT
                 </button>
               </div>
             </div>
 
             <!-- Desktop Layout (unchanged) -->
-            <div class="hidden sm:flex items-center justify-between gap-4 px-2 py-4">
+            <div class="hidden sm:flex items-center justify-between gap-4 px-2 py-4 relative">
               <!-- Flight Info -->
               <div class="flex items-center space-x-4 flex-1">
                 <!-- Airline Logo -->
                 <div class="flex-shrink-0">
-                  <div class="w-20 h-12 flex items-center justify-center">
+                  <div class="w-20 h-12 flex flex-col items-center justify-center">
                     <img :src="flight.logo" :alt="flight.airline" class="w-full h-full object-contain">
+                    <p class="text-gray-500 text-nowrap py-1">{{ flight.label }}</p>
                   </div>
                 </div>
 
                 <!-- Route Info -->
-                <div class="flex-1 min-w-0">
+                <div class="flex-1 min-w-0 px-5">
                   <div class="flex items-center space-x-2 mb-2">
                     <span :class="[
                       'px-2 py-1 text-xs font-medium rounded',
-                      flight.badge === 'Cheapest' ? 'bg-blue-100 text-blue-800' : 'bg-cyan-100 text-cyan-800'
+                      flight.badge === 'Cheapest' ? 'bg-[#0088FF] text-white absolute top-0 left-0' : 'bg-cyan-100 text-cyan-800'
                     ]">{{ flight.badge }}</span>
                     <span v-if="flight.carryOnIncluded" class="px-2 py-1 text-xs font-medium rounded bg-cyan-100 text-cyan-800">
                       Carry-on included
@@ -248,12 +249,12 @@
               </div>
 
               <!-- Price and Select -->
-              <div class="flex flex-col items-center space-y-3">
+              <div class="flex flex-col items-center space-y-3 w-auto min-w-[140px]">
                 <div class="text-right">
                   <div class="text-xl font-bold text-blue-600">₱{{ flight.price.toLocaleString() }}</div>
                   <div class="text-sm text-gray-500">{{ flight.priceType }}</div>
                 </div>
-                <button class="bg-blue-50 hover:bg-blue-100 text-blue-600 font-bold py-2 px-6 rounded-lg border border-blue-200 transition-colors text-sm">
+                <button class="bg-blue-50 hover:bg-blue-100 text-blue-600 font-bold py-2 px-6 rounded-[20px] border border-blue-200 transition-colors text-[10px] w-full">
                   SELECT
                 </button>
               </div>
@@ -303,7 +304,8 @@ export default{
           arriveTime: '07:30',
           arriveCode: 'CEB',
           price: 4567,
-          priceType: 'per person'
+          priceType: 'Round Trip',
+          label: 'Cebu Pacific'
         },
         {
           id: 2,
@@ -314,9 +316,10 @@ export default{
           departTime: '08:15',
           departCode: 'MNL',
           arriveTime: '09:45',
-          arriveCode: 'CEB',
+          arriveCode: 'PAL',
           price: 5890,
-          priceType: 'per person'
+          priceType: 'Round Trip',
+          label: 'PAL'
         },
         {
           id: 3,
@@ -329,7 +332,8 @@ export default{
           arriveTime: '12:00',
           arriveCode: 'CEB',
           price: 4890,
-          priceType: 'per person'
+          priceType: 'Round Trip',
+          label: 'Cebu Pacific'
         },
         {
           id: 4,
@@ -340,9 +344,10 @@ export default{
           departTime: '14:20',
           departCode: 'MNL',
           arriveTime: '15:50',
-          arriveCode: 'CEB',
+          arriveCode: 'PAL',
           price: 6750,
-          priceType: 'per person'
+          priceType: 'Round Trip',
+          label: 'PAL'
         }
       ]
     }

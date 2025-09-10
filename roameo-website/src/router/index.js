@@ -4,6 +4,8 @@ import ErrorView from '@/views/ErrorView.vue';
 import MainPage from '@/pages/MainPage.vue';
 import FlightResults from '@/pages/FlightResults.vue'
 
+import TempComponent from '@/components/TempComponent.vue';
+
 
 const routes = [
   {
@@ -19,6 +21,10 @@ const routes = [
         path: '/flight-results',
         component: FlightResults,
       },
+      {
+        path:'/temporary',
+        component: TempComponent,
+      }
 
     ],
   },
