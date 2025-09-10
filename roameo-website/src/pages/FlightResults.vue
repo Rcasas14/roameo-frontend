@@ -34,7 +34,7 @@
                   date.active ? 'bg-cyan-100 border border-sky-500' : 'hover:bg-cyan-100'
                 ]"
                class="lg:w-[200px] lg:h-[80px]">
-            <span class="text-xs sm:text-sm font-medium text-gray-900">{{ date.range }}</span>
+            <span class="text-xs sm:text-sm font-bold text-gray-900">{{ date.range }}</span>
             <span class="text-xs text-gray-500 mt-1">{{ `from ${date.price}` }}</span>
           </div>
         </div>
@@ -286,11 +286,11 @@ export default{
     return {
       phFlag: new URL('@/assets/ph-flag.svg', import.meta.url).href,
       dateOptions: [
-        { range: 'Sep 1-7', price: '₱12,345', active: false },
-        { range: 'Sep 8-14', price: '₱11,890', active: true },
-        { range: 'Sep 15-21', price: '₱13,200', active: false },
-        { range: 'Sep 22-28', price: '₱12,750', active: false },
-        { range: 'Sep 29-Oct 5', price: '₱14,100', active: false }
+        { range: 'Sep 1- Sep 7', price: '₱12,345', active: false },
+        { range: 'Sep 8- Sep 14', price: '₱11,890', active: true },
+        { range: 'Sep 15- Sep 21', price: '₱13,200', active: false },
+        { range: 'Sep 22- Sep 28', price: '₱12,750', active: false },
+        { range: 'Sep 29 - Oct 5', price: '₱14,100', active: false }
       ],
       flights: [
         {
