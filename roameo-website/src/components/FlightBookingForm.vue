@@ -1,6 +1,6 @@
 <template>
   <div v-motion="getSlideUpMotion(310)"
-    class="">
+    class="w-full flex justify-center items-center">
     <div class="bg-white/40 backdrop-blur-sm rounded-[20px] lg:rounded-[60px] p-4 md:p-8 shadow-lg w-full max-w-6xl font-plus-jakarta border border-slate-50 relative h-auto">
       <!-- Tab Navigation -->
       <div class="flex flex-row justify-center items-center mb-6 md:mb-10 md:absolute md:top-[-2.3125rem] md:left-0 md:right-0">

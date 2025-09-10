@@ -2,7 +2,18 @@
 <div class="h-full min-h-screen bg-gray-50 font-plus-jakarta">
   <!-- Flight Booking Section -->
   <section class="font-plus-jakarta relative bg-[#0088FF]">
-    <div class="flight-booking-container flex flex-col justify-center items-center xl:pt-[10rem] xl:pb-[4rem] py-8">
+    <!-- Currency Converter -->
+    <div class="absolute top-4 right-4 sm:top-[160px] sm:right-[50px] z-10">
+      <div class="flex items-center bg-white/10 backdrop-blur-sm rounded-lg px-2 py-1.5 sm:px-3 sm:py-2 cursor-pointer hover:bg-white/20 transition-colors">
+        <img :src="phFlag" alt="Philippines" class="w-4 h-3 sm:w-5 sm:h-4 mr-1 sm:mr-2">
+        <span class="text-white text-xs sm:text-sm font-medium mr-1">PHP</span>
+        <svg class="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </div>
+    </div>
+
+    <div class="flight-booking-container  xl:pt-[10rem] xl:pb-[4rem] py-8 w-full pt-[9rem] ">
       <flight-booking-form></flight-booking-form>
     </div>
   </section>
@@ -16,9 +27,9 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
           </svg>
         </button>
-        
+
         <div class="flex space-x-2 sm:space-x-4 mx-4">
-          <div v-for="date in dateOptions" :key="date.range" 
+          <div v-for="date in dateOptions" :key="date.range"
                :class="[
                  'flex flex-col items-center px-3 sm:px-4 py-3 rounded-lg cursor-pointer transition-colors whitespace-nowrap',
                  date.active ? 'bg-blue-100 border-2 border-blue-500' : 'hover:bg-gray-100'
@@ -27,7 +38,7 @@
             <span class="text-xs text-gray-500 mt-1">{{ date.price }}</span>
           </div>
         </div>
-        
+
         <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
           <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -138,21 +149,73 @@
       <main class="flex-1">
         <div class="space-y-4">
           <!-- Flight Result Card -->
-          <div v-for="flight in flights" :key="flight.id" 
-               class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6 hover:shadow-md transition-shadow">
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div v-for="flight in flights" :key="flight.id"
+               class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow">
+            <!-- Mobile Grid Layout -->
+            <div class="grid grid-cols-1 gap-4 sm:hidden">
+              <!-- Header Row: Airline Logo + Badges + Price -->
+              <div class="grid grid-cols-12 gap-2 items-center">
+                <div class="col-span-3">
+                  <img :src="flight.logo" :alt="flight.airline" class="w-16 h-10 object-contain">
+                </div>
+                <div class="col-span-6 flex flex-wrap gap-1">
+                  <span :class="[
+                    'px-2 py-1 text-xs font-medium rounded whitespace-nowrap',
+                    flight.badge === 'Cheapest' ? 'bg-blue-100 text-blue-800' : 'bg-cyan-100 text-cyan-800'
+                  ]">{{ flight.badge }}</span>
+                  <span v-if="flight.carryOnIncluded" class="px-2 py-1 text-xs font-medium rounded bg-cyan-100 text-cyan-800 whitespace-nowrap">
+                    Carry-on included
+                  </span>
+                </div>
+                <div class="col-span-3 text-right">
+                  <div class="text-lg font-bold text-blue-600">₱{{ flight.price.toLocaleString() }}</div>
+                  <div class="text-xs text-gray-500">{{ flight.priceType }}</div>
+                </div>
+              </div>
+
+              <!-- Flight Route Row -->
+              <div class="grid grid-cols-7 gap-2 items-center">
+                <div class="col-span-2 text-center">
+                  <div class="text-lg font-semibold text-gray-900">{{ flight.departTime }}</div>
+                  <div class="text-sm text-gray-500">{{ flight.departCode }}</div>
+                </div>
+
+                <div class="col-span-3 flex items-center justify-center px-2">
+                  <div class="w-full h-px bg-gray-300 relative">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <span class="bg-green-500 text-white px-2 py-1 text-xs font-medium rounded whitespace-nowrap">Direct</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-span-2 text-center">
+                  <div class="text-lg font-semibold text-gray-900">{{ flight.arriveTime }}</div>
+                  <div class="text-sm text-gray-500">{{ flight.arriveCode }}</div>
+                </div>
+              </div>
+
+              <!-- Select Button Row -->
+              <div class="grid grid-cols-1">
+                <button class="w-full bg-blue-50 hover:bg-blue-100 text-blue-600 font-bold py-3 px-6 rounded-lg border border-blue-200 transition-colors">
+                  SELECT
+                </button>
+              </div>
+            </div>
+
+            <!-- Desktop Layout (unchanged) -->
+            <div class="hidden sm:flex items-center justify-between gap-4 px-2 py-4">
               <!-- Flight Info -->
               <div class="flex items-center space-x-4 flex-1">
                 <!-- Airline Logo -->
                 <div class="flex-shrink-0">
-                  <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <img :src="flight.logo" :alt="flight.airline" class="w-6 h-6">
+                  <div class="w-20 h-12 flex items-center justify-center">
+                    <img :src="flight.logo" :alt="flight.airline" class="w-full h-full object-contain">
                   </div>
                 </div>
-                
+
                 <!-- Route Info -->
                 <div class="flex-1 min-w-0">
-                  <div class="flex items-center space-x-2 mb-1">
+                  <div class="flex items-center space-x-2 mb-2">
                     <span :class="[
                       'px-2 py-1 text-xs font-medium rounded',
                       flight.badge === 'Cheapest' ? 'bg-blue-100 text-blue-800' : 'bg-cyan-100 text-cyan-800'
@@ -161,13 +224,13 @@
                       Carry-on included
                     </span>
                   </div>
-                  
+
                   <div class="flex items-center space-x-4">
                     <div class="text-center">
                       <div class="text-lg font-semibold text-gray-900">{{ flight.departTime }}</div>
                       <div class="text-sm text-gray-500">{{ flight.departCode }}</div>
                     </div>
-                    
+
                     <div class="flex-1 flex items-center justify-center">
                       <div class="w-full h-px bg-gray-300 relative">
                         <div class="absolute inset-0 flex items-center justify-center">
@@ -175,7 +238,7 @@
                         </div>
                       </div>
                     </div>
-                    
+
                     <div class="text-center">
                       <div class="text-lg font-semibold text-gray-900">{{ flight.arriveTime }}</div>
                       <div class="text-sm text-gray-500">{{ flight.arriveCode }}</div>
@@ -183,14 +246,14 @@
                   </div>
                 </div>
               </div>
-              
+
               <!-- Price and Select -->
-              <div class="flex flex-col sm:flex-row items-end sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
+              <div class="flex flex-col items-center space-y-3">
                 <div class="text-right">
-                  <div class="text-2xl font-bold text-blue-600">₱{{ flight.price.toLocaleString() }}</div>
+                  <div class="text-xl font-bold text-blue-600">₱{{ flight.price.toLocaleString() }}</div>
                   <div class="text-sm text-gray-500">{{ flight.priceType }}</div>
                 </div>
-                <button class="w-full sm:w-auto bg-blue-50 hover:bg-blue-100 text-blue-600 font-medium py-2 px-6 rounded-lg border border-blue-200 transition-colors">
+                <button class="bg-blue-50 hover:bg-blue-100 text-blue-600 font-bold py-2 px-6 rounded-lg border border-blue-200 transition-colors text-sm">
                   SELECT
                 </button>
               </div>
@@ -220,6 +283,7 @@ export default{
 
   data(){
     return {
+      phFlag: new URL('@/assets/ph-flag.svg', import.meta.url).href,
       dateOptions: [
         { range: 'Sep 1-7', price: '₱12,345', active: false },
         { range: 'Sep 8-14', price: '₱11,890', active: true },
