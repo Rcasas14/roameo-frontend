@@ -31,7 +31,7 @@
         <div class="flex space-x-2 sm:space-x-3 mx-4">
           <div v-for="date in dateOptions" :key="date.range"
                   :class="['grid grid-cols-1 place-items-center px-3 sm:px-4 py-3 rounded-lg cursor-pointer transition-colors whitespace-nowrap border bg-[#fcfcfc] border-gray-300',
-                  date.active ? 'bg-cyan-100 border border-sky-500' : 'hover:bg-cyan-900'
+                  date.active ? 'bg-cyan-100 border border-sky-500' : 'hover:bg-cyan-100'
                 ]"
                class="lg:w-[200px] lg:h-[80px]">
             <span class="text-xs sm:text-sm font-medium text-gray-900">{{ date.range }}</span>
