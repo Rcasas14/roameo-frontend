@@ -1,28 +1,28 @@
 <template>
-  <nav class="fixed top-0 left-0 right-0 font-plus-jakarta z-50 lg:py-5 transition-all duration-300 ease-in-out" :class="scrolled ? 'bg-white shadow-lg' : 'bg-transparent'">
+  <nav class="fixed top-0 left-0 right-0 font-plus-jakarta z-50 lg:py-5 transition-all duration-300 ease-in-out" :class="shouldApplyScrolledEffect ? 'bg-white shadow-lg' : (isMainPage ? 'bg-transparent' : 'bg-white shadow-lg')">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 md:p-0 xs:p-0">
       <div class="flex justify-between items-center h-16">
         <!-- Logo -->
         <div class="flex-shrink-0 pl-4">
-          <a href="/"><img class="h-8 w-auto" :src="scrolled? roameoLogoBlack : roameoLogo" alt="Roameo" /></a>
+          <a href="/"><img class="h-8 w-auto" :src="shouldApplyScrolledEffect ? roameoLogoBlack : (isMainPage ? roameoLogo : roameoLogoBlack)" alt="Roameo" /></a>
         </div>
 
         <!-- Navigation Links -->
         <div class="hidden lg:block">
           <div class="ml-10 flex items-baseline space-x-8 pr-4">
-            <a href="/flights" class="px-3 py-2 text-sm font-medium transition-colors" :class="scrolled ? 'text-gray-900 hover:text-gray-600' : 'text-white hover:text-gray-200'">
+            <a href="/flights" class="px-3 py-2 text-sm font-medium transition-colors" :class="shouldApplyScrolledEffect ? 'text-gray-900 hover:text-gray-600' : (isMainPage ? 'text-white hover:text-gray-200' : 'text-gray-900 hover:text-gray-600')">
               Flights
             </a>
-            <a href="/hotels" class="px-3 py-2 text-sm font-medium transition-colors" :class="scrolled ? 'text-gray-900 hover:text-gray-600' : 'text-white hover:text-gray-200'">
+            <a href="/hotels" class="px-3 py-2 text-sm font-medium transition-colors" :class="shouldApplyScrolledEffect ? 'text-gray-900 hover:text-gray-600' : (isMainPage ? 'text-white hover:text-gray-200' : 'text-gray-900 hover:text-gray-600')">
               Hotels
             </a>
-            <a href="/blog" class="px-3 py-2 text-sm font-medium transition-colors" :class="scrolled ? 'text-gray-900 hover:text-gray-600' : 'text-white hover:text-gray-200'">
+            <a href="/blog" class="px-3 py-2 text-sm font-medium transition-colors" :class="shouldApplyScrolledEffect ? 'text-gray-900 hover:text-gray-600' : (isMainPage ? 'text-white hover:text-gray-200' : 'text-gray-900 hover:text-gray-600')">
               Blog
             </a>
-            <a href="/roameo-tv" class="px-3 py-2 text-sm font-medium transition-colors" :class="scrolled ? 'text-gray-900 hover:text-gray-600' : 'text-white hover:text-gray-200'">
+            <a href="/roameo-tv" class="px-3 py-2 text-sm font-medium transition-colors" :class="shouldApplyScrolledEffect ? 'text-gray-900 hover:text-gray-600' : (isMainPage ? 'text-white hover:text-gray-200' : 'text-gray-900 hover:text-gray-600')">
               Roameo TV
             </a>
-            <a href="/essential" class="px-3 py-2 text-sm font-medium transition-colors" :class="scrolled ? 'text-gray-900 hover:text-gray-600' : 'text-white hover:text-gray-200'">
+            <a href="/essential" class="px-3 py-2 text-sm font-medium transition-colors" :class="shouldApplyScrolledEffect ? 'text-gray-900 hover:text-gray-600' : (isMainPage ? 'text-white hover:text-gray-200' : 'text-gray-900 hover:text-gray-600')">
               Essential
             </a>
           </div>
@@ -30,14 +30,14 @@
 
         <!-- Log In Button -->
         <div class="hidden lg:block">
-          <button class="px-8 py-2 rounded-full text-sm font-extrabold transition-colors cursor-pointer" :class="scrolled ? 'bg-[#1A94FF] text-white hover:bg-[#1580e6]' : 'bg-white text-gray-900 hover:bg-gray-100'">
+          <button class="px-8 py-2 rounded-full text-sm font-extrabold transition-colors cursor-pointer" :class="shouldApplyScrolledEffect ? 'bg-[#1A94FF] text-white hover:bg-[#1580e6]' : (isMainPage ? 'bg-white text-gray-900 hover:bg-gray-100' : 'bg-[#1A94FF] text-white hover:bg-[#1580e6]')">
             Log In
           </button>
         </div>
 
         <!-- Mobile menu button -->
         <div class="lg:hidden">
-          <button @click.stop="toggleMobileMenu" class=" hover:text-gray-200 p-2" :class="scrolled ? 'text-black': 'text-white'">
+          <button @click.stop="toggleMobileMenu" class=" hover:text-gray-200 p-2" :class="shouldApplyScrolledEffect ? 'text-black': (isMainPage ? 'text-white' : 'text-black')">
             <svg v-show="mobileMenuOpen === false" v-motion-pop-visible class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
@@ -88,6 +88,21 @@ export default {
       roameoLogoBlack: new URL('@/assets/roameo-logo-black.svg', import.meta.url).href,
     };
   },
+  computed: {
+    isMainPage() {
+      return this.$route.path === '/' || this.$route.path === '/home'
+    },
+    shouldApplyScrolledEffect() {
+      return this.isMainPage && this.scrolled
+    }
+  },
+  watch: {
+    '$route'() {
+      if (!this.isMainPage) {
+        this.scrolled = false
+      }
+    }
+  },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
   },
@@ -99,7 +114,9 @@ export default {
       this.mobileMenuOpen = !this.mobileMenuOpen
     },
     handleScroll() {
-      this.scrolled = window.scrollY > 100;
+      if (this.isMainPage) {
+        this.scrolled = window.scrollY > 100;
+      }
     }
   }
 };
