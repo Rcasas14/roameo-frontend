@@ -422,6 +422,20 @@ export default{
           priceType: 'Round Trip',
           label: 'PAL'
         },
+        {
+          id: 7,
+          airline: 'Philippine Airlines',
+          logo: new URL('@/assets/pal-logo.svg', import.meta.url).href,
+          badge: 'Premium',
+          carryOnIncluded: true,
+          departTime: '09:20',
+          departCode: 'MNL',
+          arriveTime: '15:50',
+          arriveCode: 'PAL',
+          price: 6750,
+          priceType: 'Round Trip',
+          label: 'PAL'
+        },
 
       ]
     }
