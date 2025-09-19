@@ -110,11 +110,45 @@
         <div class="mb-8">
           <div class="flex items-center justify-between mb-4">
             <h3 class="text-lg font-semibold text-gray-900">Duration</h3>
-            <button class="text-gray-400 hover:text-gray-600">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </button>
+            <button class="text-blue-600 text-sm font-medium hover:text-blue-800">Clear</button>
+          </div>
+          <div class="space-y-4">
+            <!-- Duration Slider -->
+            <div class="relative">
+              <div class="flex items-center space-x-4">
+                <div class="flex-1 relative">
+                  <input type="range" min="0" max="1440" value="30" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider-thumb-blue">
+                  <input type="range" min="0" max="1440" value="1440" class="w-full h-2 bg-transparent rounded-lg appearance-none cursor-pointer absolute top-0 slider-thumb-blue">
+                </div>
+              </div>
+              <div class="flex justify-between mt-2 text-sm text-gray-600">
+                <span>0h:30m</span>
+                <span>24h:00m</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Layover Filter -->
+        <div class="mb-8">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-gray-900">Layover</h3>
+            <button class="text-blue-600 text-sm font-medium hover:text-blue-800">Clear</button>
+          </div>
+          <div class="space-y-4">
+            <!-- Layover Slider -->
+            <div class="relative">
+              <div class="flex items-center space-x-4">
+                <div class="flex-1 relative">
+                  <input type="range" min="0" max="1440" value="30" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider-thumb-blue">
+                  <input type="range" min="0" max="1440" value="1440" class="w-full h-2 bg-transparent rounded-lg appearance-none cursor-pointer absolute top-0 slider-thumb-blue">
+                </div>
+              </div>
+              <div class="flex justify-between mt-2 text-sm text-gray-600">
+                <span>0h:30m</span>
+                <span>24h:00m</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -356,4 +390,31 @@ export default{
 </script>
 
 <style scoped>
+/* Custom slider styles */
+.slider-thumb-blue::-webkit-slider-thumb {
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #1A94FF;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.slider-thumb-blue::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #1A94FF;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.slider-thumb-blue::-webkit-slider-track {
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(to right, #1A94FF 0%, #1A94FF 30%, #e5e5e5 30%, #e5e5e5 100%);
+}
 </style>
