@@ -52,65 +52,65 @@
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
     <div class="flex flex-col lg:flex-row gap-6">
       <!-- Filters Sidebar -->
-      <aside class="w-full lg:w-80 bg-white rounded-lg shadow-sm border border-gray-200 p-6 h-fit">
+      <aside class="w-full lg:w-80 space-y-4 h-fit">
         <!-- Tickets Filter -->
-        <div class="mb-8">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <h3 class="text-lg font-semibold text-gray-900 mb-4">Tickets</h3>
           <div class="space-y-3">
             <label class="flex items-center cursor-pointer">
               <input type="radio" name="tickets" value="all" checked class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500">
-              <span class="ml-3 text-sm text-gray-700">All Tickets</span>
+              <span class="ml-3 text-sm font-semibold text-gray-700">All Tickets</span>
             </label>
             <label class="flex items-center cursor-pointer">
               <input type="radio" name="tickets" value="best" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500">
-              <span class="ml-3 text-sm text-gray-700">Best Tickets</span>
+              <span class="ml-3 text-sm font-semibold text-gray-700">Best Tickets</span>
             </label>
           </div>
         </div>
 
         <!-- Baggage Type Filter -->
-        <div class="mb-8">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <h3 class="text-lg font-semibold text-gray-900 mb-4">Baggage Type</h3>
           <div class="space-y-3">
             <label class="flex items-center cursor-pointer">
               <input type="radio" name="baggage" value="all" checked class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500">
-              <span class="ml-3 text-sm text-gray-700">All</span>
+              <span class="ml-3 text-sm font-semibold text-gray-700">All</span>
             </label>
             <label class="flex items-center cursor-pointer">
               <input type="radio" name="baggage" value="without" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500">
-              <span class="ml-3 text-sm text-gray-700">Without Baggage</span>
+              <span class="ml-3 text-sm font-semibold text-gray-700">Without Baggage</span>
             </label>
             <label class="flex items-center cursor-pointer">
               <input type="radio" name="baggage" value="with" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500">
-              <span class="ml-3 text-sm text-gray-700">Luggage and Carry-on Included</span>
+              <span class="ml-3 text-sm font-semibold text-gray-700">Luggage and Carry-on Included</span>
             </label>
           </div>
         </div>
 
         <!-- Stops Filter -->
-        <div class="mb-8">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <h3 class="text-lg font-semibold text-gray-900 mb-4">Stops</h3>
           <div class="space-y-3">
             <label class="flex items-center cursor-pointer">
               <input type="checkbox" checked class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-              <span class="ml-3 text-sm text-gray-700">All</span>
+              <span class="ml-3 text-sm font-semibold text-gray-700">All</span>
             </label>
             <label class="flex items-center cursor-pointer">
               <input type="checkbox" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-              <span class="ml-3 text-sm text-gray-700">Direct</span>
+              <span class="ml-3 text-sm font-semibold text-gray-700">Nonstop</span>
             </label>
             <label class="flex items-center cursor-pointer">
               <input type="checkbox" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-              <span class="ml-3 text-sm text-gray-700">1 Stop</span>
+              <span class="ml-3 text-sm font-semibold text-gray-700">1 Stop</span>
             </label>
           </div>
         </div>
 
         <!-- Duration Filter -->
-        <div class="mb-8">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <div class="flex items-center justify-between mb-4">
             <h3 class="text-lg font-semibold text-gray-900">Duration</h3>
-            <button class="text-blue-600 text-sm font-medium hover:text-blue-800">Clear</button>
+            <button class="text-blue-600 text-sm font-semibold hover:text-blue-800">Clear</button>
           </div>
           <div class="space-y-4">
             <!-- Duration Slider -->
@@ -121,7 +121,7 @@
                   <input type="range" min="0" max="1440" value="1440" class="w-full h-2 bg-transparent rounded-lg appearance-none cursor-pointer absolute top-0 slider-thumb-blue">
                 </div>
               </div>
-              <div class="flex justify-between mt-2 text-sm text-gray-600">
+              <div class="flex justify-between mt-2 text-sm font-semibold text-gray-600">
                 <span>0h:30m</span>
                 <span>24h:00m</span>
               </div>
@@ -130,10 +130,10 @@
         </div>
 
         <!-- Layover Filter -->
-        <div class="mb-8">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <div class="flex items-center justify-between mb-4">
             <h3 class="text-lg font-semibold text-gray-900">Layover</h3>
-            <button class="text-blue-600 text-sm font-medium hover:text-blue-800">Clear</button>
+            <button class="text-blue-600 text-sm font-semibold hover:text-blue-800">Clear</button>
           </div>
           <div class="space-y-4">
             <!-- Layover Slider -->
@@ -144,7 +144,7 @@
                   <input type="range" min="0" max="1440" value="1440" class="w-full h-2 bg-transparent rounded-lg appearance-none cursor-pointer absolute top-0 slider-thumb-blue">
                 </div>
               </div>
-              <div class="flex justify-between mt-2 text-sm text-gray-600">
+              <div class="flex justify-between mt-2 text-sm font-semibold text-gray-600">
                 <span>0h:30m</span>
                 <span>24h:00m</span>
               </div>
@@ -153,7 +153,7 @@
         </div>
 
         <!-- Airlines Filter -->
-        <div class="mb-8">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <div class="flex items-center justify-between mb-4">
             <h3 class="text-lg font-semibold text-gray-900">Airlines</h3>
             <button class="text-gray-400 hover:text-gray-600">
@@ -165,15 +165,26 @@
           <div class="space-y-3">
             <label class="flex items-center cursor-pointer">
               <input type="checkbox" checked class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-              <span class="ml-3 text-sm text-gray-700">All</span>
+              <span class="ml-3 text-sm font-semibold text-gray-700">All</span>
             </label>
             <label class="flex items-center cursor-pointer">
               <input type="checkbox" checked class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-              <span class="ml-3 text-sm text-gray-700">Cebu Pacific</span>
+              <span class="ml-3 text-sm font-semibold text-gray-700">Cebu Pacific</span>
             </label>
             <label class="flex items-center cursor-pointer">
               <input type="checkbox" checked class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-              <span class="ml-3 text-sm text-gray-700">Philippine Airlines</span>
+              <span class="ml-3 text-sm font-semibold text-gray-700">Philippine Airlines</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Connecting Airports Filter -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">Connecting Airports</h3>
+          <div class="space-y-3">
+            <label class="flex items-center cursor-pointer">
+              <input type="checkbox" checked class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+              <span class="ml-3 text-sm font-semibold text-gray-700">All</span>
             </label>
           </div>
         </div>
@@ -382,7 +393,36 @@ export default{
           price: 6750,
           priceType: 'Round Trip',
           label: 'PAL'
-        }
+        },
+        {
+          id: 5,
+          airline: 'Philippine Airlines',
+          logo: new URL('@/assets/pal-logo.svg', import.meta.url).href,
+          badge: 'Premium',
+          carryOnIncluded: true,
+          departTime: '09:20',
+          departCode: 'MNL',
+          arriveTime: '15:50',
+          arriveCode: 'PAL',
+          price: 6750,
+          priceType: 'Round Trip',
+          label: 'PAL'
+        },
+        {
+          id: 6,
+          airline: 'Philippine Airlines',
+          logo: new URL('@/assets/pal-logo.svg', import.meta.url).href,
+          badge: 'Premium',
+          carryOnIncluded: true,
+          departTime: '09:20',
+          departCode: 'MNL',
+          arriveTime: '15:50',
+          arriveCode: 'PAL',
+          price: 6750,
+          priceType: 'Round Trip',
+          label: 'PAL'
+        },
+
       ]
     }
   }
