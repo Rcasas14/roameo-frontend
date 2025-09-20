@@ -81,7 +81,7 @@
                       <!-- CTA Button -->
                       <button
                         @click="step.action"
-                        class="bg-[#1A94FF] hover:bg-[#1580e6] text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#1A94FF] focus:ring-offset-2 cursor-pointer"
+                        class="bg-[#0088FF] hover:bg-[#1580e6] text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#0088FF] focus:ring-offset-2 cursor-pointer"
                       >
                         {{ step.buttonText }}
                       </button>
@@ -105,7 +105,7 @@
                       <!-- CTA Button -->
                       <button
                         @click="step.action"
-                        class="bg-[#1A94FF] hover:bg-[#1580e6] text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#1A94FF] focus:ring-offset-2 cursor-pointer"
+                        class="bg-[#0088FF] hover:bg-[#1580e6] text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#0088FF] focus:ring-offset-2 cursor-pointer"
                       >
                         {{ step.buttonText }}
                       </button>

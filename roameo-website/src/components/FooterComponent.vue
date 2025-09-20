@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-gradient-to-r from-[#1A94FF] to-[#0B7CE6] text-white font-plus-jakarta">
+  <footer class="bg-gradient-to-r from-[#1A94FF] to-[#0088FF] text-white font-plus-jakarta">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 lg:gap-12">
 

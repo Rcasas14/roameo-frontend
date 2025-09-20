@@ -39,7 +39,7 @@
           <!-- CTA Button -->
           <button
             @click="watchNow"
-            class="bg-[#1A94FF] hover:bg-[#1580e6] text-white font-semibold py-3 sm:py-4 px-6 sm:px-8 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#1A94FF] focus:ring-offset-2 cursor-pointer w-full sm:w-auto"
+            class="bg-[#0088FF] hover:bg-[#1580e6] text-white font-semibold py-3 sm:py-4 px-6 sm:px-8 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#0088FF] focus:ring-offset-2 cursor-pointer w-full sm:w-auto"
           >
             Watch now!
           </button>

@@ -27,7 +27,7 @@
           <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button
               @click="getAIRecommendations"
-              class="bg-[#1A94FF] hover:bg-[#1580e6] text-white font-semibold py-4 px-14 rounded-[20px] transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#1A94FF] focus:ring-offset-2 shadow-lg min-w-[200px] cursor-pointer"
+              class="bg-[#0088FF] hover:bg-[#1580e6] text-white font-semibold py-4 px-14 rounded-[20px] transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#0088FF] focus:ring-offset-2 shadow-lg min-w-[200px] cursor-pointer"
             >
               Get AI Recommendations
             </button>

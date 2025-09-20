@@ -1440,7 +1440,7 @@ export default {
 
 /* Select button - Primary blue */
 .dp__action_button.dp__action_select {
-  background: #1A94FF !important;
+  background: #0088FF !important;
   color: white !important;
 }
 

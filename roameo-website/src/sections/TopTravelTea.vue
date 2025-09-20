@@ -12,7 +12,7 @@
 
         <!-- Main Heading -->
         <h2 v-motion="getScrollSlideUpMotionBounce(200)" class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-8 leading-tight max-w-4xl mx-auto">
-          <span class="text-[#1A94FF]">Top Travel Tea,</span> Spilled Weekly
+          <span class="text-[#0088FF]">Top Travel Tea,</span> Spilled Weekly
         </h2>
 
         <!-- Description -->

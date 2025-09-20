@@ -3,7 +3,7 @@
     <div v-motion="getScrollSlideUpMotionBounce(330, 90)" class="space-y-4">
       <!-- Accordion Item 1 -->
       <div class="rounded-lg shadow-sm border transition-all duration-200"
-           :class="activeItems.includes(0) ? 'bg-[#1A94FF] border-[#1A94FF]' : 'bg-white border-gray-200'">
+           :class="activeItems.includes(0) ? 'bg-[#0088FF] border-[#0088FF]' : 'bg-white border-gray-200'">
         <button
           @click="toggleItem(0)"
           class="w-full px-6 py-4 flex items-center justify-between text-left transition-colors"
@@ -32,7 +32,7 @@
 
       <!-- Accordion Item 2 -->
       <div class="rounded-lg shadow-sm border transition-all duration-200"
-           :class="activeItems.includes(1) ? 'bg-[#1A94FF] border-[#1A94FF]' : 'bg-white border-gray-200'">
+           :class="activeItems.includes(1) ? 'bg-[#0088FF] border-[#0088FF]' : 'bg-white border-gray-200'">
         <button
           @click="toggleItem(1)"
           class="w-full px-6 py-4 flex items-center justify-between text-left transition-colors"
@@ -61,7 +61,7 @@
 
       <!-- Accordion Item 3 -->
       <div class="rounded-lg shadow-sm border transition-all duration-200"
-           :class="activeItems.includes(2) ? 'bg-[#1A94FF] border-[#1A94FF]' : 'bg-white border-gray-200'">
+           :class="activeItems.includes(2) ? 'bg-[#0088FF] border-[#0088FF]' : 'bg-white border-gray-200'">
         <button
           @click="toggleItem(2)"
           class="w-full px-6 py-4 flex items-center justify-between text-left transition-colors"

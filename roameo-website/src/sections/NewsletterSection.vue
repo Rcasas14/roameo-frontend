@@ -44,12 +44,12 @@
                 v-model="email"
                 type="email"
                 placeholder="Enter your email"
-                class="flex-1 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#1A94FF] focus:border-transparent bg-white/90 backdrop-blur-sm text-gray-900 placeholder-gray-500"
+                class="flex-1 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0088FF] focus:border-transparent bg-white/90 backdrop-blur-sm text-gray-900 placeholder-gray-500"
               >
               <button
                 @click="subscribe"
                 :disabled="!isValidEmail"
-                class="bg-[#1A94FF] hover:bg-[#1580e6] disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#1A94FF] focus:ring-offset-2 cursor-pointer disabled:cursor-not-allowed whitespace-nowrap"
+                class="bg-[#0088FF] hover:bg-[#1580e6] disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#0088FF] focus:ring-offset-2 cursor-pointer disabled:cursor-not-allowed whitespace-nowrap"
               >
                 Subscribe
               </button>
@@ -339,9 +339,9 @@ export default {
   border-color: #ef4444;
 }
 
-.newsletter-section input:valid {
+/* .newsletter-section input:valid {
   border-color: #22c55e;
-}
+} */
 
 /* Disabled button styles */
 .newsletter-section button:disabled {
