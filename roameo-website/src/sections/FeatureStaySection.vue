@@ -13,7 +13,7 @@
 
           <!-- Heading -->
           <h2 v-motion="getScrollSlideUpMotionBounce(200)" class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-            <span class="text-[#4A9DB1]">Top Stays</span> That Slay
+            <span class="text-[#0088FF]">Top Stays</span> That Slay
           </h2>
 
           <!-- Description -->

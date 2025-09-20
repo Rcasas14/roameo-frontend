@@ -9,7 +9,7 @@
           </span>
         </div>
         <h2 v-motion="getScrollSlideUpMotionBounce(330)" class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-          <span class="text-[#1A94FF]">Featured</span> Episodes
+          <span class="text-[#0088FF]">Featured</span> Episodes
         </h2>
         <p v-motion="getScrollSlideUpMotionBounce(360)" class="text-gray-600 text-lg leading-relaxed">
           Latest travel stories from around the world!

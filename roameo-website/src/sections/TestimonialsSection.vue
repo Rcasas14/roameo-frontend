@@ -10,7 +10,7 @@
         </div>
 
         <h2 v-motion="getScrollSlideUpMotionBounce(330)" class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-8 leading-tight max-w-4xl mx-auto">
-          <span class="text-[#1A94FF]">Top Raves</span> from the Roam Fam
+          <span class="text-[#0088FF]">Top Raves</span> from the Roam Fam
         </h2>
 
         <p v-motion="getScrollSlideUpMotionBounce(360)" class="text-gray-600 text-lg mb-12 max-w-3xl mx-auto leading-relaxed">

@@ -9,7 +9,7 @@
           </span>
         </div>
         <h2 v-motion="getScrollSlideUpMotion(150)" class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4 max-w-4xl mx-auto leading-tight">
-          <span class="text-[#4A9DB1]">Top Destinations</span> That Totally Eat (And Leave No Crumbs)
+          <span class="text-[#0088FF]">Top Destinations</span> That Totally Eat (And Leave No Crumbs)
         </h2>
       </div>
 

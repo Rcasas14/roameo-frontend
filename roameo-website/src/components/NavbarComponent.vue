@@ -30,7 +30,7 @@
 
         <!-- Log In Button -->
         <div class="hidden lg:block">
-          <button class="px-8 py-2 rounded-full text-sm font-extrabold transition-colors cursor-pointer" :class="shouldApplyScrolledEffect ? 'bg-[#1A94FF] text-white hover:bg-[#1580e6]' : (isMainPage ? 'bg-white text-gray-900 hover:bg-gray-100' : 'bg-[#1A94FF] text-white hover:bg-[#1580e6]')">
+          <button class="px-8 py-2 rounded-full text-sm font-extrabold transition-colors cursor-pointer" :class="shouldApplyScrolledEffect ? 'bg-[#0088FF] text-white hover:bg-[#1580e6]' : (isMainPage ? 'bg-white text-gray-900 hover:bg-gray-100' : 'bg-[#0088FF] text-white hover:bg-[#1580e6]')">
             Log In
           </button>
         </div>

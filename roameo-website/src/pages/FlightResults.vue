@@ -450,7 +450,7 @@ export default{
   height: 20px;
   width: 20px;
   border-radius: 50%;
-  background: #1A94FF;
+  background: #0088FF;
   cursor: pointer;
   border: 2px solid white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -460,7 +460,7 @@ export default{
   height: 20px;
   width: 20px;
   border-radius: 50%;
-  background: #1A94FF;
+  background: #0088FF;
   cursor: pointer;
   border: 2px solid white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -469,6 +469,6 @@ export default{
 .slider-thumb-blue::-webkit-slider-track {
   height: 8px;
   border-radius: 4px;
-  background: linear-gradient(to right, #1A94FF 0%, #1A94FF 30%, #e5e5e5 30%, #e5e5e5 100%);
+  background: linear-gradient(to right, #0088FF 0%, #0088FF 30%, #e5e5e5 30%, #e5e5e5 100%);
 }
 </style>
