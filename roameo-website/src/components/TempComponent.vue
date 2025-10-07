@@ -1,175 +1,151 @@
 <template>
-  <div class="flight-results-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Flight Results Header -->
-    <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900">Flight Results</h1>
+  <div class="flight-search-page">
+    <!-- Your Custom Header/Branding -->
+    <div class="search-header">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Search Flights</h1>
+      <p class="text-gray-600">Find and compare the best flight deals</p>
     </div>
-    
-    <!-- Your existing flight results content -->
-    <div class="mb-8">
-      <!-- Add your existing flight results here -->
-      <p class="text-gray-600">Your flight search results would appear here...</p>
-    </div>
-    
-    <!-- Roameo Widget Container -->
-    <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
-      <div class="p-6">
-        <h2 class="text-xl font-semibold text-gray-800 mb-4">Book Your Flight</h2>
-        
-        <!-- This is where the widget will appear -->
-        <div class="widget-wrapper border border-gray-200 rounded-lg p-4 bg-gray-50">
-          <!-- Loading state -->
-          <div v-if="!scriptLoaded" class="text-center py-8">
-            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-            <p class="text-gray-600 mt-2">Loading flight search widget...</p>
-          </div>
-          
-          <!-- Script container - the widget will appear right here -->
-          <div ref="scriptContainer" class="widget-content">
-            <!-- The Roameo iframe/widget will be inserted here by the script -->
-          </div>
-          
-          <!-- Error state -->
-          <div v-if="scriptError" class="text-center py-8">
-            <div class="text-red-600">
-              <svg class="w-12 h-12 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 18.5c-.77.833.192 2.5 1.732 2.5z"></path>
-              </svg>
-              <p class="text-red-600">Failed to load flight search widget</p>
-              <button @click="retryLoadScript" class="mt-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
-                Retry
-              </button>
-            </div>
-          </div>
-        </div>
+
+    <!-- Widget Container -->
+    <div class="widget-container font-plus-jakarta">
+      <div ref="widgetWrapper" class="widget-wrapper">
+        <!-- Travelpayouts widget will load here -->
       </div>
+    </div>
+
+    <!-- Optional: Additional Content Below Widget -->
+    <div class="additional-content">
+      <!-- Your custom content, tips, etc. -->
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'FlightResults',
+  name: 'FlightSearch',
   data() {
     return {
-      scriptLoaded: false,
-      scriptError: false
+      widgetLoaded: false,
+      scriptId: 'travelpayouts-widget-script'
     }
   },
   mounted() {
-    this.loadRoameoScript();
+    this.loadTravelPayoutsWidget();
   },
   beforeUnmount() {
-    this.cleanupScript();
+    this.cleanupWidget();
   },
   methods: {
-    loadRoameoScript() {
-      // Reset states
-      this.scriptLoaded = false;
-      this.scriptError = false;
-      
-      // Check if script is already loaded globally
-      if (document.querySelector('script[src*="roameo.net/iframe.js"]')) {
-        console.log('Roameo script already exists');
-        this.scriptLoaded = true;
+    loadTravelPayoutsWidget() {
+      // Check if script already exists
+      if (document.getElementById(this.scriptId)) {
+        console.log('Travelpayouts widget script already loaded');
         return;
       }
-      
-      try {
-        // Create the script element
-        const script = document.createElement('script');
-        script.src = '//flight.roameo.net/iframe.js';
-        script.charset = 'utf-8';
-        script.type = 'text/javascript';
-        script.async = true;
-        
-        // Add success handler
-        script.onload = () => {
-          console.log('Roameo script loaded successfully');
-          this.scriptLoaded = true;
-          this.scriptError = false;
-          
-          // Optional: Check if widget appeared after a delay
-          setTimeout(() => {
-            this.checkWidgetLoaded();
-          }, 2000);
-        };
-        
-        // Add error handler
-        script.onerror = (error) => {
-          console.error('Failed to load Roameo script:', error);
-          this.scriptLoaded = false;
-          this.scriptError = true;
-        };
-        
-        // IMPORTANT: Append the script to the container
-        // The widget will appear right where this script is placed
-        if (this.$refs.scriptContainer) {
-          this.$refs.scriptContainer.appendChild(script);
-          console.log('Roameo script appended to container');
-        } else {
-          console.error('Script container ref not found');
-          this.scriptError = true;
-        }
-        
-      } catch (error) {
-        console.error('Error creating Roameo script:', error);
-        this.scriptError = true;
-      }
+
+      // Create script element
+      const script = document.createElement('script');
+      script.id = this.scriptId;
+      script.async = true;
+      script.src = 'https://tpwdg.com/content?currency=usd&trs=348884&shmarker=571116&show_hotels=true&powered_by=true&locale=en&searchUrl=www.aviasales.com%2Fsearch&primary_override=%2332a8dd&color_button=%2332a8dd&color_icons=%2332a8dd&dark=%23262626&light=%23FFFFFF&secondary=%23FFFFFF&special=%23C4C4C4&color_focused=%2332a8dd&border_radius=20&no_labels=&plain=true&promo_id=7879&campaign_id=100';
+
+      // Add load event listener
+      script.onload = () => {
+        console.log('Travelpayouts widget loaded successfully');
+        this.widgetLoaded = true;
+      };
+
+      // Add error event listener
+      script.onerror = () => {
+        console.error('Failed to load Travelpayouts widget');
+      };
+
+      // Append script to widget wrapper
+      this.$refs.widgetWrapper.appendChild(script);
     },
-    
-    checkWidgetLoaded() {
-      // Check if an iframe or widget content was added
-      const container = this.$refs.scriptContainer;
-      if (container) {
-        const iframes = container.querySelectorAll('iframe');
-        const widgets = container.querySelectorAll('[class*="widget"], [class*="roameo"], [id*="widget"]');
-        
-        if (iframes.length > 0 || widgets.length > 0) {
-          console.log('Widget detected:', { iframes: iframes.length, widgets: widgets.length });
-        } else {
-          console.log('No widget detected yet');
-        }
+
+    cleanupWidget() {
+      // Remove script when component is destroyed
+      const script = document.getElementById(this.scriptId);
+      if (script) {
+        script.remove();
       }
-    },
-    
-    retryLoadScript() {
-      // Clean up and retry
-      this.cleanupScript();
-      this.$nextTick(() => {
-        this.loadRoameoScript();
-      });
-    },
-    
-    cleanupScript() {
-      // Remove the script from the container
-      if (this.$refs.scriptContainer) {
-        const scripts = this.$refs.scriptContainer.querySelectorAll('script');
-        scripts.forEach(script => script.remove());
-      }
-      
-      // Note: We don't remove global scripts as they might be used by other components
-      this.scriptLoaded = false;
-      this.scriptError = false;
     }
   }
 }
 </script>
 
 <style scoped>
-/* Add any custom styles for your widget container */
+/* Container Styling */
+.flight-search-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.search-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* Widget Container */
+
+
 .widget-wrapper {
-  min-height: 400px; /* Ensure enough space for the widget */
+  min-height: auto; /* Prevent layout shift while loading */
 }
 
-.widget-content {
-  min-height: 300px; /* Minimum height for widget content */
+
+/* Additional Content */
+.additional-content {
+  margin-top: 3rem;
 }
 
-/* Style any iframe that gets inserted */
-.widget-content iframe {
-  width: 100%;
-  border: none;
-  border-radius: 8px;
+/* Widget Style Overrides - Use ::v-deep or :deep() for Vue 3 */
+.widget-container :deep(.tp-form),
+.widget-container :deep([class*="avia"]) {
+  font-family: inherit;
+}
+
+/* Override widget input styles */
+.widget-container :deep(input) {
+  transition: all 0.2s ease;
+}
+
+.widget-container :deep(input:focus) {
+  box-shadow: 0 0 0 3px rgba(50, 168, 221, 0.1);
+}
+
+/* Override button styles */
+.widget-container :deep(button[type="submit"]),
+.widget-container :deep(.search-button) {
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.widget-container :deep(button[type="submit"]:hover),
+.widget-container :deep(.search-button:hover) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(50, 168, 221, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .flight-search-page {
+    padding: 1rem 0.5rem;
+  }
+
+  .widget-container {
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .search-header {
+    margin-bottom: 2rem;
+  }
+
+  .search-header h1 {
+    font-size: 1.5rem;
+  }
 }
 </style>
