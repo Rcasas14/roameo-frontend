@@ -3,8 +3,8 @@
         <div class="flight-search-page bg-white/40  rounded-[20px] p-4 md:p-8 shadow-lg w-full max-w-6xl font-plus-jakarta border border-slate-50 relative h-auto">
         <!-- Your Custom Header/Branding -->
         <!-- Widget Container -->
-        <div class="widget-container font-plus-jakarta">
-            <div ref="widgetWrapper" class="widget-wrapper">
+        <div class="widget-container font-plus-jakarta ">
+            <div ref="widgetWrapper" class="widget-wrapper flex justify-center items-center">
             <!-- Travelpayouts widget will load here -->
             </div>
         </div>
@@ -44,7 +44,7 @@
         const script = document.createElement('script');
         script.id = this.scriptId;
         script.async = true;
-        script.src = 'https://tpwdg.com/content?currency=usd&trs=348884&shmarker=571116&show_hotels=true&powered_by=true&locale=en&searchUrl=www.aviasales.com%2Fsearch&primary_override=%2332a8dd&color_button=%2332a8dd&color_icons=%2332a8dd&dark=%23262626&light=%23FFFFFF&secondary=%23FFFFFF&special=%23C4C4C4&color_focused=%2332a8dd&border_radius=20&no_labels=&plain=true&promo_id=7879&campaign_id=100';
+        script.src = 'https://tpwdg.com/content?currency=usd&trs=360683&shmarker=571116&show_hotels=true&powered_by=true&locale=en&searchUrl=www.aviasales.com%2Fsearch&primary_override=%230088FF&color_button=%230088FF&color_icons=%230088FF&dark=%23262626&light=%23FFFFFF&secondary=%23FFFFFF00&special=%23C4C4C400&color_focused=%2332a8dd&border_radius=20&no_labels=&plain=true&promo_id=7879&campaign_id=100';
   
         // Add load event listener
         script.onload = () => {
@@ -85,7 +85,9 @@
   
   
   .widget-wrapper {
-    min-height: auto; /* Prevent layout shift while loading */
+    min-height: 150px;
+    border-radius: 20px;
+    background-color:#EDFBFF; /* Prevent layout shift while loading */
   }
   
 
