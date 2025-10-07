@@ -5,6 +5,7 @@ import MainPage from '@/pages/MainPage.vue';
 import FlightResults from '@/pages/FlightResults.vue'
 
 import TempComponent from '@/components/TempComponent.vue';
+import UnderConstruction from '@/components/UnderConstruction.vue';
 
 
 const routes = [
@@ -24,6 +25,34 @@ const routes = [
       {
         path:'/temporary',
         component: TempComponent,
+      },
+
+      {
+        path: '/flights',
+        component: UnderConstruction,
+      },
+      {
+        path: '/hotels',
+        component: UnderConstruction,
+      },
+      {
+        path: '/blog',
+        component: UnderConstruction,
+      },
+      {
+        path: '/roameo-tv',
+        component: UnderConstruction,
+      },
+      {
+        path: '/essential',
+        component: UnderConstruction,
+      },
+
+
+
+      {
+        path:'/under-construction',
+        component: UnderConstruction,
       }
 
     ],
