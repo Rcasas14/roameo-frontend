@@ -19,9 +19,9 @@
     </div>
 
     <!-- Bottom Left Grid Dots -->
-    <div v-motion="getSlideUpMotion(120)" class="el-absolute absolute bottom-32 left-28 z-10 opacity-90 hidden lg:block">
+    <!-- <div v-motion="getSlideUpMotion(120)" class="el-absolute absolute bottom-32 left-28 z-10 opacity-90 hidden lg:block">
       <img :src="gridDots" alt="decorative dots" class="w-16 h-10 md:w-20 md:h-12 lg:w-30 lg:h-30">
-    </div>
+    </div> -->
 
     <section class="hero-section min-h-screen font-plus-jakarta grid place-items-center relative">
       <div
@@ -40,7 +40,7 @@
       </div>
       <div class="fixed-btn el-absolute absolute bottom-19 right-15 z-15 hidden lg:block">
         <!-- Bottom Right Asterisk -->
-        <a href="#" class="px-2 py-4 bg-[#FFE759] uppercase rounded-xl w-[7.25rem] h-[36px] text-[.625rem] cursor-pointer font-bold flex items-center justify-center gap-x-2 z-15">
+        <a href="#partner-section" class="px-2 py-4 bg-[#FFE759] uppercase rounded-xl w-[7.25rem] h-[36px] text-[.625rem] cursor-pointer font-bold flex items-center justify-center gap-x-2 z-15">
           <span class="text-[#000]">explore</span>
           <img :src="downArrow" alt="" class="w-3 h-3">
         </a>

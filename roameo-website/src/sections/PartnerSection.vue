@@ -1,5 +1,5 @@
 <template>
-  <section class="partner-section bg-gray-50 py-16 lg:py-24 font-plus-jakarta">
+  <section id="partner-section" class="partner-section bg-gray-50 py-16 lg:py-24 font-plus-jakarta">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12 lg:mb-16">
         <h2 v-motion="getScrollSlideUpMotion(140)" class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4">
