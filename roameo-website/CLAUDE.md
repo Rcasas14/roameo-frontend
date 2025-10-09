@@ -124,7 +124,8 @@ export default {
     - Smooth transitions and hover states
   - **Flight Search**: Location-based flight booking with real-time search
     - Dual location inputs (From/To) with Headless UI Combobox
-    - Real-time location search using OpenStreetMap Nominatim API
+    - Real-time location search using **Travelpayouts Autocomplete API** (`https://autocomplete.travelpayouts.com/places2`)
+    - Provides accurate IATA codes for airports and cities worldwide
     - Debounced search (300ms) with loading indicators
     - Location type detection (airport vs city) with appropriate icons
     - Swap functionality for reversing From/To locations
@@ -134,7 +135,7 @@ export default {
       - Positioned below search form with responsive layout
       - State-driven validation and search data inclusion
   - **Hotel Search**: Location and date-based hotel booking with advanced guest selection
-    - Single location input with same search functionality
+    - Single location input using **Travelpayouts Autocomplete API** (same API as flight search)
     - Check-in/Check-out date selection with validation
     - **Advanced Guest Selector**:
       - **Desktop**: Dropdown overlay with increment/decrement controls
@@ -380,7 +381,7 @@ The application now features a comprehensive travel booking platform with a comp
 - **Complete Flight Booking Flow**: End-to-end flight search and results system
   - **FlightBookingForm**: Advanced booking interface with dual-tab system (Flights/Hotels)
   - **FlightResults Page**: Comprehensive search results with filtering and mobile optimization
-  - Real-time location search with OpenStreetMap integration
+  - Real-time location search with **Travelpayouts Autocomplete API** for both flights and hotels
   - Trip type selection with dynamic form behavior
   - Advanced guest selection with desktop dropdown and mobile modal interfaces
   - Currency conversion dropdown with flag icons and responsive positioning

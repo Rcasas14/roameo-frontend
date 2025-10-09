@@ -1274,63 +1274,32 @@ export default {
       try {
         this[loadingKey] = true
 
-        // Use Travelpayouts API for flights (has real IATA codes)
-        if (type === 'from' || type === 'to') {
-          const response = await fetch(
-            `https://autocomplete.travelpayouts.com/places2?` +
-            `term=${encodeURIComponent(query)}&` +
-            `locale=en&` +
-            `types[]=airport&` +
-            `types[]=city`
-          )
+        // Use Travelpayouts API for all location searches (flights and hotels)
+        const response = await fetch(
+          `https://autocomplete.travelpayouts.com/places2?` +
+          `term=${encodeURIComponent(query)}&` +
+          `locale=en&` +
+          `types[]=airport&` +
+          `types[]=city`
+        )
 
-          if (!response.ok) {
-            throw new Error('Failed to fetch locations')
-          }
-
-          const data = await response.json()
-
-          this[optionsKey] = data.map(location => ({
-            id: location.code,
-            name: location.name,
-            iata: location.code, // Real IATA code from API
-            city: location.city_name || location.name,
-            country: location.country_name,
-            type: location.type === 'airport' ? 'airport' : 'city',
-            coordinates: location.coordinates,
-            display_name: `${location.name} (${location.code})`,
-            raw: location
-          }))
+        if (!response.ok) {
+          throw new Error('Failed to fetch locations')
         }
-        // Use OpenStreetMap for hotels
-        else {
-          const response = await fetch(
-            `https://nominatim.openstreetmap.org/search?` +
-            `q=${encodeURIComponent(query)}&` +
-            `format=json&` +
-            `addressdetails=1&` +
-            `limit=8&` +
-            `class=place&` +
-            `type=city,town,village`
-          )
 
-          if (!response.ok) {
-            throw new Error('Failed to fetch locations')
-          }
+        const data = await response.json()
 
-          const data = await response.json()
-
-          this[optionsKey] = data.map(location => ({
-            id: location.place_id,
-            name: this.extractLocationName(location),
-            display_name: location.display_name,
-            country: location.address?.country || '',
-            type: 'city',
-            lat: parseFloat(location.lat),
-            lon: parseFloat(location.lon),
-            raw: location
-          }))
-        }
+        this[optionsKey] = data.map(location => ({
+          id: location.code,
+          name: location.name,
+          iata: location.code, // Real IATA code from API
+          city: location.city_name || location.name,
+          country: location.country_name,
+          type: location.type === 'airport' ? 'airport' : 'city',
+          coordinates: location.coordinates,
+          display_name: `${location.name} (${location.code})`,
+          raw: location
+        }))
 
       } catch (error) {
         console.error(`Error searching ${type} locations:`, error)
@@ -1338,24 +1307,6 @@ export default {
       } finally {
         this[loadingKey] = false
       }
-    },
-
-    extractLocationName(location) {
-      const address = location.address || {}
-      return address.city ||
-             address.town ||
-             address.village ||
-             address.state ||
-             location.name ||
-             location.display_name.split(',')[0]
-    },
-
-    determineLocationType(location) {
-      const address = location.address || {}
-      if (address.aeroway || location.class === 'aeroway') {
-        return 'airport'
-      }
-      return 'city'
     },
 
     getLocationIcon(location) {

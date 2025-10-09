@@ -24,7 +24,8 @@
       "Bash(curl -s \"https://tours.roameo.net/?flightSearch=DVO1710SIN1810.4.1.1.0\")",
       "Bash(curl -s \"https://tours.roameo.net/?flightSearch=DVO1710SIN1810\")",
       "Bash(curl -s \"https://tours.roameo.net/?flightSearch=DVO1710SIN1810&adults=1&children=0&infants=0\")",
-      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=DVO1710SIN1810&adults=2&children=0&infants=0\")"
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=DVO1710SIN1810&adults=2&children=0&infants=0\")",
+      "Bash(npm run dev:*)"
     ],
     "deny": [],
     "ask": []
