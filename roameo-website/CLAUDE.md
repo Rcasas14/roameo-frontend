@@ -156,6 +156,52 @@ export default {
     - Hidden default SVG icons, custom styling for inputs
     - Action buttons (Select/Cancel) styled with brand colors
     - Global CSS overrides for Vue DatePicker consistency
+  - **White Label Integration**: Travelpayouts flight search integration ✅ FULLY WORKING
+    - **Base URL**: `https://tours.roameo.net/?flightSearch=`
+    - **Location API**: Uses Travelpayouts autocomplete API for real IATA codes
+      - API endpoint: `https://autocomplete.travelpayouts.com/places2`
+      - Provides accurate IATA codes (e.g., MNL for Manila, DVO for Davao, SIN for Singapore)
+      - Supports both airports and cities with proper type detection
+    - **URL Format Discovery**: After extensive testing, discovered the correct inline format
+      ```
+      ?flightSearch={ORIGIN}{DDMM}{DESTINATION}{DDMM}{PASSENGER_STRING}
+      ```
+      **Passenger String Format:**
+      - **Economy**: `{ADULTS}{CHILDREN}{INFANTS}` (NO class prefix)
+      - **Business**: `c{ADULTS}{CHILDREN}{INFANTS}` (lowercase 'c' prefix)
+      - **Only include digits up to last non-zero passenger type** (no trailing zeros)
+
+      **Examples:**
+      - 2 adults, economy: `DVO1710SIN2` (just the digit 2)
+      - 2 adults, business: `DVO1710SINc2` (c prefix for business)
+      - 2 adults, 1 child, economy: `DVO1710SIN21` (2 adults, 1 child)
+      - 2 adults, 1 child, 1 infant, business: `DVO1710SINc211` (c + 2 + 1 + 1)
+
+    - **Key Discovery Process**:
+      1. Initially tried separate query parameters (`&adults=2&children=1`) - didn't work, parameters were stripped
+      2. Tested embedded format with class code `1` for economy - caused parsing errors
+      3. **Breakthrough**: Analyzed actual Travelpayouts white label URLs - economy has NO prefix!
+      4. Final format: Economy uses no prefix, Business uses `c`, no trailing zeros
+
+    - **Implementation Details** (FlightBookingForm.vue:1486-1566):
+      - `buildWhiteLabelSearchUrl()`: Constructs white label URL with inline passenger data
+      - `formatDateForUrl()`: Converts Date objects to DDMM format
+      - `generateFallbackIATA()`: Fallback for locations without IATA codes
+      - Opens results in new tab using `window.open(whiteLabelUrl, '_blank')`
+      - Comprehensive debug logging with format examples
+
+    - **Passenger Data**: ✅ FULLY WORKING with inline format
+      - Adults: 1-9 passengers (always included)
+      - Children: 0-9 passengers (only included if > 0 OR if infants > 0)
+      - Infants: 0-9 passengers (only included if > 0)
+      - Class: Economy (no prefix) or Business ('c' prefix)
+
+    - **What Works**:
+      ✅ Route information (origin, destination, dates)
+      ✅ Passenger counts (adults, children, infants) - correctly pre-filled in white label
+      ✅ Flight class (economy vs business) - correctly pre-selected
+      ✅ One-way vs round-trip trips
+      ✅ Opens in new tab without disrupting current page
 
 #### Section Components
 All section components implement the `useMotion` mixin for consistent scroll-based animations:

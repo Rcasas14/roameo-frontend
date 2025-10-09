@@ -33,8 +33,8 @@
           Travel Boldly, Explore Proudly
         </h1>
         <div class="w-full max-w-6xl mt-8">
-          <!-- <flight-booking-form></flight-booking-form> -->
-           <flight-search-widget></flight-search-widget>
+          <flight-booking-form></flight-booking-form>
+           <!-- <flight-search-widget></flight-search-widget> -->
 
         </div>
       </div>
@@ -69,8 +69,8 @@
 </template>
 
 <script>
-// import FlightBookingForm from '@/components/FlightBookingForm.vue';
-import FlightSearchWidget from '@/components/FlightSearchWidget.vue';
+import FlightBookingForm from '@/components/FlightBookingForm.vue';
+//import FlightSearchWidget from '@/components/FlightSearchWidget.vue';
 
 import PartnerSection from '@/sections/PartnerSection.vue';
 import DestinationSection from '@/sections/DestinationSection.vue';
@@ -91,8 +91,8 @@ export default {
   mixins: [ useMotion ],
 
   components: {
-    //FlightBookingForm,
-    FlightSearchWidget,
+    FlightBookingForm,
+    //FlightSearchWidget,
 
     PartnerSection,
     DestinationSection,
