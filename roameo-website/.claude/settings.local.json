@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s \"https://tours.roameo.net\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=MNL1012DVO1512&adults=2&children=1&infants=0&trip_class=1\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=MNL1012DVO1512.2.1.0.1\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=MNL1012DVO1512MNL2012.2.1.0.1\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=MNL1012DVO1512&passengers=2&childrenAge=&infants=1&class=1&currency=USD\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=MNL1012DVO1512&adults=2&children=1&infants=0&class=0&currency=USD\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=MNL1012DVO1512&adults=2&children=1&infants=0&trip_class=0&currency=USD\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=MNL1012DVO1512&adults=2&children=1&infants=1&class=1&currency=USD\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=MNL1012DVO1512&adults=2&children=0&infants=0&class=1&currency=USD\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=MNL1012DVO1512&adults=2&children=0&infants=0&trip_class=1&currency=USD\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=MNL1012DVO1512&adults=2&children=0&infants=0&class=2&currency=USD\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=MNL1012DVO1512&adults=1&children=0&infants=0&cabin_class=business&currency=USD\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=MNL1012DVO1512&adults=1&children=0&infants=0&cabin=business&currency=USD\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=MNL1012DVO1512&adults=1&children=0&infants=0&service_class=business&currency=USD\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=MNL1012DVO1512&adults=2&children=1&infants=1&class=0&currency=USD\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=MNL1012DVO1512&adults=1&children=0&infants=0&class=1&currency=USD\")",
+      "Bash(curl -s \"https://tours.roameo.net/?origin=DVO&destination=SIN&depart_date=2025-10-17&return_date=2025-10-18&adults=4&children=1&infants=1\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=DVO1710SIN1810&adults=4&children=1&infants=1\")",
+      "Bash(curl -s \"https://tours.roameo.net/?origin_iata=DVO&destination_iata=SIN&adults=4&children=1&infants=1\")",
+      "Bash(curl -s \"https://tours.roameo.net/#/?origin=DVO&destination=SIN&depart_date=2025-10-17&return_date=2025-10-18&adults=4&children=1&infants=1\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=DVO1710SIN1810.4.1.1.0\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=DVO1710SIN1810\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=DVO1710SIN1810&adults=1&children=0&infants=0\")",
+      "Bash(curl -s \"https://tours.roameo.net/?flightSearch=DVO1710SIN1810&adults=2&children=0&infants=0\")",
+      "Bash(npm run dev:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

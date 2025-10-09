@@ -73,7 +73,9 @@
                             <img :src="getLocationIcon(location)" alt="" class="w-4 h-4 mr-3" />
                             <div>
                               <div class="font-medium text-sm">{{ location.name }}</div>
-                              <div :class="['text-xs', active ? 'text-blue-200' : 'text-gray-500']">{{ location.country }}</div>
+                              <div :class="['text-xs', active ? 'text-blue-200' : 'text-gray-500']">
+                                {{ location.iata ? `${location.iata} - ` : '' }}{{ location.country }}
+                              </div>
                             </div>
                           </div>
                         </li>
@@ -127,7 +129,9 @@
                             <img :src="getLocationIcon(location)" alt="" class="w-4 h-4 mr-3" />
                             <div>
                               <div class="font-medium text-sm">{{ location.name }}</div>
-                              <div :class="['text-xs', active ? 'text-blue-200' : 'text-gray-500']">{{ location.country }}</div>
+                              <div :class="['text-xs', active ? 'text-blue-200' : 'text-gray-500']">
+                                {{ location.iata ? `${location.iata} - ` : '' }}{{ location.country }}
+                              </div>
                             </div>
                           </div>
                         </li>
@@ -182,22 +186,163 @@
               </div>
             </div>
 
+            <!-- Passengers (Flights) -->
+            <div class="flex-1 border-l border-gray-200 relative">
+              <div class="flex flex-col p-4">
+                <div class="flex flex-row justify-start items-center gap-x-1 mb-1">
+                  <img :src="userIcon" alt="passengers" class="w-4 h-4 text-gray-400">
+                  <label class="block text-sm text-gray-600">Passengers</label>
+                </div>
+                <input
+                  type="text"
+                  :value="guestDisplayText"
+                  readonly
+                  @click="toggleGuestSelector"
+                  class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 cursor-pointer bg-transparent guest-trigger"
+                />
+              </div>
+
+              <!-- Passenger Selector Dropdown (Desktop) -->
+              <div v-if="showGuestSelector" class="absolute top-full left-0 right-0 z-50 bg-white rounded-lg shadow-xl border border-gray-200 p-4 mt-1 guest-selector-dropdown w-[200px]">
+                <!-- Adults -->
+                <div class="flex items-center justify-between py-3">
+                  <div>
+                    <div class="font-medium text-sm">Adults</div>
+                    <div class="text-xs text-gray-500">Ages 13 or above</div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <button
+                      @click="decrementGuests('adults')"
+                      :disabled="adults <= 1"
+                      :class="[
+                        'w-8 h-8 rounded-full border flex items-center justify-center text-lg font-medium',
+                        adults <= 1 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500'
+                      ]"
+                    >
+                      -
+                    </button>
+                    <span class="w-4 text-center text-sm font-medium">{{ adults }}</span>
+                    <button
+                      @click="incrementGuests('adults')"
+                      :disabled="adults >= 9"
+                      :class="[
+                        'w-8 h-8 rounded-full border flex items-center justify-center text-lg font-medium',
+                        adults >= 9 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500'
+                      ]"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Children -->
+                <div class="flex items-center justify-between py-3 border-t border-gray-100">
+                  <div>
+                    <div class="font-medium text-sm">Children</div>
+                    <div class="text-xs text-gray-500">Ages 2-12</div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <button
+                      @click="decrementGuests('children')"
+                      :disabled="children <= 0"
+                      :class="[
+                        'w-8 h-8 rounded-full border flex items-center justify-center text-lg font-medium',
+                        children <= 0 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500'
+                      ]"
+                    >
+                      -
+                    </button>
+                    <span class="w-4 text-center text-sm font-medium">{{ children }}</span>
+                    <button
+                      @click="incrementGuests('children')"
+                      :disabled="children >= 9"
+                      :class="[
+                        'w-8 h-8 rounded-full border flex items-center justify-center text-lg font-medium',
+                        children >= 9 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500'
+                      ]"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Infants -->
+                <div class="flex items-center justify-between py-3 border-t border-gray-100">
+                  <div>
+                    <div class="font-medium text-sm">Infants</div>
+                    <div class="text-xs text-gray-500">Under 2</div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <button
+                      @click="decrementGuests('infants')"
+                      :disabled="infants <= 0"
+                      :class="[
+                        'w-8 h-8 rounded-full border flex items-center justify-center text-lg font-medium',
+                        infants <= 0 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500'
+                      ]"
+                    >
+                      -
+                    </button>
+                    <span class="w-4 text-center text-sm font-medium">{{ infants }}</span>
+                    <button
+                      @click="incrementGuests('infants')"
+                      :disabled="infants >= 9"
+                      :class="[
+                        'w-8 h-8 rounded-full border flex items-center justify-center text-lg font-medium',
+                        infants >= 9 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500'
+                      ]"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Class Selection -->
+                <div class="border-t border-gray-100 pt-3 mt-3">
+                  <div class="font-medium text-sm mb-3">Class</div>
+                  <div class="flex gap-2">
+                    <button
+                      @click="selectClass('Economy')"
+                      :class="[
+                        'px-3 py-2 rounded-lg text-xs font-medium transition-colors',
+                        selectedClass === 'Economy' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ]"
+                    >
+                      Economy
+                    </button>
+                    <button
+                      @click="selectClass('Business')"
+                      :class="[
+                        'px-3 py-2 rounded-lg text-xs font-medium transition-colors',
+                        selectedClass === 'Business' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ]"
+                    >
+                      Business
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
             <!-- Search Button -->
-             <!-- Temporary -->
             <div class="flex items-center pl-4 pr-4">
-              <router-link
-              to="/flight-results"
+              <button
                 @click="searchFlights"
-                :disabled="!canSearchFlights"
+                :disabled="!canSearchFlights || isSearching"
                 :class="[
-                  'font-medium px-8 py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2',
-                  canSearchFlights
+                  'font-medium px-8 py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 flex items-center gap-2',
+                  canSearchFlights && !isSearching
                     ? 'bg-blue-500 hover:bg-blue-600 text-white focus:ring-blue-500 cursor-pointer'
                     : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                 ]"
               >
-                Search
-              </router-link>
+                <span v-if="!isSearching">Search</span>
+                <span v-else class="flex items-center gap-2">
+                  <div class="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
+                  Searching...
+                </span>
+              </button>
             </div>
             <!-- <div class="flex items-center pl-4 pr-4">
               <button
@@ -238,17 +383,6 @@
                   class="w-4 h-4 text-blue-500 bg-white border-gray-300 focus:ring-blue-500 focus:ring-2"
                 />
                 <span class="ml-2 text-sm font-medium text-gray-900">One-way</span>
-              </label>
-
-              <label class="flex items-center cursor-pointer">
-                <input
-                  type="radio"
-                  value="multi-stop"
-                  :checked="tripType === 'multi-stop'"
-                  @change="onTripTypeChange('multi-stop')"
-                  class="w-4 h-4 text-blue-500 bg-white border-gray-300 focus:ring-blue-500 focus:ring-2"
-                />
-                <span class="ml-2 text-sm font-medium text-gray-900">Multi-stop</span>
               </label>
             </div>
           </div>
@@ -408,19 +542,40 @@
             </div>
           </div>
 
+          <!-- Passengers (Mobile) -->
+          <div class="border border-gray-200 rounded-[1.5625rem] bg-white">
+            <div class="passengers-cont flex flex-col py-2 px-4">
+              <div class="flex flex-row justify-start items-center gap-x-1">
+                <img :src="userIcon" alt="passengers" class="w-4 h-4 text-gray-400">
+                <label class="block text-xs text-gray-600">Passengers</label>
+              </div>
+              <input
+                type="text"
+                :value="guestDisplayText"
+                readonly
+                @click="toggleGuestModal"
+                class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 cursor-pointer pl-1 bg-transparent"
+              />
+            </div>
+          </div>
+
           <!-- Mobile Search Button -->
           <div class="pt-2">
             <button
               @click="searchFlights"
-              :disabled="!canSearchFlights"
+              :disabled="!canSearchFlights || isSearching"
               :class="[
-                'w-full font-medium py-3 rounded-[1.5625rem] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2',
-                canSearchFlights
+                'w-full font-medium py-3 rounded-[1.5625rem] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 flex items-center justify-center gap-2',
+                canSearchFlights && !isSearching
                   ? 'bg-blue-500 hover:bg-blue-600 text-white focus:ring-blue-500 cursor-pointer'
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               ]"
             >
-              {{ isOneWay ? 'Search One-way Flights' : 'Search Flights' }}
+              <span v-if="!isSearching">{{ isOneWay ? 'Search One-way Flights' : 'Search Flights' }}</span>
+              <span v-else class="flex items-center gap-2">
+                <div class="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
+                Searching...
+              </span>
             </button>
           </div>
 
@@ -447,17 +602,6 @@
                   class="w-4 h-4 text-blue-500 bg-white border-gray-300 focus:ring-blue-500 focus:ring-2"
                 />
                 <span class="ml-2 text-sm font-medium text-gray-900">One-way</span>
-              </label>
-
-              <label class="flex items-center cursor-pointer">
-                <input
-                  type="radio"
-                  value="multi-stop"
-                  :checked="tripType === 'multi-stop'"
-                  @change="onTripTypeChange('multi-stop')"
-                  class="w-4 h-4 text-blue-500 bg-white border-gray-300 focus:ring-blue-500 focus:ring-2"
-                />
-                <span class="ml-2 text-sm font-medium text-gray-900">Multi-stop</span>
               </label>
             </div>
           </div>
@@ -577,7 +721,7 @@
               </div>
 
               <!-- Guest Selector Dropdown (Desktop) -->
-              <div v-if="showGuestSelector" class="absolute top-full left-0 right-0 z-50 bg-white rounded-lg shadow-xl border border-gray-200 p-4 mt-1 guest-selector-dropdown">
+              <div v-if="showGuestSelector" class="absolute top-full left-0 right-0 z-50 bg-white rounded-lg shadow-xl border border-gray-200 p-4 mt-1 guest-selector-dropdown width-[200px]">
                 <!-- Adults -->
                 <div class="flex items-center justify-between py-3">
                   <div>
@@ -1032,6 +1176,13 @@ export default {
       showGuestSelector: false,
       showGuestModal: false,
 
+      // ========================================
+      // WHITE LABEL CONFIGURATION
+      // ========================================
+      whiteLabelBaseUrl: 'https://tours.roameo.net/?flightSearch=',
+      isSearching: false,
+      searchError: null,
+
       // Icons
       dateIcon: new URL('@/assets/date-icon.svg', import.meta.url).href,
       arrowsIcon: new URL('@/assets/arrows-icon.svg', import.meta.url).href,
@@ -1047,9 +1198,6 @@ export default {
     },
     isRoundTrip() {
       return this.tripType === 'round-trip'
-    },
-    isMultiStop() {
-      return this.tripType === 'multi-stop'
     },
     canSearchFlights() {
       return this.selectedFromLocation &&
@@ -1126,14 +1274,13 @@ export default {
       try {
         this[loadingKey] = true
 
+        // Use Travelpayouts API for all location searches (flights and hotels)
         const response = await fetch(
-          `https://nominatim.openstreetmap.org/search?` +
-          `q=${encodeURIComponent(query)}&` +
-          `format=json&` +
-          `addressdetails=1&` +
-          `limit=8&` +
-          `class=place&` +
-          `type=city,town,village,airport`
+          `https://autocomplete.travelpayouts.com/places2?` +
+          `term=${encodeURIComponent(query)}&` +
+          `locale=en&` +
+          `types[]=airport&` +
+          `types[]=city`
         )
 
         if (!response.ok) {
@@ -1143,13 +1290,14 @@ export default {
         const data = await response.json()
 
         this[optionsKey] = data.map(location => ({
-          id: location.place_id,
-          name: this.extractLocationName(location),
-          display_name: location.display_name,
-          country: location.address?.country || '',
-          type: this.determineLocationType(location),
-          lat: parseFloat(location.lat),
-          lon: parseFloat(location.lon),
+          id: location.code,
+          name: location.name,
+          iata: location.code, // Real IATA code from API
+          city: location.city_name || location.name,
+          country: location.country_name,
+          type: location.type === 'airport' ? 'airport' : 'city',
+          coordinates: location.coordinates,
+          display_name: `${location.name} (${location.code})`,
           raw: location
         }))
 
@@ -1159,24 +1307,6 @@ export default {
       } finally {
         this[loadingKey] = false
       }
-    },
-
-    extractLocationName(location) {
-      const address = location.address || {}
-      return address.city ||
-             address.town ||
-             address.village ||
-             address.state ||
-             location.name ||
-             location.display_name.split(',')[0]
-    },
-
-    determineLocationType(location) {
-      const address = location.address || {}
-      if (address.aeroway || location.class === 'aeroway') {
-        return 'airport'
-      }
-      return 'city'
     },
 
     getLocationIcon(location) {
@@ -1261,41 +1391,172 @@ export default {
       this.showGuestModal = false
     },
 
-    // Search functionality
-    searchFlights() {
+    // ========================================
+    // FLIGHT SEARCH - WHITE LABEL INTEGRATION
+    // ========================================
+    async searchFlights() {
       if (!this.canSearchFlights) {
-        console.warn('Cannot search: missing required fields')
+        this.$toast?.error?.('Please fill in all required fields')
         return
       }
 
-      const searchData = {
-        from: {
-          name: this.selectedFromLocation.name,
-          coordinates: {
-            lat: this.selectedFromLocation.lat,
-            lon: this.selectedFromLocation.lon
-          },
-          type: this.selectedFromLocation.type
-        },
-        to: {
-          name: this.selectedToLocation.name,
-          coordinates: {
-            lat: this.selectedToLocation.lat,
-            lon: this.selectedToLocation.lon
-          },
-          type: this.selectedToLocation.type
-        },
-        dates: {
-          departure: this.departDate,
-          return: this.returnDate  // null for one-way
-        },
-        tripType: this.tripType
+      // Validate dates
+      if (this.returnDate && this.returnDate < this.departDate) {
+        this.$toast?.error?.('Return date must be after departure date')
+        return
       }
 
-      console.log('Searching flights with data:', searchData)
+      try {
+        this.isSearching = true
+        this.searchError = null
 
-      // Here make API call to the backend
-      // await flightSearchService.search(searchData)
+        // Build white label URL
+        const whiteLabelUrl = this.buildWhiteLabelSearchUrl()
+
+        if (!whiteLabelUrl) {
+          throw new Error('Failed to build search URL')
+        }
+
+        // Log search data for analytics
+        this.logSearchEvent()
+
+        // Open white label search results in new tab
+        window.open(whiteLabelUrl, '_blank')
+
+        // Reset searching state since we're not leaving the page
+        this.isSearching = false
+
+      } catch (error) {
+        console.error('Search error:', error)
+        this.searchError = error.message
+        this.$toast?.error?.('Search failed. Please try again.')
+        this.isSearching = false
+      }
+    },
+
+    buildWhiteLabelSearchUrl() {
+      // Extract IATA codes with fallback to generating from city name
+      let origin = this.selectedFromLocation.iata || this.generateFallbackIATA(this.selectedFromLocation.name)
+      let destination = this.selectedToLocation.iata || this.generateFallbackIATA(this.selectedToLocation.name)
+
+      // Ensure uppercase and 3 characters
+      origin = origin?.toUpperCase().substring(0, 3)
+      destination = destination?.toUpperCase().substring(0, 3)
+
+      // Validate IATA codes
+      if (!origin || !destination || origin.length !== 3 || destination.length !== 3) {
+        console.error('Invalid IATA codes:', { origin, destination })
+        return null
+      }
+
+      // Format dates (DDMM format)
+      const departureDate = this.formatDateForUrl(this.departDate)
+      const returnDate = this.isOneWay ? '' : this.formatDateForUrl(this.returnDate)
+
+      let passengerString = ''
+
+      if (this.selectedClass === 'Business') {
+        passengerString = 'c'
+      }
+
+      passengerString += this.adults
+
+      if (this.children > 0 || this.infants > 0) {
+        passengerString += this.children
+      }
+      if (this.infants > 0) {
+        passengerString += this.infants
+      }
+
+      // Build complete search path with passenger data embedded
+      // Format: {ORIGIN}{DDMM}{DESTINATION}{DDMM}{PASSENGER_DATA}
+      const searchPath = `${origin}${departureDate}${destination}${returnDate}${passengerString}`
+
+      // Construct full URL
+      // whiteLabelBaseUrl = 'https://tours.roameo.net/?flightSearch='
+      const fullUrl = `${this.whiteLabelBaseUrl}${searchPath}`
+
+      console.log('🎉 White Label URL - CORRECT FORMAT:', {
+        origin: `${this.selectedFromLocation.name} (${origin})`,
+        destination: `${this.selectedToLocation.name} (${destination})`,
+        departureDate,
+        returnDate: returnDate || 'One-way',
+        passengers: {
+          adults: this.adults,
+          children: this.children,
+          infants: this.infants,
+          total: this.adults + this.children + this.infants
+        },
+        class: this.selectedClass,
+        classPrefix: this.selectedClass === 'Business' ? 'c (business)' : 'none (economy)',
+        passengerString: `"${passengerString}" (adults=${this.adults}, children=${this.children}, infants=${this.infants})`,
+        searchPath,
+        fullUrl,
+        format: '✅ CORRECT: ?flightSearch={ORIGIN}{DDMM}{DESTINATION}{DDMM}{PASSENGER_STRING}',
+        formatExplanation: 'Economy: {ADULTS}{CHILDREN}{INFANTS} | Business: c{ADULTS}{CHILDREN}{INFANTS}',
+        examples: [
+          '2 adults economy: DVO1710SIN2',
+          '2 adults business: DVO1710SINc2',
+          '2 adults, 1 child, 1 infant business: DVO1710SINc211'
+        ]
+      })
+
+      return fullUrl
+    },
+
+    formatDateForUrl(date) {
+      if (!date) return ''
+
+      const d = new Date(date)
+      const day = String(d.getDate()).padStart(2, '0')
+      const month = String(d.getMonth() + 1).padStart(2, '0')
+
+      // Format: DDMM (e.g., 2310 = October 23)
+      return `${day}${month}`
+    },
+
+    generateFallbackIATA(name) {
+      if (!name) return null
+
+      // Remove common words and special characters
+      const cleanName = name
+        .replace(/\s+(International|Airport|City)\s*/gi, '')
+        .replace(/[^a-zA-Z]/g, '')
+        .trim()
+
+      // Take first 3 letters
+      return cleanName.substring(0, 3).toUpperCase()
+    },
+
+    logSearchEvent() {
+      // Track search analytics (if you have Google Analytics, Mixpanel, etc.)
+      if (window.gtag) {
+        window.gtag('event', 'flight_search', {
+          origin: this.selectedFromLocation.name,
+          destination: this.selectedToLocation.name,
+          trip_type: this.tripType,
+          passengers: this.totalGuests,
+          class: this.selectedClass
+        })
+      }
+
+      // Log to console for debugging
+      console.log('Search Event:', {
+        from: this.selectedFromLocation,
+        to: this.selectedToLocation,
+        dates: {
+          departure: this.departDate,
+          return: this.returnDate
+        },
+        passengers: {
+          adults: this.adults,
+          children: this.children,
+          infants: this.infants,
+          total: this.totalGuests
+        },
+        class: this.selectedClass,
+        tripType: this.tripType
+      })
     },
 
     searchHotels() {
