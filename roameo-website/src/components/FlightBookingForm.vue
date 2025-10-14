@@ -17,16 +17,16 @@
             <img :src="planeIcon" alt="Flight" class="w-4 h-4 mr-2" />
             Flights
           </button>
-          <button
+          <button    commented temporary
             @click="activeTab = 'hotels'"
             :class="[
               'flex items-center px-4 md:px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 ml-2',
               activeTab === 'hotels'
-                ? 'bg-yellow-400 text-black shadow-md'
+                ? 'bg-gray-100 text-black shadow-md'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             ]"
           >
-            <img :src="hotelIcon" alt="Hotel" class="w-4 h-4 mr-2" />
+            <img :src="hotelIcon" alt="Hotel" class="w-4 h-4 mr-2 opacity-50" />
             Hotels
           </button>
         </div>
@@ -627,7 +627,8 @@
                       :displayValue="(location) => location ? `${location.name}, ${location.country}` : ''"
                       @change="searchHotelLocations($event.target.value)"
                       placeholder="Where are you going?"
-                      class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 bg-transparent"
+                      class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 bg-transparent cursor-not-allowed"
+                      disabled
                     />
 
                     <ComboboxButton class="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -677,15 +678,16 @@
                   id="checkin-date-input"
                   placeholder="Select check-in"
                   class="hotel-date-picker"
-                  input-class-name="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 cursor-pointer"
+                  input-class-name="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 cursor-pointer cursor-not-allowed"
+                  disabled
                 />
               </div>
             </div>
 
             <!-- Check-out -->
             <div class="flex-1 border-l border-gray-200">
-              <div class="flex flex-col p-4">
-                <div class="flex flex-row justify-start items-center gap-x-1 mb-1">
+              <div class="flex flex-col p-4 ">
+                <div class="flex flex-row justify-start items-center gap-x-1 mb-1 ">
                   <img :src="dateIcon" alt="date" class="w-4 h-4 text-gray-400">
                   <label class="block text-sm text-gray-600">Check-out</label>
                 </div>
@@ -699,7 +701,8 @@
                   id="checkout-date-input"
                   placeholder="Select check-out"
                   class="hotel-date-picker"
-                  input-class-name="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 cursor-pointer"
+                  input-class-name="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 cursor-not-allowed"
+                  disabled
                 />
               </div>
             </div>
@@ -716,7 +719,8 @@
                   :value="guestDisplayText"
                   readonly
                   @click="toggleGuestSelector"
-                  class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 cursor-pointer bg-transparent guest-trigger"
+                  class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 cursor-not-allowed bg-transparent guest-trigger text-gray-500"
+                  disabled
                 />
               </div>
 
@@ -846,11 +850,16 @@
             <!-- Search Button -->
             <div class="flex items-center pl-4 pr-4">
               <button
+                class="font-medium px-8 py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 bg-gray-500 hover:bg-gray-600 text-white focus:ring-blue-500 cursor-not-allowed"
+              >
+                Coming Soon
+              </button>
+              <!-- <button
                 @click="searchHotels"
                 class="font-medium px-8 py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 bg-blue-500 hover:bg-blue-600 text-white focus:ring-blue-500 cursor-pointer"
               >
                 Search
-              </button>
+              </button> -->
             </div>
           </div>
         </div>
@@ -872,6 +881,7 @@
                     @change="searchHotelLocations($event.target.value)"
                     placeholder="Where are you going?"
                     class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 pl-1 bg-transparent"
+                    disabled
                   />
 
                   <ComboboxButton class="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -923,6 +933,7 @@
                   placeholder="Select check-in"
                   class="hotel-date-picker"
                   input-class-name="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 cursor-pointer pl-1"
+                  disabled
                 />
               </div>
             </div>
@@ -944,6 +955,7 @@
                   placeholder="Select check-out"
                   class="hotel-date-picker"
                   input-class-name="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 cursor-pointer pl-1"
+                  disabled
                 />
               </div>
             </div>
@@ -961,7 +973,8 @@
                 :value="guestDisplayText"
                 readonly
                 @click="toggleGuestModal"
-                class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 cursor-pointer pl-1 bg-transparent"
+                class="w-full text-sm font-medium outline-none border-0 p-0 focus:ring-0 cursor-pointer pl-1 bg-transparent text-gray-500"
+                disabled
               />
             </div>
           </div>
@@ -970,17 +983,25 @@
           <div class="pt-2">
             <button
               @click="searchHotels"
+              class="w-full font-medium py-3 rounded-[1.5625rem] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 bg-gray-500 hover:bg-blue-600 text-white focus:ring-blue-500 cursor-pointer"
+            >
+              Coming Soon
+            </button>
+          </div>
+          <!-- <div class="pt-2">
+            <button
+              @click="searchHotels"
               class="w-full font-medium py-3 rounded-[1.5625rem] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 bg-blue-500 hover:bg-blue-600 text-white focus:ring-blue-500 cursor-pointer"
             >
               Search Hotels
             </button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
 
     <!-- Guest Modal (Mobile) -->
-    <div v-if="showGuestModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div v-if="showGuestModal" class="fixed inset-0 bg-black bg-transparent flex items-center justify-center z-50 p-4">
       <div class="bg-white rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
         <!-- Modal Header -->
         <div class="flex items-center justify-between p-4 border-b border-gray-200">

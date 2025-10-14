@@ -122,6 +122,11 @@ export default {
   - **Tab System**: Switch between Flights and Hotels with visual feedback
     - Yellow highlight (#FFE759) for active tabs with icons (plane/hotel)
     - Smooth transitions and hover states
+    - **Hotels tab DISABLED**: Currently non-functional (coming soon feature)
+      - Tab button disabled with `cursor-not-allowed` and `opacity-50`
+      - Hotel form inputs disabled (location, dates, guests)
+      - Search button shows "Coming Soon" instead of "Search Hotels"
+      - All interactive elements properly disabled to prevent user confusion
   - **Flight Search**: Location-based flight booking with real-time search
     - Dual location inputs (From/To) with Headless UI Combobox
     - Real-time location search using **Travelpayouts Autocomplete API** (`https://autocomplete.travelpayouts.com/places2`)
@@ -149,9 +154,20 @@ export default {
         - Responsive design optimized for mobile interaction
       - **Dynamic Display**: Real-time text updates showing guest selection
       - **Search Integration**: Guest data included in hotel search payload
-  - **Responsive Design**: 
+  - **Responsive Design**:
     - Desktop: Horizontal form layout with inline fields and dropdown overlays
     - Mobile: Vertical stacked layout with full-width inputs and modal interfaces
+  - **Shared State Architecture**: Single source of truth for guest selection
+    - **Pattern**: One set of reactive data (adults, children, infants, selectedClass) shared across Flight and Hotel tabs
+    - **UI Variations**:
+      - Desktop: Dropdown overlays (positioned absolute, outside click detection)
+      - Mobile: Full-screen modal (fixed position, overlay backdrop)
+    - **Benefits**:
+      - DRY principle - single implementation for guest selection logic
+      - Consistent behavior across tabs and screen sizes
+      - Guest selection persists when switching tabs (useful for coordinated bookings)
+      - ~95% code reuse for guest selection functionality
+    - **Implementation**: Computed property `guestDisplayText` consumed by both tabs, shared increment/decrement methods
   - **Date Picker Integration**:
     - Custom styling matching website design system
     - Hidden default SVG icons, custom styling for inputs
@@ -428,6 +444,41 @@ The project represents a production-ready travel booking platform with advanced 
   - Disable touch interaction (`allow-touch-move="false"`)
   - Use minimal delay (1ms) with longer speed duration
   - Perfect for background animations and content showcases
+- **Mobile Touch Scroll Fix**: CRITICAL for preventing vertical scroll interference
+  - **Swiper Configuration** (Required properties):
+    ```javascript
+    :touchAngle="45"                          // Only capture swipes within 45° of horizontal
+    :touchRatio="1"                           // Normal touch sensitivity
+    :threshold="5"                            // 5px minimum movement to trigger swipe
+    :touchStartPreventDefault="false"         // DON'T prevent default browser behavior
+    :touchStartForcePreventDefault="false"    // DON'T force preventDefault
+    :touchMoveStopPropagation="false"         // Allow event bubbling for scroll
+    :simulateTouch="true"                     // Enable touch simulation
+    :allowTouchMove="true"                    // Allow touch interactions
+    :resistance="true"                        // Enable resistance at boundaries
+    :resistanceRatio="0.85"                   // Resistance strength
+    ```
+  - **CSS touch-action** (Required for proper browser-level handling):
+    ```css
+    @media (max-width: 1023px) {
+      .swiper-container {
+        touch-action: pan-y pan-x;  /* Allow both vertical and horizontal */
+      }
+      .carousel-wrapper {
+        touch-action: pan-y;        /* Parent allows vertical scroll */
+      }
+      .card-element {
+        touch-action: pan-y;        /* Cards allow vertical scroll */
+      }
+    }
+    ```
+  - **How it works**:
+    - `touchAngle="45"` means Swiper only captures touches within 45° of horizontal
+    - Vertical scrolling (90°) is ignored by Swiper, letting browser handle page scroll
+    - `touchStartPreventDefault="false"` allows browser to immediately handle vertical touches
+    - CSS `touch-action: pan-y` tells browser to optimize for vertical panning
+  - **Applied to**: TopTravelTea.vue, FeatureStaySection.vue
+  - **Result**: Users can swipe carousel horizontally AND scroll page vertically without interference
 
 #### Visual Design
 - **Glass morphism**: Use `bg-white/40 backdrop-blur-sm` for consistent card effects

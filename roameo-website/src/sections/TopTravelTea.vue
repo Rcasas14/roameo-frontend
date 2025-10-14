@@ -70,6 +70,16 @@
           :pagination="false"
           :loop="true"
           :centered-slides="false"
+          :touchAngle="45"
+          :touchRatio="1"
+          :threshold="5"
+          :touchStartPreventDefault="false"
+          :touchStartForcePreventDefault="false"
+          :touchMoveStopPropagation="false"
+          :simulateTouch="true"
+          :allowTouchMove="true"
+          :resistance="true"
+          :resistanceRatio="0.85"
           class="stories-swiper"
           @swiper="onSwiper"
           @slide-change="onSlideChange"
@@ -400,7 +410,15 @@ export default {
   }
 
   .stories-swiper {
-    touch-action: pan-x;
+    touch-action: pan-y pan-x;
+  }
+
+  .stories-carousel {
+    touch-action: pan-y;
+  }
+
+  .story-card {
+    touch-action: pan-y;
   }
 }
 

@@ -82,6 +82,16 @@
             :navigation="false"
             :pagination="false"
             :loop="true"
+            :touchAngle="45"
+            :touchRatio="1"
+            :threshold="5"
+            :touchStartPreventDefault="false"
+            :touchStartForcePreventDefault="false"
+            :touchMoveStopPropagation="false"
+            :simulateTouch="true"
+            :allowTouchMove="true"
+            :resistance="true"
+            :resistanceRatio="0.85"
             class="hotel-swiper"
             @swiper="onSwiper"
             @slide-change="onSlideChange"
@@ -337,7 +347,15 @@ export default {
   }
 
   .hotel-swiper {
-    touch-action: pan-x;
+    touch-action: pan-y pan-x;
+  }
+
+  .feature-stay-carousel {
+    touch-action: pan-y;
+  }
+
+  .hotel-card {
+    touch-action: pan-y;
   }
 }
 
