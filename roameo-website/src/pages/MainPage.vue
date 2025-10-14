@@ -29,10 +29,10 @@
         class="hero-container px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center text-center w-full max-w-7xl py-20"
       >
         <h1 v-motion="getSlideUpMotion(200)"
-            class="hero-title text-white font-semibold text-3xl xs:text-[40px] sm:text-4xl md:text-5xl lg:text-6xl xl:text-[80px] 2xl:text-[86px] leading-tight drop-shadow-lg">
+            class="hero-title text-white font-semibold text-[30px] sm:text-4xl md:text-5xl lg:text-6xl xl:text-[5rem] 2xl:text-[5.375rem] leading-tight drop-shadow-lg mt-[60px]">
           Travel Boldly, Explore Proudly
         </h1>
-        <div class="w-full max-w-6xl mt-8">
+        <div class="w-full max-w-6xl mt-4 sm:mt-8">
           <flight-booking-form></flight-booking-form>
            <!-- <flight-search-widget></flight-search-widget> -->
 
@@ -40,16 +40,16 @@
       </div>
       <div class="fixed-btn el-absolute absolute bottom-19 right-15 z-15 hidden lg:block">
         <!-- Bottom Right Asterisk -->
-        <a href="#partner-section" class="px-2 py-4 bg-[#FFE759] uppercase rounded-xl w-[7.25rem] h-[36px] text-[.625rem] cursor-pointer font-bold flex items-center justify-center gap-x-2 z-15">
+        <a href="#partner-section" class="px-2 py-4 bg-[#FFE759] uppercase rounded-xl w-[116px] h-[2.25rem] text-[10px] cursor-pointer font-bold flex items-center justify-center gap-x-2 z-15">
           <span class="text-[#000]">explore</span>
           <img :src="downArrow" alt="" class="w-3 h-3">
         </a>
-        <div v-motion="getSlideUpMotion(200)" class="z-[-1] el-absolute absolute bottom-0 top-[-53px]">
+        <div v-motion="getSlideUpMotion(200)" class="z-[-1] el-absolute lg:absolute bottom-0 top-[-3.3125rem] hidden">
           <img :src="unionAsset" alt="decorative asterisk" class="w-20 h-20 md:w-24 md:h-24 lg:w-24 lg:h-24">
         </div>
       </div>
-      <div class=" el-absolute absolute bottom-[-68px] sm:hidden xs:block">
-        <img :src="unionPng" alt="" class="h-auto w-[8.4375rem]">
+      <div class=" el-absolute absolute bottom-[-4.25rem] hidden lg:block">
+        <img :src="unionPng" alt="" class="h-auto w-[135px]">
       </div>
     </section>
   </div>
@@ -129,31 +129,31 @@ export default {
 
 /* Decorative elements responsive positioning */
 
-@media (min-width: 641px) and (max-width: 768px) {
+@media (min-width: 40.0625rem) and (max-width: 48rem) {
   /* Adjust positioning for tablet sizes */
   .el-absolute:nth-of-type(1) { /* Top Left Asterisk */
-    top: 1rem;
-    left: 1rem;
+    top: 16px;
+    left: 16px;
   }
 
   .el-absolute:nth-of-type(2) { /* Top Right Grid Dots */
-    top: 1rem;
-    right: 1rem;
+    top: 16px;
+    right: 16px;
   }
 
   .el-absolute:nth-of-type(3) { /* Bottom Left Grid Dots */
-    bottom: 8rem;
-    left: 1rem;
+    bottom: 128px;
+    left: 16px;
   }
 
   .el-absolute:nth-of-type(4) { /* Bottom Right Asterisk */
-    bottom: 1rem;
-    right: 1rem;
+    bottom: 16px;
+    right: 16px;
   }
 }
 
 /* Extra small devices (mobile) */
-@media (max-width: 374px) {
+@media (max-width: 23.375rem) {
   #home {
     background-attachment: scroll;
     background-size: cover;
@@ -161,13 +161,13 @@ export default {
   }
 
   .hero-container {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    padding-top: 24px;
+    padding-bottom: 24px;
   }
 }
 
-/* XS devices - 375px+ */
-@media (min-width: 375px) and (max-width: 639px) {
+/* XS devices - 23.4375rem+ */
+@media (min-width: 23.4375rem) and (max-width: 39.9375rem) {
   #home {
     background-attachment: scroll; /* Better performance on mobile */
     background-size: cover;
@@ -175,17 +175,14 @@ export default {
   }
 
   .hero-container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding-top: 32px;
+    padding-bottom: 32px;
   }
-  .hero-title{
-    font-size: 2.5rem;
-    margin: .625rem 0;
-  }
+
 }
 
-/* SM devices - 640px+ */
-@media (min-width: 640px) and (max-width: 767px) {
+/* SM devices - 40rem+ */
+@media (min-width: 40rem) and (max-width: 47.9375rem) {
   #home {
     background-attachment: scroll;
     background-size: cover;
@@ -193,33 +190,33 @@ export default {
   }
 }
 
-/* MD devices - 768px+ */
-@media (min-width: 768px) and (max-width: 1023px) {
+/* MD devices - 48rem+ */
+@media (min-width: 48rem) and (max-width: 63.9375rem) {
   #home {
     background-attachment: scroll;
     background-size: cover;
     background-position: center center;
   }
   .hero-title{
-    margin: 2.125rem 0;
+    margin: 34px 0;
   }
 
 }
 
-/* LG devices and above - 1024px+ */
-@media (min-width: 1024px) {
+/* LG devices and above - 64rem+ */
+@media (min-width: 64rem) {
   #home {
     background-attachment: fixed; /* Parallax effect for larger screens */
     background-size: cover;
     background-position: center center;
   }
   .hero-title{
-    margin: 2.875rem 0;
+    margin: 46px 0;
   }
 }
 
-/* XL devices - 1280px+ */
-@media (min-width: 1280px) {
+/* XL devices - 80rem+ */
+@media (min-width: 80rem) {
   #home {
     background-size: cover;
     background-position: center center;
@@ -228,15 +225,15 @@ export default {
 }
 
 /* Ensure content doesn't get cut off on short screens */
-@media (max-height: 600px) {
+@media (max-height: 37.5rem) {
   .hero-section {
     min-height: 100vh;
-    padding: 2rem 0;
+    padding: 32px 0;
   }
 }
 
 /* Ultra-wide screens - 4xl+ */
-@media (min-width: 1920px) {
+@media (min-width: 120rem) {
   #home {
     background-position: center center;
     background-size: cover;
