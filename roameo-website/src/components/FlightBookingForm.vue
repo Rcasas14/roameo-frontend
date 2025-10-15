@@ -1200,7 +1200,7 @@ export default {
       // ========================================
       // WHITE LABEL CONFIGURATION
       // ========================================
-      whiteLabelBaseUrl: 'https://tours.roameo.net/?flightSearch=',
+      whiteLabelBaseUrl: 'https://flights.roameo.net/?flightSearch=',
       isSearching: false,
       searchError: null,
 
@@ -1494,7 +1494,7 @@ export default {
       const searchPath = `${origin}${departureDate}${destination}${returnDate}${passengerString}`
 
       // Construct full URL
-      // whiteLabelBaseUrl = 'https://tours.roameo.net/?flightSearch='
+      // whiteLabelBaseUrl = 'https://flights.roameo.net/?flightSearch='
       const fullUrl = `${this.whiteLabelBaseUrl}${searchPath}`
 
       console.log('🎉 White Label URL - CORRECT FORMAT:', {
